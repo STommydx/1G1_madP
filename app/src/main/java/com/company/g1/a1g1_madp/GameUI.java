@@ -1,4 +1,4 @@
-package com.company.g1.a1g1_madp.game;
+package com.company.g1.a1g1_madp;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 
 import com.company.g1.a1g1_madp.R;
+import com.company.g1.a1g1_madp.game.Game;
+import com.company.g1.a1g1_madp.game.Spaceship;
 
 public class GameUI {
     private Game game;

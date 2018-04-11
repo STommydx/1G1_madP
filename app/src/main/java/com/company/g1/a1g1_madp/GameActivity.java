@@ -37,6 +37,8 @@ public class GameActivity extends AppCompatActivity {
         game = new Game(this, dm.heightPixels, dm.widthPixels);
         game.start();
 
+        new GameUI(this, game);
+
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null)
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

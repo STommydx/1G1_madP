@@ -13,7 +13,7 @@ public class Spaceship extends MovableObject {
     private final static float  SHIP_SPEED    = 10;
     private final static float  SHIP_HEIGHT   = 100;
     private final static float  SHIP_WIDTH    = 100;
-                  static long   FIRE_RATE     = 200;
+    public static long FIRE_RATE     = 200; // <= to-do
     private final static float  BULLET_OFFSET = 10;     // How far is the bullet spawned from the ship
     private float               aX;
     private float               aY;

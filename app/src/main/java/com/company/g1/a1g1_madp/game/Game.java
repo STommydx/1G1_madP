@@ -15,7 +15,6 @@ public class Game {
     private boolean  running;
     private Context  context;
     private GameView gameView;
-    private GameUI   gameUI;
     private CollisionSystem collisionSystem;
     private Spaceship spaceship;
     private Handler handler = new Handler();
@@ -44,7 +43,6 @@ public class Game {
     }
 
     public void start() {
-        gameUI = new GameUI(context, this);
         gameView = new GameView(context);
         ((ConstraintLayout)((Activity)context).findViewById(R.id.gameLayout)).addView(gameView);
         collisionSystem = new CollisionSystem();
