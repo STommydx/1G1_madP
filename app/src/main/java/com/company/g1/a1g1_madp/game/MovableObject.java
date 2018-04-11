@@ -7,22 +7,27 @@ import java.util.EnumSet;
 
 abstract class MovableObject extends GameObject {
 
-    float speed;
-    float theta;
+    private float speed;
+    private float theta;
 
 	private ArrayList<Runnable> callbacks;
 	private ArrayList<OutOfBoundListener> listeners;
 
+	// An even longer parameter! Ewwwwwwww.
+	MovableObject(float x, float y, float height, float width, float speed, float theta) {
+		super(x, y, height, width);
+		this.speed = speed;
+		this.theta = theta;
+		callbacks = new ArrayList<>();
+		listeners = new ArrayList<>();
+	}
+
     // Parameter so long! Eww.
     MovableObject(float x, float y, float height, float width, float speed) {
-        super(x, y, height, width);
-        this.speed = speed;
-        this.theta = -90f;  // Pointing upwards by default
-	    callbacks = new ArrayList<>();
-	    listeners = new ArrayList<>();
+        this(x, y, height, width, speed, -90f); // Pointing upwards by default
     }
 
-    // Update per time unit, 1 time unit = 1 game tick
+	// Update per time unit, 1 time unit = 1 game tick
     void update() {
         float vX = (float)(speed * Math.cos(Math.toRadians(theta)));
         float vY = (float)(speed * Math.sin(Math.toRadians(theta)));
@@ -31,8 +36,8 @@ abstract class MovableObject extends GameObject {
     }
 
     void update(float aX, float aY) {
-        float vX = (float)(speed * -aX);
-        float vY = (float)(speed *  aY);
+        float vX = speed * -aX;
+        float vY = speed * aY;
         x += vX;
         y += vY;
     }
@@ -60,6 +65,10 @@ abstract class MovableObject extends GameObject {
 
 	float getTheta() {
     	return theta;
+	}
+
+	void setTheta(float theta) {
+		this.theta = theta;
 	}
 
 	public interface OutOfBoundListener {

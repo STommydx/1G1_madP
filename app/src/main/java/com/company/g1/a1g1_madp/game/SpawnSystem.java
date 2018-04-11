@@ -20,7 +20,7 @@ public class SpawnSystem {
 
 	private EntityRegister entityRegister;
 
-	public SpawnSystem(Game context) {
+	SpawnSystem(Game context) {
 		entityRegister = context.getEntityRegister();
 		layoutWidth = context.getLayoutWidth();
 	}

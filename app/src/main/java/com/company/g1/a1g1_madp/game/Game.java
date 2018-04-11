@@ -1,12 +1,8 @@
 package com.company.g1.a1g1_madp.game;
 
-import android.content.Context;
 import android.os.Handler;
 
-import com.company.g1.a1g1_madp.GameView;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Need to check if game object and handler is destroyed properly when pause and stop
