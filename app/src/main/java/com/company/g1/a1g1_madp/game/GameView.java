@@ -1,4 +1,4 @@
-package com.company.g1.a1g1_madp;
+package com.company.g1.a1g1_madp.game;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.company.g1.a1g1_madp.R;
 
 public class GameView extends SurfaceView implements Runnable {
 
@@ -88,7 +90,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void drawEnemies() {
-        for(Enemy enemy : Enemy.enemies) {
+        for(Enemy enemy : SpawnSystem.enemies) {
             float centerX = enemy.x + enemy.radius;
             float centerY = enemy.y + enemy.radius;
             canvas.drawCircle(centerX,centerY,enemy.radius, paint);

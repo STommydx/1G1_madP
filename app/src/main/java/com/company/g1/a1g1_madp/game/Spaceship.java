@@ -1,8 +1,8 @@
-package com.company.g1.a1g1_madp;
+package com.company.g1.a1g1_madp.game;
 
 import android.os.Handler;
 
-class Spaceship extends MovableObject {
+public class Spaceship extends MovableObject {
 
     // Static field should suffice.
     // However, they can't be overridden,

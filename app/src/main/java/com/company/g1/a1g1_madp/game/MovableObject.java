@@ -1,4 +1,4 @@
-package com.company.g1.a1g1_madp;
+package com.company.g1.a1g1_madp.game;
 
 import android.graphics.Rect;
 

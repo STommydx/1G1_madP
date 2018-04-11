@@ -1,4 +1,4 @@
-package com.company.g1.a1g1_madp;
+package com.company.g1.a1g1_madp.game;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,8 +7,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
+
+import com.company.g1.a1g1_madp.R;
 
 public class GameUI {
     private Game game;

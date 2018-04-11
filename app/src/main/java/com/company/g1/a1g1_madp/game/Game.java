@@ -1,21 +1,23 @@
-package com.company.g1.a1g1_madp;
+package com.company.g1.a1g1_madp.game;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 
+import com.company.g1.a1g1_madp.R;
+
 /**
  * Need to check if game object and handler is destroyed properly when pause and stop
  */
 
-class Game {
+public class Game {
     private boolean  running;
     private Context  context;
     private GameView gameView;
     private GameUI   gameUI;
     private CollisionSystem collisionSystem;
-    Spaceship spaceship;
+    private Spaceship spaceship;
     private Handler handler = new Handler();
     private final int tick = 15;
 
@@ -27,21 +29,21 @@ class Game {
             spaceship.update();
             for(Bullet bullet : Bullet.bullets)
                 bullet.update();
-            for(Enemy enemy : Enemy.enemies)
+            for(Enemy enemy : SpawnSystem.enemies)
                 enemy.update();
             collisionSystem.detectCollision();
             handler.postDelayed(this, tick);
         }
     };
 
-    Game(Context context, int height, int width) {
+    public Game(Context context, int height, int width) {
         this.context = context;
         this.running = false;
         GameObject.LAYOUT_HEIGHT = height;
         GameObject.LAYOUT_WIDTH = width;
     }
 
-    void start() {
+    public void start() {
         gameUI = new GameUI(context, this);
         gameView = new GameView(context);
         ((ConstraintLayout)((Activity)context).findViewById(R.id.gameLayout)).addView(gameView);
@@ -51,23 +53,28 @@ class Game {
         gameView.spaceship = this.spaceship;
     }
 
-    void resume() {
+    public void resume() {
         // Why is this part necessary?
         if (running) return;
         running = true;
         collisionSystem.setGridParams();
-        Enemy.startSpawning();
+        SpawnSystem.startSpawning();
         spaceship.startFiring();
         handler.postDelayed(gameLoop, tick);
         gameView.resume();
     }
 
-    void pause() {
+    public void pause() {
         if (!running) return;
         running = false;
-        Enemy.stopSpawning();
+        SpawnSystem.stopSpawning();
         spaceship.stopFiring();
         handler.removeCallbacks(gameLoop);
         gameView.pause();
     }
+
+    public void updateDeviceAcceleration(float ax, float ay) {
+		spaceship.setAcceleration(ax, ay);
+    }
+
 }

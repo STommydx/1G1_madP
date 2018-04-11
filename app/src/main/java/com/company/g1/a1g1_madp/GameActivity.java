@@ -5,14 +5,14 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.View;
+
+import com.company.g1.a1g1_madp.game.Game;
 
 public class GameActivity extends AppCompatActivity {
-    Game game;
+    private Game game;
     final int           PITCH_OFFSET = 5;   // Accelerometer Y-axis offset
     SensorManager       sensorManager;
     Sensor              accelerometer;
@@ -22,7 +22,7 @@ public class GameActivity extends AppCompatActivity {
 
         @Override
         public final void onSensorChanged(SensorEvent event) {
-            game.spaceship.setAcceleration(event.values[0], event.values[1] - PITCH_OFFSET);
+            game.updateDeviceAcceleration(event.values[0], event.values[1] - PITCH_OFFSET);
         }
     };
 

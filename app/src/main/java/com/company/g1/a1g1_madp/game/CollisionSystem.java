@@ -1,6 +1,4 @@
-package com.company.g1.a1g1_madp;
-
-import android.util.Log;
+package com.company.g1.a1g1_madp.game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +34,7 @@ public class CollisionSystem {
         // Broad phase
         for(Bullet bullet : Bullet.bullets)
             findGridId(bullet);
-        for(Enemy enemy: Enemy.enemies)
+        for(Enemy enemy: SpawnSystem.enemies)
             findGridId(enemy);
         // Narrow phase
         for(int i = 0; i < M; i++) {
