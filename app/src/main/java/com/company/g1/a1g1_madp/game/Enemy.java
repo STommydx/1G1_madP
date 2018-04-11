@@ -21,11 +21,6 @@ public class Enemy extends MovableObject{
         // enemies.add(this);
     }
 
-    void removeSelf() {
-    	// enemies.remove(this);
-        for (Runnable r: callbacks) r.run();
-    }
-
     @Override
     void onOutOfBound(EnumSet<BOUND> bounds) {
         removeSelf();
@@ -34,9 +29,5 @@ public class Enemy extends MovableObject{
     void onHit() {
         removeSelf();
     }
-
-	void addOnRemoveListener(Runnable r) {
-		callbacks.add(r);
-	}
 
 }
