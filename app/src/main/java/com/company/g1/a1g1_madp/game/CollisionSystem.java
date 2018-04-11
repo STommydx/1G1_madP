@@ -16,7 +16,10 @@ public class CollisionSystem {
     private static int gridWidth;
     private static int gridHeight;
 
-    CollisionSystem() {
+    private Game game;
+
+    CollisionSystem(Game context) {
+        game = context;
         for(int i = 0; i < M; i++) {
             for(int j = 0; j < N; j++) {
                 grids[i][j] = new Grid();
@@ -34,7 +37,7 @@ public class CollisionSystem {
         // Broad phase
         for(Bullet bullet : Bullet.bullets)
             findGridId(bullet);
-        for(Enemy enemy: SpawnSystem.enemies)
+        for(Enemy enemy: game.getEnemies())
             findGridId(enemy);
         // Narrow phase
         for(int i = 0; i < M; i++) {

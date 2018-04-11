@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -36,6 +37,8 @@ public class GameActivity extends AppCompatActivity {
 
         game = new Game(this, dm.heightPixels, dm.widthPixels);
         game.start();
+
+	    ((ConstraintLayout) findViewById(R.id.gameLayout)).addView(new GameView(this, game));
 
         new GameUI(this, game);
 

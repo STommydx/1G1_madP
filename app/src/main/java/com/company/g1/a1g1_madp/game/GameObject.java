@@ -2,7 +2,7 @@ package com.company.g1.a1g1_madp.game;
 
 import java.util.EnumSet;
 
-abstract class GameObject{
+public abstract class GameObject{
 
     // Need new class for shared resources?
     static int LAYOUT_WIDTH;
@@ -24,5 +24,25 @@ abstract class GameObject{
         this.height = height;
         this.width  = width;
         this.radius = height / 2;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+	public float getHeight() {
+        return height;
+    }
+
+	public float getX() {
+        return x;
+    }
+
+	public float getY() {
+        return y;
+    }
+
+	public float getRadius() {
+        return radius;
     }
 }
