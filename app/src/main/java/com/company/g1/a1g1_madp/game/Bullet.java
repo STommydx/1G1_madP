@@ -13,11 +13,11 @@ public class Bullet extends MovableObject {
     Bullet(float x, float y, float theta) {
         super(x, y, BULLET_HEIGHT, BULLET_WIDTH, BULLET_SPEED);
         this.theta = theta;
-        checkOutOfBound();
     }
 
     @Override
-    void onOutOfBound(EnumSet<BOUND> bounds) {
+    void fireOutOfBound(EnumSet<CollisionSystem.BOUND> bounds) {
+        super.fireOutOfBound(bounds);
         removeSelf();
     }
 }

@@ -14,8 +14,6 @@ import java.util.List;
 
 public class Game {
     private boolean  running;
-    private Context  context;
-    private GameView gameView;
     private CollisionSystem collisionSystem;
     private Spaceship spaceship;
     private Handler handler = new Handler();
@@ -26,6 +24,8 @@ public class Game {
     private EntityRegister entityRegister;
 
     private ArrayList<Runnable> resumeCallback, pauseCallback;
+
+    private int layoutWidth, layoutHeight;
 
     // Renderer runs separately in it's own thread
     // Good idea bad idea?
@@ -39,18 +39,27 @@ public class Game {
         }
     };
 
-    public Game(Context context, int height, int width) {
-        this.context = context;
+    public Game(int height, int width) {
         this.running = false;
-        GameObject.LAYOUT_HEIGHT = height;
-        GameObject.LAYOUT_WIDTH = width;
+        layoutHeight = height;
+        layoutWidth = width;
 
 	    entityRegister = new EntityRegister();
 
-	    spaceship = new Spaceship();
+	    spaceship = new Spaceship(height / 2, width / 2);
+	    spaceship.addOutOfBoundListener((bounds) -> {
+		    if(bounds.contains(CollisionSystem.BOUND.LEFT))
+			    spaceship.setX(0);
+		    if(bounds.contains(CollisionSystem.BOUND.RIGHT))
+			    spaceship.setX(width - spaceship.getWidth());
+		    if(bounds.contains(CollisionSystem.BOUND.TOP))
+			    spaceship.setY(0);
+		    if(bounds.contains(CollisionSystem.BOUND.BOTTOM))
+			    spaceship.setY(height - spaceship.getHeight());
+	    });
 	    entityRegister.registerSpaceship(spaceship);
 
-	    spawnSystem = new SpawnSystem(entityRegister);
+	    spawnSystem = new SpawnSystem(this);
 	    bulletSystem = new BulletSystem(entityRegister);
 	    collisionSystem = new CollisionSystem(this);
 
@@ -73,7 +82,6 @@ public class Game {
         // Why is this part necessary?
         if (running) return;
         running = true;
-        collisionSystem.setGridParams();
         spawnSystem.startSpawning();
         bulletSystem.startFiring();
         handler.postDelayed(gameLoop, tick);
@@ -108,4 +116,13 @@ public class Game {
 	public void updateFirerate(long rate) {
     	bulletSystem.setFireRate(rate);
 	}
+
+	public int getLayoutHeight() {
+    	return layoutHeight;
+	}
+
+	public int getLayoutWidth() {
+		return layoutWidth;
+	}
+
 }

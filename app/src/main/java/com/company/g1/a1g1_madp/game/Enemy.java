@@ -22,7 +22,8 @@ public class Enemy extends MovableObject{
     }
 
     @Override
-    void onOutOfBound(EnumSet<BOUND> bounds) {
+    void fireOutOfBound(EnumSet<CollisionSystem.BOUND> bounds) {
+        super.fireOutOfBound(bounds);
         removeSelf();
     }
 

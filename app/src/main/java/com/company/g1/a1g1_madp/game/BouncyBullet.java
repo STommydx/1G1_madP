@@ -13,7 +13,8 @@ public class BouncyBullet extends Bullet {
     }
 
     @Override
-    void onOutOfBound(EnumSet<BOUND> bounds) {
+    void fireOutOfBound(EnumSet<CollisionSystem.BOUND> bounds) {
+        // to-do
         if(bouncedCount == 1)
             removeSelf();
         else {

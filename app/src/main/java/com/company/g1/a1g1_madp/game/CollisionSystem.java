@@ -1,6 +1,7 @@
 package com.company.g1.a1g1_madp.game;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -25,14 +26,27 @@ public class CollisionSystem {
                 grids[i][j] = new Grid();
             }
         }
-    }
-
-    void setGridParams() {
-        gridWidth = GameObject.LAYOUT_WIDTH / N;
-        gridHeight = GameObject.LAYOUT_HEIGHT / M;
+	    gridWidth = game.getLayoutWidth() / N;
+	    gridHeight = game.getLayoutHeight() / M;
     }
 
     void detectCollision() {
+
+    	// detect bound collision
+	    for(MovableObject entity: game.getEntityRegister().getEntities()){
+		    EnumSet<BOUND> bounds = EnumSet.noneOf(BOUND.class);
+		    if (entity.getX() < 0)  {
+			    bounds.add(BOUND.LEFT);
+		    } else if (entity.getX() + entity.getWidth() > game.getLayoutWidth())
+			    bounds.add(BOUND.RIGHT);
+		    if (entity.getY() < 0)  {
+			    bounds.add(BOUND.TOP);
+		    } else if (entity.getY() + entity.getHeight() > game.getLayoutHeight())
+			    bounds.add(BOUND.BOTTOM);
+		    if(!bounds.isEmpty())
+			    entity.fireOutOfBound(bounds);
+	    }
+
         resetGridState();
         // Broad phase
         for(MovableObject entity: game.getEntityRegister().getEntities())
@@ -78,13 +92,13 @@ public class CollisionSystem {
 
     // update() and detectCollision() must run sequentially!
     void findGridId(GameObject object) {
-        int i = (int) Math.floor(object.y / gridHeight);
-        int j = (int) Math.floor(object.x / gridWidth);
+        int i = (int) Math.floor(object.getY() / gridHeight);
+        int j = (int) Math.floor(object.getX() / gridWidth);
 //        Log.d("I", String.valueOf(object.y / gridHeight));
 
         grids[i][j].addToList(object);
-        int h = (int)(Math.min(Math.floor((object.y + object.height) / gridHeight),M-1));
-        int k = (int)(Math.min(Math.floor((object.x + object.width) / gridWidth),N-1));
+        int h = (int)(Math.min(Math.floor((object.getY() + object.getHeight()) / gridHeight),M-1));
+        int k = (int)(Math.min(Math.floor((object.getX() + object.getWidth()) / gridWidth),N-1));
 
         if (h != i && k != j) {
             grids[h][j].addToList(object);
@@ -96,4 +110,9 @@ public class CollisionSystem {
             grids[h][j].addToList(object);
         }
     }
+
+	enum BOUND {
+		LEFT, TOP, RIGHT, BOTTOM
+	}
+
 }

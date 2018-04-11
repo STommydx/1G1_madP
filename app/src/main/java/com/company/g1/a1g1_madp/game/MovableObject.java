@@ -11,6 +11,7 @@ abstract class MovableObject extends GameObject {
     float theta;
 
 	private ArrayList<Runnable> callbacks;
+	private ArrayList<OutOfBoundListener> listeners;
 
     // Parameter so long! Eww.
     MovableObject(float x, float y, float height, float width, float speed) {
@@ -18,6 +19,7 @@ abstract class MovableObject extends GameObject {
         this.speed = speed;
         this.theta = -90f;  // Pointing upwards by default
 	    callbacks = new ArrayList<>();
+	    listeners = new ArrayList<>();
     }
 
     // Update per time unit, 1 time unit = 1 game tick
@@ -26,41 +28,22 @@ abstract class MovableObject extends GameObject {
         float vY = (float)(speed * Math.sin(Math.toRadians(theta)));
         x += vX;
         y += vY;
-        checkOutOfBound();
     }
 
     void update(float aX, float aY) {
-
         float vX = (float)(speed * -aX);
         float vY = (float)(speed *  aY);
         x += vX;
         y += vY;
-        checkOutOfBound();
     }
 
-    void onOutOfBound(EnumSet<BOUND> bounds) {
-        if(bounds.contains(BOUND.LEFT))
-            x = 0;
-        if(bounds.contains(BOUND.RIGHT))
-            x = LAYOUT_WIDTH - width;
-        if(bounds.contains(BOUND.TOP))
-            y = 0;
-        if(bounds.contains(BOUND.BOTTOM))
-            y = LAYOUT_HEIGHT - height;
+    void fireOutOfBound(EnumSet<CollisionSystem.BOUND> bounds) {
+		for (OutOfBoundListener listener: listeners)
+			listener.onOutOfBound(bounds);
     }
 
-    void checkOutOfBound() {
-        EnumSet<BOUND> bounds = EnumSet.noneOf(BOUND.class);
-        if (x < 0)  {
-            bounds.add(BOUND.LEFT);
-        } else if (x + width > LAYOUT_WIDTH)
-            bounds.add(BOUND.RIGHT);
-        if (y < 0)  {
-            bounds.add(BOUND.TOP);
-        } else if (y + height > LAYOUT_HEIGHT)
-            bounds.add(BOUND.BOTTOM);
-        if(!bounds.isEmpty())
-            onOutOfBound(bounds);
+    void addOutOfBoundListener(OutOfBoundListener listener) {
+    	listeners.add(listener);
     }
 
     Rect getHitBox() {
@@ -78,4 +61,11 @@ abstract class MovableObject extends GameObject {
 	float getTheta() {
     	return theta;
 	}
+
+	public interface OutOfBoundListener {
+
+    	void onOutOfBound(EnumSet<CollisionSystem.BOUND> bounds);
+
+	}
+
 }

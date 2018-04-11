@@ -4,19 +4,11 @@ import java.util.EnumSet;
 
 public abstract class GameObject{
 
-    // Need new class for shared resources?
-    static int LAYOUT_WIDTH;
-    static int LAYOUT_HEIGHT;
-
-    enum BOUND {
-        LEFT, TOP, RIGHT, BOTTOM
-    }
-
-    float   x;
-    float   y;
-    float   height;
-    float   width;
-    float   radius;
+    protected float x;
+	protected float y;
+	protected float height;
+	protected float width;
+	protected float radius;
 
     GameObject(float x, float y, float height, float width) {
         this.x = x;
@@ -45,4 +37,12 @@ public abstract class GameObject{
 	public float getRadius() {
         return radius;
     }
+
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	public void setY(float y) {
+		this.y = y;
+	}
 }

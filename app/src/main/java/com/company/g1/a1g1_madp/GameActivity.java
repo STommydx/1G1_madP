@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getRealMetrics(dm);
 
-        game = new Game(this, dm.heightPixels, dm.widthPixels);
+        game = new Game(dm.heightPixels, dm.widthPixels);
         game.start();
 
 	    ((ConstraintLayout) findViewById(R.id.gameLayout)).addView(new GameView(this, game));
