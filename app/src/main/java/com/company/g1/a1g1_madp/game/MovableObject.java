@@ -75,6 +75,7 @@ abstract class MovableObject extends GameObject {
 		callbacks.add(r);
 	}
 
-
-
+	float getTheta() {
+    	return theta;
+	}
 }

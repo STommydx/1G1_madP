@@ -41,9 +41,9 @@ public class GameUI {
         // Popup stuff
         pauseLayout = (ConstraintLayout) context.getLayoutInflater().inflate(R.layout.popup_pause,null);
         option1 = pauseLayout.findViewById(R.id.option1);
-        option1.setOnClickListener(view -> Spaceship.FIRE_RATE = 100);
+        option1.setOnClickListener(view -> game.updateFirerate(100));
         option2 = pauseLayout.findViewById(R.id.option2);
-        option2.setOnClickListener(view -> Spaceship.FIRE_RATE = 500);
+        option2.setOnClickListener(view -> game.updateFirerate(500));
         pauseWindow.setContentView(pauseLayout);
 
         setImmersiveUi(true);

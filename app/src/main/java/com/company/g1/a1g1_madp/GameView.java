@@ -37,7 +37,7 @@ public class GameView extends SurfaceView implements Runnable {
         paint2.setColor(0xfc00ff00);
 
         this.game = game;
-        this.spaceship = game.getSpaceship();
+        this.spaceship = game.getEntityRegister().getSpaceship();
 
 		game.addOnResumeListener(() -> resume());
 		game.addOnPauseListener(() -> pause());
@@ -84,8 +84,8 @@ public class GameView extends SurfaceView implements Runnable {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         drawSpaceship(spaceship);
-        drawBullets(game.getBullets());
-        drawEnemies(game.getEnemies());
+        drawBullets(game.getEntityRegister().getBullets());
+        drawEnemies(game.getEntityRegister().getEnemies());
     }
 
     private void drawSpaceship(Spaceship spaceship) {

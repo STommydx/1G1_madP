@@ -22,6 +22,8 @@ public class Game {
     private final int tick = 15;
 
     private SpawnSystem spawnSystem;
+    private BulletSystem bulletSystem;
+    private EntityRegister entityRegister;
 
     private ArrayList<Runnable> resumeCallback, pauseCallback;
 
@@ -30,11 +32,8 @@ public class Game {
     private Runnable gameLoop = new Runnable () {
         @Override
         public void run() {
-            spaceship.update();
-            for(Bullet bullet : Bullet.bullets)
-                bullet.update();
-            for(Enemy enemy : spawnSystem.getEnemies())
-                enemy.update();
+            for(MovableObject entity : entityRegister.getEntities())
+	            entity.update();
             collisionSystem.detectCollision();
             handler.postDelayed(this, tick);
         }
@@ -46,17 +45,27 @@ public class Game {
         GameObject.LAYOUT_HEIGHT = height;
         GameObject.LAYOUT_WIDTH = width;
 
-	    spawnSystem = new SpawnSystem();
+	    entityRegister = new EntityRegister();
+
+	    spaceship = new Spaceship();
+	    entityRegister.registerSpaceship(spaceship);
+
+	    spawnSystem = new SpawnSystem(entityRegister);
+	    bulletSystem = new BulletSystem(entityRegister);
+	    collisionSystem = new CollisionSystem(this);
+
 	    resumeCallback = new ArrayList<>();
 	    pauseCallback = new ArrayList<>();
+
     }
 
     public void start() {
         // gameView = new GameView(context);
         // ((ConstraintLayout)((Activity)context).findViewById(R.id.gameLayout)).addView(gameView);
-        collisionSystem = new CollisionSystem(this);
+        // collisionSystem = new CollisionSystem(this);
 
-        spaceship = new Spaceship();
+        // spaceship = new Spaceship();
+	    // entityRegister.registerSpaceship(spaceship);
         // gameView.spaceship = this.spaceship;
     }
 
@@ -66,7 +75,7 @@ public class Game {
         running = true;
         collisionSystem.setGridParams();
         spawnSystem.startSpawning();
-        spaceship.startFiring();
+        bulletSystem.startFiring();
         handler.postDelayed(gameLoop, tick);
         for (Runnable r: resumeCallback) r.run();
     }
@@ -79,7 +88,7 @@ public class Game {
         if (!running) return;
         running = false;
         spawnSystem.stopSpawning();
-        spaceship.stopFiring();
+	    bulletSystem.stopFiring();
         handler.removeCallbacks(gameLoop);
         for (Runnable r: pauseCallback) r.run();
     }
@@ -92,16 +101,11 @@ public class Game {
 		spaceship.setAcceleration(ax, ay);
     }
 
-    public List<Enemy> getEnemies() {
-    	return spawnSystem.getEnemies();
-    }
+	public EntityRegister getEntityRegister() {
+		return entityRegister;
+	}
 
-    public Spaceship getSpaceship() {
-    	return spaceship;
-    }
-
-    public List<Bullet> getBullets() {
-    	return Bullet.bullets;
-    }
-
+	public void updateFirerate(long rate) {
+    	bulletSystem.setFireRate(rate);
+	}
 }

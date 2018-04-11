@@ -10,17 +10,10 @@ public class Bullet extends MovableObject {
             final static float  BULLET_HEIGHT   = 40;
             final static float  BULLET_WIDTH    = 40;
 
-    static CopyOnWriteArrayList<Bullet> bullets = new CopyOnWriteArrayList<>();
-
     Bullet(float x, float y, float theta) {
         super(x, y, BULLET_HEIGHT, BULLET_WIDTH, BULLET_SPEED);
         this.theta = theta;
         checkOutOfBound();
-        bullets.add(this);
-    }
-
-    void removeSelf() {
-        bullets.remove(this);
     }
 
     @Override
