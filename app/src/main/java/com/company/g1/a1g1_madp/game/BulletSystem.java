@@ -12,7 +12,7 @@ public class BulletSystem {
 	private static final float BULLET_OFFSET = 10;     // How far is the bullet spawned from the ship
 
 	private EntityRegister entityRegister;
-	private Spaceship spaceship;
+	private MovableObject spaceship;
 	private long fireRate;
 
 	private Handler bulletHandler  = new Handler();
@@ -22,18 +22,18 @@ public class BulletSystem {
 			float shipCenterX = spaceship.getX() + spaceship.getRadius();
 			float shipCenterY = spaceship.getY() + spaceship.getRadius();
 			float bulletX = (float)(shipCenterX - BULLET_WIDTH / 2
-					+ (spaceship.getRadius() + BULLET_OFFSET) * Math.cos(Math.toRadians(spaceship.getTheta())));
-			float bulletY = (float)(shipCenterY - BULLET_HEIGHT / 2
 					+ (spaceship.getRadius() + BULLET_OFFSET) * Math.sin(Math.toRadians(spaceship.getTheta())));
+			float bulletY = (float)(shipCenterY - BULLET_HEIGHT / 2
+					+ (spaceship.getRadius() + BULLET_OFFSET) * -Math.cos(Math.toRadians(spaceship.getTheta())));
 			Bullet mBullet = new Bullet(bulletX, bulletY, BULLET_HEIGHT, BULLET_WIDTH, BULLET_SPEED, spaceship.getTheta());
 			entityRegister.registerBullet(mBullet);
 			bulletHandler.postDelayed(this, fireRate);
 		}
 	};
 
-	BulletSystem(EntityRegister register) {
+	BulletSystem(EntityRegister register, MovableObject parent) {
 		entityRegister = register;
-		spaceship = register.getSpaceship();
+		spaceship = parent;
 		fireRate = FIRE_RATE;
 	}
 

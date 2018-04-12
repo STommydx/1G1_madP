@@ -5,11 +5,11 @@ import java.util.EnumSet;
 public class Enemy extends MovableObject{
 
     private final static float  ENEMY_SPEED      = 10;
-    private final static float  ENEMY_HEIGHT     = 50;
-    private final static float  ENEMY_WIDTH      = 50;
+    private final static float  ENEMY_HEIGHT     = 100;
+    private final static float  ENEMY_WIDTH      = 100;
 
     Enemy(float x, float y) {
-        super(x, y, ENEMY_HEIGHT, ENEMY_WIDTH, ENEMY_SPEED, 90f); // Moving downwards
+        super(x, y, ENEMY_HEIGHT, ENEMY_WIDTH, ENEMY_SPEED, 180f); // Moving downwards
 	    addOutOfBoundListener(bounds -> removeSelf());
     }
 

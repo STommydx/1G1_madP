@@ -38,7 +38,9 @@ public class GameActivity extends AppCompatActivity {
         game = new Game(dm.heightPixels, dm.widthPixels);
         game.start();
 
-	    ((ConstraintLayout) findViewById(R.id.gameLayout)).addView(new GameView(this, game));
+        GameView gameView = new GameView(this, game);
+	    ((ConstraintLayout) findViewById(R.id.gameLayout)).addView(gameView);
+	    gameView.setOnTouchListener(new GameHandler(game));
 
         new GameUI(this, game);
 

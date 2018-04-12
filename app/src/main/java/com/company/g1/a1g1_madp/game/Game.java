@@ -54,9 +54,9 @@ public class Game {
 			    spaceship.setY(height - spaceship.getHeight());
 	    });
 	    entityRegister.registerSpaceship(spaceship);
+	    bulletSystem = new BulletSystem(entityRegister, spaceship);
 
 	    spawnSystem = new SpawnSystem(this);
-	    bulletSystem = new BulletSystem(entityRegister);
 	    collisionSystem = new CollisionSystem(this);
 
 	    resumeCallback = new ArrayList<>();
@@ -103,6 +103,10 @@ public class Game {
 
     public void updateDeviceAcceleration(float ax, float ay) {
 		spaceship.setAcceleration(ax, ay);
+    }
+
+    public void updateDeviceRotation(float angle) {
+    	entityRegister.getSpaceship().setTheta(angle);
     }
 
 	public EntityRegister getEntityRegister() {

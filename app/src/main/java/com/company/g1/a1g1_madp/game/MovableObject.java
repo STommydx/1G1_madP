@@ -24,13 +24,13 @@ public abstract class MovableObject extends GameObject {
 
     // Parameter so long! Eww.
     MovableObject(float x, float y, float height, float width, float speed) {
-        this(x, y, height, width, speed, -90f); // Pointing upwards by default
+        this(x, y, height, width, speed, 0f); // Pointing upwards by default
     }
 
 	// Update per time unit, 1 time unit = 1 game tick
     void update() {
-        float vX = (float)(speed * Math.cos(Math.toRadians(theta)));
-        float vY = (float)(speed * Math.sin(Math.toRadians(theta)));
+        float vX = (float)(speed * Math.sin(Math.toRadians(theta)));
+        float vY = (float)(speed * -Math.cos(Math.toRadians(theta)));
         x += vX;
         y += vY;
     }

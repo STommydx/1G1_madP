@@ -13,16 +13,15 @@ import java.util.List;
 
 public class GameView extends SurfaceView implements Runnable {
 
-	Game game;
-	Paint paint = new Paint();
-	Paint paint2 = new Paint();
+	private Game game;
+	private Paint backgroundPaint = new Paint();
 
 	// Bitmap spaceshipBitmap;
 
-	Thread renderThread = null;
-	SurfaceHolder holder;
-	Canvas canvas;
-	volatile boolean running = false;
+	private Thread renderThread = null;
+	private SurfaceHolder holder;
+	private Canvas canvas;
+	private volatile boolean running = false;
 
 	private Context context;
 
@@ -32,25 +31,17 @@ public class GameView extends SurfaceView implements Runnable {
 		this.context = context;
 
 		holder = getHolder();
-		// Stupid
-		paint.setColor(Color.BLUE);
-		paint2.setColor(0xfc00ff00);
 
 		this.game = game;
 
-		game.addOnResumeListener(() -> resume());
-		game.addOnPauseListener(() -> pause());
+		game.addOnResumeListener(this::resume);
+		game.addOnPauseListener(this::pause);
 
-	}
-
-	void loadImageResources() {
-		// Bitmap _bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.circle_vector_2);
-		// spaceshipBitmap = Bitmap.createScaledBitmap(_bitmap, (int) spaceship.getWidth(), (int) spaceship.getHeight(), false);
+		backgroundPaint.setColor(getResources().getColor(R.color.colorBackground));
 	}
 
 	public void resume() {
 		running = true;
-		loadImageResources();
 		renderThread = new Thread(this);
 		renderThread.start();
 	}
@@ -82,6 +73,7 @@ public class GameView extends SurfaceView implements Runnable {
 	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
+		canvas.drawColor(backgroundPaint.getColor());
 		for (MovableObject movableObject: game.getEntityRegister().getEntities())
 			drawEntity(movableObject);
 	}
