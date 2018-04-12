@@ -9,11 +9,12 @@ import java.util.ArrayList;
  */
 
 public class Game {
-    private boolean  running;
+    private boolean running;
     private CollisionSystem collisionSystem;
     private Spaceship spaceship;
     private Handler handler = new Handler();
     private final int tick = 15;
+    private int money = 1000;
 
     private SpawnSystem spawnSystem;
     private BulletSystem bulletSystem;
@@ -36,25 +37,12 @@ public class Game {
     };
 
     public Game(int height, int width) {
-        this.running = false;
+        running = false;
         layoutHeight = height;
         layoutWidth = width;
 
 	    entityRegister = new EntityRegister();
-
-	    spaceship = new Spaceship(height / 2, width / 2);
-	    spaceship.addOutOfBoundListener((bounds) -> {
-		    if(bounds.contains(CollisionSystem.BOUND.LEFT))
-			    spaceship.setX(0);
-		    if(bounds.contains(CollisionSystem.BOUND.RIGHT))
-			    spaceship.setX(width - spaceship.getWidth());
-		    if(bounds.contains(CollisionSystem.BOUND.TOP))
-			    spaceship.setY(0);
-		    if(bounds.contains(CollisionSystem.BOUND.BOTTOM))
-			    spaceship.setY(height - spaceship.getHeight());
-	    });
-	    entityRegister.registerSpaceship(spaceship);
-	    bulletSystem = new BulletSystem(entityRegister, spaceship);
+	    bulletSystem = new BulletSystem(entityRegister);
 
 	    spawnSystem = new SpawnSystem(this);
 	    collisionSystem = new CollisionSystem(this);
@@ -65,13 +53,28 @@ public class Game {
     }
 
     public void start() {
-        // gameView = new GameView(context);
-        // ((ConstraintLayout)((Activity)context).findViewById(R.id.gameLayout)).addView(gameView);
-        // collisionSystem = new CollisionSystem(this);
+	    spaceship = new Spaceship(layoutHeight / 2, layoutWidth / 2);
+	    spaceship.addOutOfBoundListener((bounds) -> {
+		    if(bounds.contains(CollisionSystem.BOUND.LEFT))
+			    spaceship.setX(0);
+		    if(bounds.contains(CollisionSystem.BOUND.RIGHT))
+			    spaceship.setX(layoutWidth - spaceship.getWidth());
+		    if(bounds.contains(CollisionSystem.BOUND.TOP))
+			    spaceship.setY(0);
+		    if(bounds.contains(CollisionSystem.BOUND.BOTTOM))
+			    spaceship.setY(layoutHeight - spaceship.getHeight());
+	    });
+	    entityRegister.registerSpaceship(spaceship);
+	    bulletSystem.registerFire(spaceship, new BulletSystem.FireProperty());
 
-        // spaceship = new Spaceship();
-	    // entityRegister.registerSpaceship(spaceship);
-        // gameView.spaceship = this.spaceship;
+	    // Add two random towers for testing
+	    Tower first = new Tower(layoutWidth / 3, layoutHeight / 3, 150, 150);
+	    entityRegister.registerTower(first);
+	    bulletSystem.registerFire(first, new BulletSystem.FireProperty(10, 40));
+
+	    Tower second = new Tower(layoutWidth / 3 * 2, layoutHeight / 3 * 2, 150, 150);
+	    entityRegister.registerTower(second);
+	    bulletSystem.registerFire(second, new BulletSystem.FireProperty(30, 5));
     }
 
     public void resume() {
@@ -109,12 +112,22 @@ public class Game {
     	entityRegister.getSpaceship().setTheta(angle);
     }
 
+    public void updateDeviceDragPoint(float x, float y) {
+    	for (Tower tower: entityRegister.getTowers()) {
+			if (tower.getHitBox().contains((int) x, (int) y)) {
+				tower.setX(x - tower.getWidth() / 2);
+				tower.setY(y - tower.getHeight() / 2);
+				return;
+			}
+	    }
+    }
+
 	public EntityRegister getEntityRegister() {
 		return entityRegister;
 	}
 
-	public void updateFirerate(long rate) {
-    	bulletSystem.setFireRate(rate);
+	public void updateFireRate(int rate) {
+    	bulletSystem.getFireProperty(spaceship).setRate(rate);
 	}
 
 	public int getLayoutHeight() {
@@ -125,4 +138,7 @@ public class Game {
 		return layoutWidth;
 	}
 
+	public int getMoney() {
+		return money;
+	}
 }

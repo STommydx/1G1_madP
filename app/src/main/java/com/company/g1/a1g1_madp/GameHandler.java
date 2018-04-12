@@ -24,7 +24,7 @@ public class GameHandler implements View.OnTouchListener {
 
 
 	private void onDrag(float x, float y) {
-
+		game.updateDeviceDragPoint(x, y);
 	}
 
 

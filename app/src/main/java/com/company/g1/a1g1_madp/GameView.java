@@ -15,8 +15,7 @@ public class GameView extends SurfaceView implements Runnable {
 
 	private Game game;
 	private Paint backgroundPaint = new Paint();
-
-	// Bitmap spaceshipBitmap;
+	private Paint moneyPaint = new Paint();
 
 	private Thread renderThread = null;
 	private SurfaceHolder holder;
@@ -38,6 +37,8 @@ public class GameView extends SurfaceView implements Runnable {
 		game.addOnPauseListener(this::pause);
 
 		backgroundPaint.setColor(getResources().getColor(R.color.colorBackground));
+		moneyPaint.setColor(getResources().getColor(R.color.colorUIText));
+		moneyPaint.setTextSize(50);
 	}
 
 	public void resume() {
@@ -76,6 +77,7 @@ public class GameView extends SurfaceView implements Runnable {
 		canvas.drawColor(backgroundPaint.getColor());
 		for (MovableObject movableObject: game.getEntityRegister().getEntities())
 			drawEntity(movableObject);
+		canvas.drawText("$" + game.getMoney(), 50, 100, moneyPaint);
 	}
 
 	private void drawEntity(MovableObject obj, Drawable drawable) {
@@ -111,6 +113,8 @@ public class GameView extends SurfaceView implements Runnable {
 			return R.drawable.enemy;
 		else if (obj instanceof Bullet)
 			return R.drawable.bullet;
+		else if (obj instanceof Tower)
+			return R.drawable.tower;
 		return 0;
 	}
 

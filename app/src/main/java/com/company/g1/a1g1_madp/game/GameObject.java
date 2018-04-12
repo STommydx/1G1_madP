@@ -1,7 +1,5 @@
 package com.company.g1.a1g1_madp.game;
 
-import java.util.EnumSet;
-
 public abstract class GameObject{
 
     protected float x;

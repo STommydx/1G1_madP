@@ -25,10 +25,20 @@
         <pair source="c" header="h" fileNamingConvention="NONE" />
       </extensions>
     </Objective-C-extensions>
+    <XML>
+      <option name="XML_KEEP_LINE_BREAKS" value="false" />
+      <option name="XML_ALIGN_ATTRIBUTES" value="false" />
+      <option name="XML_SPACE_INSIDE_EMPTY_TAG" value="true" />
+    </XML>
     <codeStyleSettings language="JAVA">
       <indentOptions>
         <option name="USE_TAB_CHARACTER" value="true" />
         <option name="SMART_TABS" value="true" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="XML">
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
       </indentOptions>
     </codeStyleSettings>
   </code_scheme>

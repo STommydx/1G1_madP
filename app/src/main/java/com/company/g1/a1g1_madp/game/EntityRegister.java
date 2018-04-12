@@ -1,21 +1,21 @@
 package com.company.g1.a1g1_madp.game;
 
-import org.w3c.dom.Entity;
-
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class EntityRegister {
 
-	List<MovableObject> entityList;
-	List<Enemy> enemyList;
-	List<Bullet> bulletList;
-	Spaceship spaceship;
+	private List<MovableObject> entityList;
+	private List<Enemy> enemyList;
+	private List<Bullet> bulletList;
+	private List<Tower> towerList;
+	private Spaceship spaceship;
 
 	EntityRegister() {
 		entityList = new CopyOnWriteArrayList<>();
 		enemyList = new CopyOnWriteArrayList<>();
 		bulletList = new CopyOnWriteArrayList<>();
+		towerList = new CopyOnWriteArrayList<>();
 	}
 
 	public void registerEntity(MovableObject entity) {
@@ -40,6 +40,11 @@ public class EntityRegister {
 		this.spaceship = spaceship;
 	}
 
+	public void registerTower(Tower tower) {
+		registerEntity(tower);
+		towerList.add(tower);
+	}
+
 	public List<Enemy> getEnemies() {
 		return enemyList;
 	}
@@ -50,6 +55,10 @@ public class EntityRegister {
 
 	public Spaceship getSpaceship() {
 		return spaceship;
+	}
+
+	public List<Tower> getTowers() {
+		return towerList;
 	}
 
 	public List<MovableObject> getEntities() {

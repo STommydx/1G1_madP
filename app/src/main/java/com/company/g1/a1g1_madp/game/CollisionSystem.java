@@ -13,7 +13,7 @@ public class CollisionSystem {
 
     private final static int M = 5;
     private final static int N = 4;
-    private static Grid[][] grids = new Grid[M][N];
+    private static Grid[][] grids = new Grid[M * 3][N * 3];
     private static int gridWidth;
     private static int gridHeight;
 
@@ -21,13 +21,13 @@ public class CollisionSystem {
 
     CollisionSystem(Game context) {
         game = context;
-        for(int i = 0; i < M; i++) {
-            for(int j = 0; j < N; j++) {
+        for(int i = 0; i < M * 3; i++) {
+            for(int j = 0; j < N * 3; j++) {
                 grids[i][j] = new Grid();
             }
         }
-	    gridWidth = game.getLayoutWidth() / N;
-	    gridHeight = game.getLayoutHeight() / M;
+	    gridWidth = game.getLayoutWidth() * 3 / N;
+	    gridHeight = game.getLayoutHeight() * 3 / M;
     }
 
     void detectCollision() {
@@ -52,16 +52,16 @@ public class CollisionSystem {
         for(MovableObject entity: game.getEntityRegister().getEntities())
             findGridId(entity);
         // Narrow phase
-        for(int i = 0; i < M; i++) {
-            for(int j = 0; j < N; j++) {
+        for(int i = 0; i < M * 3; i++) {
+            for(int j = 0; j < N * 3; j++) {
                 grids[i][j].detectCollisionInGrid();
             }
         }
     }
 
-    void resetGridState() {
-        for(int i = 0; i < M; i++) {
-            for(int j = 0; j < N; j++) {
+    private void resetGridState() {
+        for(int i = 0; i < M * 3; i++) {
+            for(int j = 0; j < N * 3; j++) {
                 grids[i][j].bullets.clear();
                 grids[i][j].enemies.clear();
             }
@@ -91,14 +91,16 @@ public class CollisionSystem {
     }
 
     // update() and detectCollision() must run sequentially!
-    void findGridId(GameObject object) {
-        int i = (int) Math.floor(object.getY() / gridHeight);
-        int j = (int) Math.floor(object.getX() / gridWidth);
+    private void findGridId(GameObject object) {
+
+
+        int i = (int) Math.floor((object.getY() + game.getLayoutHeight()) / gridHeight);
+        int j = (int) Math.floor((object.getX() + game.getLayoutWidth()) / gridWidth);
 //        Log.d("I", String.valueOf(object.y / gridHeight));
 
         grids[i][j].addToList(object);
-        int h = (int)(Math.min(Math.floor((object.getY() + object.getHeight()) / gridHeight),M-1));
-        int k = (int)(Math.min(Math.floor((object.getX() + object.getWidth()) / gridWidth),N-1));
+        int h = (int)Math.floor((object.getY() + object.getHeight() + game.getLayoutHeight()) / gridHeight);
+        int k = (int)Math.floor((object.getX() + object.getWidth() + game.getLayoutWidth()) / gridWidth);
 
         if (h != i && k != j) {
             grids[h][j].addToList(object);
