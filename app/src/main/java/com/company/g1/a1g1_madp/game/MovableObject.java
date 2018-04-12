@@ -5,7 +5,7 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
-abstract class MovableObject extends GameObject {
+public abstract class MovableObject extends GameObject {
 
     private float speed;
     private float theta;
@@ -63,7 +63,7 @@ abstract class MovableObject extends GameObject {
 		callbacks.add(r);
 	}
 
-	float getTheta() {
+	public float getTheta() {
     	return theta;
 	}
 
