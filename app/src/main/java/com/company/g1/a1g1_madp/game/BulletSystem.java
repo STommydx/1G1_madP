@@ -1,6 +1,8 @@
 package com.company.g1.a1g1_madp.game;
 
 import android.os.Handler;
+import com.company.g1.a1g1_madp.game.entity.Bullet;
+import com.company.g1.a1g1_madp.game.entity.MovableObject;
 
 import java.util.Collections;
 import java.util.HashMap;

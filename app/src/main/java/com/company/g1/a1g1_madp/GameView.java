@@ -9,7 +9,8 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import com.company.g1.a1g1_madp.game.*;
+import com.company.g1.a1g1_madp.game.Game;
+import com.company.g1.a1g1_madp.game.entity.*;
 
 public class GameView extends SurfaceView implements Runnable {
 
@@ -75,12 +76,12 @@ public class GameView extends SurfaceView implements Runnable {
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
 		canvas.drawColor(backgroundPaint.getColor());
-		for (MovableObject movableObject : game.getEntityRegister().getEntities())
-			drawEntity(movableObject);
+		for (GameObject entity : game.getEntityRegister().getEntities())
+			drawEntity(entity);
 		canvas.drawText("$" + game.getMoney(), 50, 100, moneyPaint);
 	}
 
-	private void drawEntity(MovableObject obj, Drawable drawable) {
+	private void drawEntity(GameObject obj, Drawable drawable) {
 		RectF rectf = new RectF();
 		rectf.top = obj.getY();
 		rectf.left = obj.getX();
@@ -97,16 +98,16 @@ public class GameView extends SurfaceView implements Runnable {
 		canvas.restore();
 	}
 
-	private void drawEntity(MovableObject obj, int resourceID) {
+	private void drawEntity(GameObject obj, int resourceID) {
 		Drawable drawable = ContextCompat.getDrawable(context, resourceID);
 		if (drawable != null) drawEntity(obj, drawable);
 	}
 
-	private void drawEntity(MovableObject obj) {
+	private void drawEntity(GameObject obj) {
 		drawEntity(obj, getResourceID(obj));
 	}
 
-	private int getResourceID(MovableObject obj) {
+	private int getResourceID(GameObject obj) {
 		if (obj instanceof Spaceship)
 			return R.drawable.ship;
 		else if (obj instanceof Enemy)

@@ -1,6 +1,9 @@
 package com.company.g1.a1g1_madp.game;
 
 import android.os.Handler;
+import com.company.g1.a1g1_madp.game.entity.MovableObject;
+import com.company.g1.a1g1_madp.game.entity.Spaceship;
+import com.company.g1.a1g1_madp.game.entity.Tower;
 
 import java.util.ArrayList;
 
@@ -29,7 +32,7 @@ public class Game {
 	private Runnable gameLoop = new Runnable() {
 		@Override
 		public void run() {
-			for (MovableObject entity : entityRegister.getEntities())
+			for (MovableObject entity : entityRegister.getMovableEntities())
 				entity.update();
 			collisionSystem.detectCollision();
 			handler.postDelayed(this, tick);

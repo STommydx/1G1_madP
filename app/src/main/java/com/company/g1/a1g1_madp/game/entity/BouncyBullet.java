@@ -1,4 +1,4 @@
-package com.company.g1.a1g1_madp.game;
+package com.company.g1.a1g1_madp.game.entity;
 
 // BUGGY!
 

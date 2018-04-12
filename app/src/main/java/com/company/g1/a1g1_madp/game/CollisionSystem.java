@@ -1,5 +1,10 @@
 package com.company.g1.a1g1_madp.game;
 
+import com.company.g1.a1g1_madp.game.entity.Bullet;
+import com.company.g1.a1g1_madp.game.entity.Enemy;
+import com.company.g1.a1g1_madp.game.entity.GameObject;
+import com.company.g1.a1g1_madp.game.entity.MovableObject;
+
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -33,7 +38,7 @@ public class CollisionSystem {
 	void detectCollision() {
 
 		// detect bound collision
-		for (MovableObject entity : game.getEntityRegister().getEntities()) {
+		for (MovableObject entity : game.getEntityRegister().getMovableEntities()) {
 			EnumSet<BOUND> bounds = EnumSet.noneOf(BOUND.class);
 			if (entity.getX() < 0) {
 				bounds.add(BOUND.LEFT);
@@ -49,7 +54,7 @@ public class CollisionSystem {
 
 		resetGridState();
 		// Broad phase
-		for (MovableObject entity : game.getEntityRegister().getEntities())
+		for (MovableObject entity : game.getEntityRegister().getMovableEntities())
 			findGridId(entity);
 		// Narrow phase
 		for (int i = 0; i < M * 3; i++) {
@@ -113,7 +118,7 @@ public class CollisionSystem {
 		}
 	}
 
-	enum BOUND {
+	public enum BOUND {
 		LEFT, TOP, RIGHT, BOTTOM
 	}
 
