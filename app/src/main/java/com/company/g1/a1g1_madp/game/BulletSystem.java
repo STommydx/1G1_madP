@@ -15,11 +15,11 @@ public class BulletSystem {
 	private Map<MovableObject, FireProperty> fireList;
 	private long now = 0;
 
-	private Handler bulletHandler  = new Handler();
+	private Handler bulletHandler = new Handler();
 	private Runnable bulletRunnable = new Runnable() {
 		@Override
 		public void run() {
-			for (Map.Entry<MovableObject, FireProperty> entry: fireList.entrySet()) {
+			for (Map.Entry<MovableObject, FireProperty> entry : fireList.entrySet()) {
 
 				int fireRate = entry.getValue().getRate();
 				if (now % fireRate != 0) continue;
@@ -28,9 +28,9 @@ public class BulletSystem {
 				FireProperty property = entry.getValue();
 				float shipCenterX = spaceship.getX() + spaceship.getRadius();
 				float shipCenterY = spaceship.getY() + spaceship.getRadius();
-				float bulletX = (float)(shipCenterX - property.getSize() / 2
+				float bulletX = (float) (shipCenterX - property.getSize() / 2
 						+ (spaceship.getRadius() + BULLET_OFFSET) * Math.sin(Math.toRadians(spaceship.getTheta())));
-				float bulletY = (float)(shipCenterY - property.getSize() / 2
+				float bulletY = (float) (shipCenterY - property.getSize() / 2
 						+ (spaceship.getRadius() + BULLET_OFFSET) * -Math.cos(Math.toRadians(spaceship.getTheta())));
 				Bullet mBullet = new Bullet(bulletX, bulletY, property.getSize(), property.getSize(), property.getSpeed(), spaceship.getTheta());
 				entityRegister.registerBullet(mBullet);

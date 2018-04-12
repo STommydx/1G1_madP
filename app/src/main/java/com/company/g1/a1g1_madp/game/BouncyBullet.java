@@ -4,12 +4,12 @@ package com.company.g1.a1g1_madp.game;
 
 public class BouncyBullet extends Bullet {
 
-    private int bouncedCount = 0;
+	private int bouncedCount = 0;
 
 	BouncyBullet(float x, float y, float height, float width, float speed, float theta) {
 		super(x, y, height, width, speed, theta);
 		addOutOfBoundListener(bounds -> {
-			if(bouncedCount == 1)
+			if (bouncedCount == 1)
 				removeSelf();
 			else {
 				setTheta(getTheta() - 180);

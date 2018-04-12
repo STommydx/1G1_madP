@@ -1,15 +1,15 @@
 package com.company.g1.a1g1_madp;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
 import com.company.g1.a1g1_madp.game.*;
-
-import java.util.List;
 
 public class GameView extends SurfaceView implements Runnable {
 
@@ -75,7 +75,7 @@ public class GameView extends SurfaceView implements Runnable {
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
 		canvas.drawColor(backgroundPaint.getColor());
-		for (MovableObject movableObject: game.getEntityRegister().getEntities())
+		for (MovableObject movableObject : game.getEntityRegister().getEntities())
 			drawEntity(movableObject);
 		canvas.drawText("$" + game.getMoney(), 50, 100, moneyPaint);
 	}

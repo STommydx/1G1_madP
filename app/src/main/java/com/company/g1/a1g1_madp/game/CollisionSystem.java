@@ -11,107 +11,107 @@ import java.util.List;
  */
 public class CollisionSystem {
 
-    private final static int M = 5;
-    private final static int N = 4;
-    private static Grid[][] grids = new Grid[M * 3][N * 3];
-    private static int gridWidth;
-    private static int gridHeight;
+	private final static int M = 5;
+	private final static int N = 4;
+	private static Grid[][] grids = new Grid[M * 3][N * 3];
+	private static int gridWidth;
+	private static int gridHeight;
 
-    private Game game;
+	private Game game;
 
-    CollisionSystem(Game context) {
-        game = context;
-        for(int i = 0; i < M * 3; i++) {
-            for(int j = 0; j < N * 3; j++) {
-                grids[i][j] = new Grid();
-            }
-        }
-	    gridWidth = game.getLayoutWidth() * 3 / N;
-	    gridHeight = game.getLayoutHeight() * 3 / M;
-    }
+	CollisionSystem(Game context) {
+		game = context;
+		for (int i = 0; i < M * 3; i++) {
+			for (int j = 0; j < N * 3; j++) {
+				grids[i][j] = new Grid();
+			}
+		}
+		gridWidth = game.getLayoutWidth() * 3 / N;
+		gridHeight = game.getLayoutHeight() * 3 / M;
+	}
 
-    void detectCollision() {
+	void detectCollision() {
 
-    	// detect bound collision
-	    for(MovableObject entity: game.getEntityRegister().getEntities()){
-		    EnumSet<BOUND> bounds = EnumSet.noneOf(BOUND.class);
-		    if (entity.getX() < 0)  {
-			    bounds.add(BOUND.LEFT);
-		    } else if (entity.getX() + entity.getWidth() > game.getLayoutWidth())
-			    bounds.add(BOUND.RIGHT);
-		    if (entity.getY() < 0)  {
-			    bounds.add(BOUND.TOP);
-		    } else if (entity.getY() + entity.getHeight() > game.getLayoutHeight())
-			    bounds.add(BOUND.BOTTOM);
-		    if(!bounds.isEmpty())
-			    entity.fireOutOfBound(bounds);
-	    }
+		// detect bound collision
+		for (MovableObject entity : game.getEntityRegister().getEntities()) {
+			EnumSet<BOUND> bounds = EnumSet.noneOf(BOUND.class);
+			if (entity.getX() < 0) {
+				bounds.add(BOUND.LEFT);
+			} else if (entity.getX() + entity.getWidth() > game.getLayoutWidth())
+				bounds.add(BOUND.RIGHT);
+			if (entity.getY() < 0) {
+				bounds.add(BOUND.TOP);
+			} else if (entity.getY() + entity.getHeight() > game.getLayoutHeight())
+				bounds.add(BOUND.BOTTOM);
+			if (!bounds.isEmpty())
+				entity.fireOutOfBound(bounds);
+		}
 
-        resetGridState();
-        // Broad phase
-        for(MovableObject entity: game.getEntityRegister().getEntities())
-            findGridId(entity);
-        // Narrow phase
-        for(int i = 0; i < M * 3; i++) {
-            for(int j = 0; j < N * 3; j++) {
-                grids[i][j].detectCollisionInGrid();
-            }
-        }
-    }
+		resetGridState();
+		// Broad phase
+		for (MovableObject entity : game.getEntityRegister().getEntities())
+			findGridId(entity);
+		// Narrow phase
+		for (int i = 0; i < M * 3; i++) {
+			for (int j = 0; j < N * 3; j++) {
+				grids[i][j].detectCollisionInGrid();
+			}
+		}
+	}
 
-    private void resetGridState() {
-        for(int i = 0; i < M * 3; i++) {
-            for(int j = 0; j < N * 3; j++) {
-                grids[i][j].bullets.clear();
-                grids[i][j].enemies.clear();
-            }
-        }
-    }
+	private void resetGridState() {
+		for (int i = 0; i < M * 3; i++) {
+			for (int j = 0; j < N * 3; j++) {
+				grids[i][j].bullets.clear();
+				grids[i][j].enemies.clear();
+			}
+		}
+	}
 
-    class Grid {
+	class Grid {
 
-        List<Bullet> bullets = new ArrayList<>();
-        List<Enemy>  enemies = new ArrayList<>();
+		List<Bullet> bullets = new ArrayList<>();
+		List<Enemy> enemies = new ArrayList<>();
 
-        void addToList(GameObject object) {
-            if (object instanceof Bullet)
-                bullets.add((Bullet)object);
-            else if (object instanceof Enemy)
-                enemies.add((Enemy)object);
-            // else
-            //    throw new RuntimeException("Object not supported for collision detection.");
-        }
+		void addToList(GameObject object) {
+			if (object instanceof Bullet)
+				bullets.add((Bullet) object);
+			else if (object instanceof Enemy)
+				enemies.add((Enemy) object);
+			// else
+			//    throw new RuntimeException("Object not supported for collision detection.");
+		}
 
-        void detectCollisionInGrid() {
-            for(Enemy enemy: enemies)
-                for(Bullet bullet : bullets)
-                    if(enemy.getHitBox().intersect(bullet.getHitBox()))
-                        enemy.onHit();
-        }
-    }
+		void detectCollisionInGrid() {
+			for (Enemy enemy : enemies)
+				for (Bullet bullet : bullets)
+					if (enemy.getHitBox().intersect(bullet.getHitBox()))
+						enemy.onHit();
+		}
+	}
 
-    // update() and detectCollision() must run sequentially!
-    private void findGridId(GameObject object) {
+	// update() and detectCollision() must run sequentially!
+	private void findGridId(GameObject object) {
 
 
-        int i = (int) Math.floor((object.getY() + game.getLayoutHeight()) / gridHeight);
-        int j = (int) Math.floor((object.getX() + game.getLayoutWidth()) / gridWidth);
+		int i = (int) Math.floor((object.getY() + game.getLayoutHeight()) / gridHeight);
+		int j = (int) Math.floor((object.getX() + game.getLayoutWidth()) / gridWidth);
 //        Log.d("I", String.valueOf(object.y / gridHeight));
 
-        grids[i][j].addToList(object);
-        int h = (int)Math.floor((object.getY() + object.getHeight() + game.getLayoutHeight()) / gridHeight);
-        int k = (int)Math.floor((object.getX() + object.getWidth() + game.getLayoutWidth()) / gridWidth);
+		grids[i][j].addToList(object);
+		int h = (int) Math.floor((object.getY() + object.getHeight() + game.getLayoutHeight()) / gridHeight);
+		int k = (int) Math.floor((object.getX() + object.getWidth() + game.getLayoutWidth()) / gridWidth);
 
-        if (h != i && k != j) {
-            grids[h][j].addToList(object);
-            grids[i][k].addToList(object);
-            grids[h][k].addToList(object);
-        } else if (k != j) {
-            grids[i][k].addToList(object);
-        } else if (h != i) {
-            grids[h][j].addToList(object);
-        }
-    }
+		if (h != i && k != j) {
+			grids[h][j].addToList(object);
+			grids[i][k].addToList(object);
+			grids[h][k].addToList(object);
+		} else if (k != j) {
+			grids[i][k].addToList(object);
+		} else if (h != i) {
+			grids[h][j].addToList(object);
+		}
+	}
 
 	enum BOUND {
 		LEFT, TOP, RIGHT, BOTTOM

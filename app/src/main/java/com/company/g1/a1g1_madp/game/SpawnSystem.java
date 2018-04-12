@@ -7,8 +7,8 @@ public class SpawnSystem {
 	private final static long ENEMY_SPAWN_RATE = 1000;
 	private int layoutWidth;
 
-	private Handler spawnHandler  = new Handler();
-	private Runnable spawnRunnable = new Runnable(){
+	private Handler spawnHandler = new Handler();
+	private Runnable spawnRunnable = new Runnable() {
 		@Override
 		public void run() {
 			float x = (float) (Math.random() * layoutWidth * 0.9);
