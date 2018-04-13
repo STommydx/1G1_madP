@@ -1,97 +1,122 @@
 package com.company.g1.a1g1_madp;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import com.company.g1.a1g1_madp.game.Game;
+import com.company.g1.a1g1_madp.game.entity.*;
 
 public class GameView extends SurfaceView implements Runnable {
 
-    Spaceship spaceship;
-    Paint paint = new Paint();
-    Paint paint2 = new Paint();
-    Bitmap bitmap;
-    Thread renderThread = null;
-    SurfaceHolder holder;
-    Canvas canvas;
-    volatile boolean running = false;
+	private Game game;
+	private Paint backgroundPaint = new Paint();
+	private Paint moneyPaint = new Paint();
 
-    public GameView(Context context) {
-        super(context);
-        holder = getHolder();
-        // Stupid
-        paint.setColor(Color.BLUE);
-        paint2.setColor(0xfc00ff00);
-    }
+	private Thread renderThread = null;
+	private SurfaceHolder holder;
+	private Canvas canvas;
+	private volatile boolean running = false;
 
-    void loadImageResources() {
-        Bitmap _bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.circle_vector_2);
-        bitmap = Bitmap.createScaledBitmap(_bitmap,(int)spaceship.width,(int)spaceship.height,false);
-    }
+	private Context context;
 
-    public void resume() {
-        running = true;
-        loadImageResources();
-        renderThread = new Thread(this);
-        renderThread.start();
-    }
+	public GameView(Context context, Game game) {
+		super(context);
 
-    @Override
-    public void run() {
-        while(running) {
-            if(!holder.getSurface().isValid())  // What does this do?
-                continue;
-            canvas = holder.lockCanvas();
-            draw(canvas);   // This part deviates from the copy source, is it ok?
-            holder.unlockCanvasAndPost(canvas);
-        }
-    }
+		this.context = context;
 
-    public void pause() {
-        running = false;
-        // No idea what's going on
-        while(true) {
-            try {
-                renderThread.join();
-                return;
-            } catch (InterruptedException e) {
-                // retry
-            }
-        }
-    }
+		holder = getHolder();
 
-    @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
-        drawSpaceship();
-        drawBullets();
-        drawEnemies();
-    }
+		this.game = game;
 
-    private void drawSpaceship() {
-        canvas.drawBitmap(bitmap,spaceship.x,spaceship.y,null);
-//        float centerX = spaceship.x + spaceship.radius;
-//        float centerY = spaceship.y + spaceship.radius;
-//        canvas.drawCircle(centerX,centerY,spaceship.radius,paint);
-    }
+		game.addOnResumeListener(this::resume);
+		game.addOnPauseListener(this::pause);
 
-    private void drawBullets() {
-        for(Bullet bullet : Bullet.bullets) {
-            float centerX = bullet.x + bullet.radius;
-            float centerY = bullet.y + bullet.radius;
-            canvas.drawCircle(centerX,centerY,bullet.radius, paint);
-        }
-    }
+		backgroundPaint.setColor(getResources().getColor(R.color.colorBackground));
+		moneyPaint.setColor(getResources().getColor(R.color.colorUIText));
+		moneyPaint.setTextSize(50);
+	}
 
-    private void drawEnemies() {
-        for(Enemy enemy : Enemy.enemies) {
-            float centerX = enemy.x + enemy.radius;
-            float centerY = enemy.y + enemy.radius;
-            canvas.drawCircle(centerX,centerY,enemy.radius, paint);
-        }
-    }
+	public void resume() {
+		running = true;
+		renderThread = new Thread(this);
+		renderThread.start();
+	}
+
+	@Override
+	public void run() {
+		while (running) {
+			if (!holder.getSurface().isValid())  // What does this do?
+				continue;
+			canvas = holder.lockCanvas();
+			draw(canvas);   // This part deviates from the copy source, is it ok?
+			holder.unlockCanvasAndPost(canvas);
+		}
+	}
+
+	public void pause() {
+		running = false;
+		// No idea what's going on
+		while (true) {
+			try {
+				renderThread.join();
+				return;
+			} catch (InterruptedException e) {
+				// retry
+			}
+		}
+	}
+
+	@Override
+	public void draw(Canvas canvas) {
+		super.draw(canvas);
+		canvas.drawColor(backgroundPaint.getColor());
+		for (GameObject entity : game.getEntityRegister().getEntities())
+			drawEntity(entity);
+		canvas.drawText("$" + game.getMoney(), 50, 100, moneyPaint);
+	}
+
+	private void drawEntity(GameObject obj, Drawable drawable) {
+		RectF rectf = new RectF();
+		rectf.top = obj.getY();
+		rectf.left = obj.getX();
+		rectf.right = obj.getX() + obj.getWidth();
+		rectf.bottom = obj.getY() + obj.getHeight();
+		Rect rect = new Rect();
+		rectf.round(rect);
+		drawable.setBounds(rect);
+		canvas.save();
+		int midX = (rect.left + rect.right) / 2;
+		int midY = (rect.top + rect.bottom) / 2;
+		canvas.rotate(obj.getTheta(), midX, midY);
+		drawable.draw(canvas);
+		canvas.restore();
+	}
+
+	private void drawEntity(GameObject obj, int resourceID) {
+		Drawable drawable = ContextCompat.getDrawable(context, resourceID);
+		if (drawable != null) drawEntity(obj, drawable);
+	}
+
+	private void drawEntity(GameObject obj) {
+		drawEntity(obj, getResourceID(obj));
+	}
+
+	private int getResourceID(GameObject obj) {
+		if (obj instanceof Spaceship)
+			return R.drawable.ship;
+		else if (obj instanceof Enemy)
+			return R.drawable.enemy;
+		else if (obj instanceof Bullet)
+			return R.drawable.bullet;
+		else if (obj instanceof Tower)
+			return R.drawable.tower;
+		return 0;
+	}
+
 }
