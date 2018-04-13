@@ -1,6 +1,5 @@
 package com.company.g1.a1g1_madp.game.entity;
 
-import android.graphics.Rect;
 import com.company.g1.a1g1_madp.game.CollisionSystem;
 
 import java.util.ArrayList;
@@ -48,10 +47,6 @@ public abstract class MovableObject extends GameObject {
 
 	public void addOutOfBoundListener(OutOfBoundListener listener) {
 		listeners.add(listener);
-	}
-
-	public Rect getHitBox() {
-		return new Rect((int) x, (int) y, (int) (x + width), (int) (y + height));
 	}
 
 	public interface OutOfBoundListener {
