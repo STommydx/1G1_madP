@@ -108,7 +108,8 @@ public class Game {
 	}
 
 	public void updateDeviceAcceleration(float ax, float ay) {
-		spaceship.setAcceleration(ax, ay);
+		spaceship.setVelocityX(10 * ax);
+		spaceship.setVelocityY(10 * ay);
 	}
 
 	public void updateDeviceRotation(float angle) {
