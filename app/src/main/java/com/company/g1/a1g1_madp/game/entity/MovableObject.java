@@ -8,37 +8,31 @@ import java.util.EnumSet;
 
 public abstract class MovableObject extends GameObject {
 
-	private float speed;
+	private float velocityX, velocityY;
+	private float accelerationX, accelerationY;
 
 	private ArrayList<OutOfBoundListener> listeners;
 
 	// An even longer parameter! Ewwwwwwww.
 	MovableObject(float x, float y, float height, float width, float speed, float theta) {
 		super(x, y, height, width, theta);
-		this.speed = speed;
+		setSpeed(speed);
 		listeners = new ArrayList<>();
 	}
 
 	// Parameter so long! Eww.
 	MovableObject(float x, float y, float height, float width, float speed) {
 		super(x, y, height, width);
-		this.speed = speed;
+		setSpeed(speed);
 		listeners = new ArrayList<>();
 	}
 
 	// Update per time unit, 1 time unit = 1 game tick
 	public void update() {
-		float vX = (float) (speed * Math.sin(Math.toRadians(theta)));
-		float vY = (float) (speed * -Math.cos(Math.toRadians(theta)));
-		x += vX;
-		y += vY;
-	}
-
-	void update(float aX, float aY) {
-		float vX = speed * -aX;
-		float vY = speed * aY;
-		x += vX;
-		y += vY;
+		velocityX += accelerationX;
+		velocityY += accelerationY;
+		x += velocityX;
+		y += velocityY;
 	}
 
 	public void fireOutOfBound(EnumSet<CollisionSystem.BOUND> bounds) {
@@ -52,6 +46,40 @@ public abstract class MovableObject extends GameObject {
 
 	public Rect getHitBox() {
 		return new Rect((int) x, (int) y, (int) (x + width), (int) (y + height));
+	}
+
+	public void setSpeed(float speed) {
+		setVelocity(speed, theta);
+	}
+
+	public void setVelocity(float speed, float direction) {
+		velocityX = (float) (speed * Math.sin(Math.toRadians(direction)));
+		velocityY = (float) (speed * -Math.cos(Math.toRadians(direction)));
+	}
+
+	public void setScalarAcceleration(float acceleration) {
+		setAcceleration(acceleration, theta);
+	}
+
+	public void setVelocityX(float velocityX) {
+		this.velocityX = velocityX;
+	}
+
+	public void setVelocityY(float velocityY) {
+		this.velocityY = velocityY;
+	}
+
+	public void setAcceleration(float acceleration, float direction) {
+		accelerationX = (float) (acceleration * Math.sin(Math.toRadians(direction)));
+		accelerationY = (float) (acceleration * -Math.cos(Math.toRadians(direction)));
+	}
+
+	public void setAccelerationX(float accelerationX) {
+		this.accelerationX = accelerationX;
+	}
+
+	public void setAccelerationY(float accelerationY) {
+		this.accelerationY = accelerationY;
 	}
 
 	public interface OutOfBoundListener {
