@@ -1,6 +1,7 @@
 package com.company.g1.a1g1_madp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.widget.TextView;
 import com.company.g1.a1g1_madp.game.Game;
 
 public class GameActivity extends AppCompatActivity {
@@ -32,10 +34,19 @@ public class GameActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 
+		Intent intent = getIntent();
+		int stage = intent.getIntExtra("STAGE_NUMBER", 0);
+		((TextView) findViewById(R.id.textView2)).setText(getResources().getString(R.string.stage_name, stage));
+
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getRealMetrics(dm);
 
-		game = new Game(dm.heightPixels, dm.widthPixels);
+		game = new Game(dm.heightPixels, dm.widthPixels, stage);
+
+		game.addOnStopListener(() -> {
+			Intent nextIntent = new Intent(this, GameActivity.class);
+			nextIntent.putExtra("STAGE_NUMBER", stage + 1);
+		});
 		game.start();
 
 		GameView gameView = new GameView(this, game);
