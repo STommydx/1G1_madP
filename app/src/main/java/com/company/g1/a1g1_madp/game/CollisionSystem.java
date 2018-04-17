@@ -1,5 +1,6 @@
 package com.company.g1.a1g1_madp.game;
 
+import android.graphics.Rect;
 import com.company.g1.a1g1_madp.game.entity.Bullet;
 import com.company.g1.a1g1_madp.game.entity.Enemy;
 import com.company.g1.a1g1_madp.game.entity.GameObject;
@@ -54,7 +55,7 @@ public class CollisionSystem {
 
 		resetGridState();
 		// Broad phase
-		for (MovableObject entity : game.getEntityRegister().getMovableEntities())
+		for (GameObject entity : game.getEntityRegister().getEntities())
 			findGridId(entity);
 		// Narrow phase
 		for (int i = 0; i < M * 3; i++) {
@@ -67,41 +68,36 @@ public class CollisionSystem {
 	private void resetGridState() {
 		for (int i = 0; i < M * 3; i++) {
 			for (int j = 0; j < N * 3; j++) {
-				grids[i][j].bullets.clear();
-				grids[i][j].enemies.clear();
+				grids[i][j].gameObjectList.clear();
 			}
 		}
 	}
 
 	class Grid {
 
-		List<Bullet> bullets = new ArrayList<>();
-		List<Enemy> enemies = new ArrayList<>();
+		List<GameObject> gameObjectList = new ArrayList<>();
 
 		void addToList(GameObject object) {
-			if (object instanceof Bullet)
-				bullets.add((Bullet) object);
-			else if (object instanceof Enemy)
-				enemies.add((Enemy) object);
-			// else
-			//    throw new RuntimeException("Object not supported for collision detection.");
+			gameObjectList.add(object);
 		}
 
 		void detectCollisionInGrid() {
-			for (Enemy enemy : enemies)
-				for (Bullet bullet : bullets)
-					if (enemy.getHitBox().intersect(bullet.getHitBox()))
-						enemy.onHit();
+			for (GameObject first : gameObjectList) {
+				Rect firstHitBox = first.getHitBox();
+				for (GameObject second : gameObjectList) {
+					if (first == second) continue;
+					if (firstHitBox.intersect(second.getHitBox()))
+						first.fireOnHit(second);
+				}
+			}
 		}
 	}
 
 	// update() and detectCollision() must run sequentially!
 	private void findGridId(GameObject object) {
 
-
 		int i = (int) Math.floor((object.getY() + game.getLayoutHeight()) / gridHeight);
 		int j = (int) Math.floor((object.getX() + game.getLayoutWidth()) / gridWidth);
-//        Log.d("I", String.valueOf(object.y / gridHeight));
 
 		grids[i][j].addToList(object);
 		int h = (int) Math.floor((object.getY() + object.getHeight() + game.getLayoutHeight()) / gridHeight);
