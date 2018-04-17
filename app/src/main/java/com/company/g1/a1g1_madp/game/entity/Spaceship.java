@@ -11,8 +11,6 @@ public class Spaceship extends MovableObject {
 	private final static float SHIP_SPEED = 10;
 	private final static float SHIP_HEIGHT = 100;
 	private final static float SHIP_WIDTH = 100;
-	private float aX;
-	private float aY;
 //    private Class               bulletClass = Bullet.class;
 
 
@@ -27,16 +25,6 @@ public class Spaceship extends MovableObject {
 		super(x - SHIP_WIDTH / 2,
 				y - SHIP_HEIGHT * 1.5f,
 				SHIP_HEIGHT, SHIP_WIDTH, SHIP_SPEED);
-	}
-
-	public void setAcceleration(float aX, float aY) {
-		this.aX = aX;
-		this.aY = aY;
-	}
-
-	@Override
-	public void update() {
-		super.update(aX, aY);
 	}
 
 	//    public void  setRotation(float rotation) { this.rotation = rotation; }
