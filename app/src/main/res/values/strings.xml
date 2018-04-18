@@ -31,4 +31,6 @@
     <string name="stage_next">Next Stage</string>
     <string name="stage_score">Score: %d</string>
     <string name="stage_welcome">Welcome!</string>
+    <string name="time_remain">Time: %.2f</string>
+    <string name="money_now">Money: $%d</string>
 </resources>
