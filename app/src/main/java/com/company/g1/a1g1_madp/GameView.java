@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import com.company.g1.a1g1_madp.game.Game;
@@ -43,6 +44,7 @@ public class GameView extends SurfaceView implements Runnable {
 	}
 
 	public void resume() {
+		Log.d("gameview", "resume()");
 		running = true;
 		renderThread = new Thread(this);
 		renderThread.start();
@@ -60,6 +62,7 @@ public class GameView extends SurfaceView implements Runnable {
 	}
 
 	public void pause() {
+		Log.d("gameview", "pause()");
 		running = false;
 		// No idea what's going on
 		while (true) {
@@ -79,6 +82,7 @@ public class GameView extends SurfaceView implements Runnable {
 		for (GameObject entity : game.getEntityRegister().getEntities())
 			drawEntity(entity);
 		canvas.drawText("$" + game.getMoney(), 50, 100, moneyPaint);
+		canvas.drawText(String.format("Time: %.2f", 1.0 * game.getRemainMilliseconds() / 1000), 50, 200, moneyPaint);
 	}
 
 	private void drawEntity(GameObject obj, Drawable drawable) {

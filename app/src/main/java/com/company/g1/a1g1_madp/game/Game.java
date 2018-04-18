@@ -1,6 +1,7 @@
 package com.company.g1.a1g1_madp.game;
 
 import android.os.Handler;
+import android.util.Log;
 import com.company.g1.a1g1_madp.game.entity.MovableObject;
 import com.company.g1.a1g1_madp.game.entity.Spaceship;
 import com.company.g1.a1g1_madp.game.entity.Tower;
@@ -16,8 +17,13 @@ public class Game {
 	private CollisionSystem collisionSystem;
 	private Spaceship spaceship;
 	private Handler handler = new Handler();
-	private final int tick = 15;
+
+	private static final int TICK_TIME = 15;
+	private static final int STAGE_TIME = 5;
+	private static final int END_TICK = STAGE_TIME * 1000 / TICK_TIME;
+
 	private int money = 1000;
+	private int ticks;
 	private int stage;
 
 	private SpawnSystem spawnSystem;
@@ -37,7 +43,14 @@ public class Game {
 			for (MovableObject entity : entityRegister.getMovableEntities())
 				entity.update();
 			collisionSystem.detectCollision();
-			handler.postDelayed(this, tick);
+
+			ticks++;
+			if (ticks >= END_TICK) {
+				stop();
+				return;
+			}
+
+			handler.postDelayed(this, TICK_TIME);
 		}
 	};
 
@@ -85,16 +98,19 @@ public class Game {
 		entityRegister.registerTower(second);
 		bulletSystem.registerFire(second, new BulletSystem.FireProperty(30, 5));
 
+		ticks = 0;
+
 		// resume();
 	}
 
 	public void resume() {
 		// Why is this part necessary?
+		Log.d("gamecycle", "resume()");
 		if (running) return;
 		running = true;
 		spawnSystem.startSpawning();
 		bulletSystem.startFiring();
-		handler.postDelayed(gameLoop, tick);
+		handler.postDelayed(gameLoop, TICK_TIME);
 		for (Runnable r : resumeCallback) r.run();
 	}
 
@@ -103,6 +119,7 @@ public class Game {
 	}
 
 	public void pause() {
+		Log.d("gamecycle", "pause()");
 		if (!running) return;
 		running = false;
 		spawnSystem.stopSpawning();
@@ -116,6 +133,7 @@ public class Game {
 	}
 
 	public void stop() {
+		Log.i("gamecycle", "stop()");
 		pause();
 		Result result = new Result(money, true);
 		for (GameStopListener r : stopCallback) r.onStop(result);
@@ -162,6 +180,10 @@ public class Game {
 
 	public int getMoney() {
 		return money;
+	}
+
+	public int getRemainMilliseconds() {
+		return (END_TICK - ticks) * TICK_TIME;
 	}
 
 	public interface GameStopListener {

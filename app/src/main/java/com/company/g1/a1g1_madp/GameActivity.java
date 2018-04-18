@@ -44,10 +44,18 @@ public class GameActivity extends AppCompatActivity {
 		game = new Game(dm.heightPixels, dm.widthPixels, stage);
 
 		game.addOnStopListener((result) -> {
-			Intent nextIntent = new Intent(this, GameActivity.class);
+			Intent nextIntent = new Intent(this, StageActivity.class);
 			int newStage = stage;
-			if (result.isWin()) newStage++;
+			if (result.isWin()) {
+				newStage++;
+				nextIntent.putExtra("STAGE_STATE", StageActivity.STAGE_WIN);
+			} else {
+				nextIntent.putExtra("STAGE_STATE", StageActivity.STAGE_LOSE);
+			}
 			nextIntent.putExtra("STAGE_NUMBER", newStage);
+			nextIntent.putExtra("STAGE_SCORE", result.getScore());
+			startActivity(nextIntent);
+			finish();
 		});
 		game.start();
 
