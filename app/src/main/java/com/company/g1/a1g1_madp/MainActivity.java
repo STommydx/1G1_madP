@@ -25,9 +25,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void startGame(View view) {
-		Intent intent = new Intent(this, StageActivity.class);
-		intent.putExtra("STAGE_NUMBER", 1);
-		intent.putExtra("STAGE_STATE", StageActivity.STAGE_NEW);
+		Intent intent = new Intent(this, RegistrationActivity.class);
 		startActivity(intent);
 	}
 
