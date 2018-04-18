@@ -62,7 +62,7 @@ public class Game {
 		layoutHeight = height;
 		layoutWidth = width;
 
-		entityRegister = new EntityRegister();
+		entityRegister = new EntityRegister(this);
 		bulletSystem = new BulletSystem(entityRegister);
 
 		spawnSystem = new SpawnSystem(this);
@@ -180,6 +180,10 @@ public class Game {
 
 	public int getMoney() {
 		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
 	}
 
 	public int getRemainMilliseconds() {

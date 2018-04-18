@@ -13,8 +13,10 @@ public class EntityRegister {
 	private List<Bullet> bulletList;
 	private List<Tower> towerList;
 	private Spaceship spaceship;
+	private Game context;
 
-	EntityRegister() {
+	EntityRegister(Game context) {
+		this.context = context;
 		entityList = new CopyOnWriteArrayList<>();
 		enemyList = new CopyOnWriteArrayList<>();
 		bulletList = new CopyOnWriteArrayList<>();
@@ -36,7 +38,10 @@ public class EntityRegister {
 	public void registerEnemy(Enemy enemyEntity) {
 		registerMovableEntity(enemyEntity);
 		enemyList.add(enemyEntity);
-		enemyEntity.addOnRemoveListener(() -> enemyList.remove(enemyEntity));
+		enemyEntity.addOnRemoveListener(() -> {
+			context.setMoney(context.getMoney() + enemyEntity.getScore());
+			enemyList.remove(enemyEntity);
+		});
 	}
 
 	public void registerBullet(Bullet bulletEntity) {
