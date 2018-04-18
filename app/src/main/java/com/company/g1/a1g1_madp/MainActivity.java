@@ -14,7 +14,10 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void startGame(View view) {
-		startActivity(new Intent(this, GameActivity.class));
+		Intent intent = new Intent(this, StageActivity.class);
+		intent.putExtra("STAGE_NUMBER", 1);
+		intent.putExtra("STAGE_STATE", StageActivity.STAGE_NEW);
+		startActivity(intent);
 	}
 
 	public void story(View view) {
