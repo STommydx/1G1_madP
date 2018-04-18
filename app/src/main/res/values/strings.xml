@@ -25,4 +25,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="stage_name">Stage: %d</string>
+    <string name="stage_again">Try Again</string>
+    <string name="stage_new">Start!</string>
+    <string name="stage_next">Next Stage</string>
+    <string name="stage_score">Score: %d</string>
+    <string name="stage_welcome">Welcome!</string>
 </resources>

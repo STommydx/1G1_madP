@@ -18,12 +18,14 @@ public class Game {
 	private Handler handler = new Handler();
 	private final int tick = 15;
 	private int money = 1000;
+	private int stage;
 
 	private SpawnSystem spawnSystem;
 	private BulletSystem bulletSystem;
 	private EntityRegister entityRegister;
 
 	private ArrayList<Runnable> resumeCallback, pauseCallback;
+	private ArrayList<GameStopListener> stopCallback;
 
 	private int layoutWidth, layoutHeight;
 
@@ -39,7 +41,10 @@ public class Game {
 		}
 	};
 
-	public Game(int height, int width) {
+	public Game(int height, int width, int stage) {
+
+		this.stage = stage;
+
 		running = false;
 		layoutHeight = height;
 		layoutWidth = width;
@@ -52,6 +57,7 @@ public class Game {
 
 		resumeCallback = new ArrayList<>();
 		pauseCallback = new ArrayList<>();
+		stopCallback = new ArrayList<>();
 
 	}
 
@@ -78,6 +84,8 @@ public class Game {
 		Tower second = new Tower(layoutWidth / 3 * 2, layoutHeight / 3 * 2, 150, 150);
 		entityRegister.registerTower(second);
 		bulletSystem.registerFire(second, new BulletSystem.FireProperty(30, 5));
+
+		// resume();
 	}
 
 	public void resume() {
@@ -105,6 +113,16 @@ public class Game {
 
 	public void addOnPauseListener(Runnable listener) {
 		pauseCallback.add(listener);
+	}
+
+	public void stop() {
+		pause();
+		Result result = new Result(money, true);
+		for (GameStopListener r : stopCallback) r.onStop(result);
+	}
+
+	public void addOnStopListener(GameStopListener listener) {
+		stopCallback.add(listener);
 	}
 
 	public void updateDeviceAcceleration(float ax, float ay) {
@@ -145,4 +163,27 @@ public class Game {
 	public int getMoney() {
 		return money;
 	}
+
+	public interface GameStopListener {
+		void onStop(Result result);
+	}
+
+	public class Result {
+		private final int score;
+		private final boolean win;
+
+		public Result(int score, boolean win) {
+			this.score = score;
+			this.win = win;
+		}
+
+		public int getScore() {
+			return score;
+		}
+
+		public boolean isWin() {
+			return win;
+		}
+	}
+
 }
