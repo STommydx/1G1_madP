@@ -24,7 +24,8 @@ public class Game {
 	private BulletSystem bulletSystem;
 	private EntityRegister entityRegister;
 
-	private ArrayList<Runnable> resumeCallback, pauseCallback, stopCallback;
+	private ArrayList<Runnable> resumeCallback, pauseCallback;
+	private ArrayList<GameStopListener> stopCallback;
 
 	private int layoutWidth, layoutHeight;
 
@@ -116,10 +117,11 @@ public class Game {
 
 	public void stop() {
 		pause();
-		for (Runnable r : stopCallback) r.run();
+		Result result = new Result(money, true);
+		for (GameStopListener r : stopCallback) r.onStop(result);
 	}
 
-	public void addOnStopListener(Runnable listener) {
+	public void addOnStopListener(GameStopListener listener) {
 		stopCallback.add(listener);
 	}
 
@@ -161,4 +163,27 @@ public class Game {
 	public int getMoney() {
 		return money;
 	}
+
+	public interface GameStopListener {
+		void onStop(Result result);
+	}
+
+	public class Result {
+		private final int score;
+		private final boolean win;
+
+		public Result(int score, boolean win) {
+			this.score = score;
+			this.win = win;
+		}
+
+		public int getScore() {
+			return score;
+		}
+
+		public boolean isWin() {
+			return win;
+		}
+	}
+
 }

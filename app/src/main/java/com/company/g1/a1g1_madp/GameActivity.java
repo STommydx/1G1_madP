@@ -43,9 +43,11 @@ public class GameActivity extends AppCompatActivity {
 
 		game = new Game(dm.heightPixels, dm.widthPixels, stage);
 
-		game.addOnStopListener(() -> {
+		game.addOnStopListener((result) -> {
 			Intent nextIntent = new Intent(this, GameActivity.class);
-			nextIntent.putExtra("STAGE_NUMBER", stage + 1);
+			int newStage = stage;
+			if (result.isWin()) newStage++;
+			nextIntent.putExtra("STAGE_NUMBER", newStage);
 		});
 		game.start();
 
