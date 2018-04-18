@@ -21,6 +21,7 @@ public class Game {
 	private static final int TICK_TIME = 15;
 	private static final int STAGE_TIME = 5;
 	private static final int END_TICK = STAGE_TIME * 1000 / TICK_TIME;
+	private static final int WIN_CONDITION = 2000;
 
 	private int money = 1000;
 	private int ticks;
@@ -135,7 +136,10 @@ public class Game {
 	public void stop() {
 		Log.i("gamecycle", "stop()");
 		pause();
-		Result result = new Result(money, true);
+
+		boolean win = money >= WIN_CONDITION;
+		Result result = new Result(money, win);
+
 		for (GameStopListener r : stopCallback) r.onStop(result);
 	}
 
