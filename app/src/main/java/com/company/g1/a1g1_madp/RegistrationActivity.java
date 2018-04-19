@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import com.company.g1.a1g1_madp.utils.ImageUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +27,9 @@ public class RegistrationActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registration);
+
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.placeholder);
+		((ImageView) findViewById(R.id.imageView)).setImageBitmap(ImageUtils.normalize(bitmap));
 	}
 
 	public void startGame(View view) {
@@ -59,7 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
 		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 			Bitmap imageBitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
 			ImageView mImageView = findViewById(R.id.imageView);
-			mImageView.setImageBitmap(imageBitmap);
+			mImageView.setImageBitmap(ImageUtils.normalize(imageBitmap));
 		}
 	}
 
