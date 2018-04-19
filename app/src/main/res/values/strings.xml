@@ -33,4 +33,8 @@
     <string name="stage_welcome">Welcome!</string>
     <string name="time_remain">Time: %.2f</string>
     <string name="money_now">Money: $%d</string>
+    <string name="register_title">Register!</string>
+    <string name="your_name">Your Name</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="start_game">Start Game!</string>
 </resources>
