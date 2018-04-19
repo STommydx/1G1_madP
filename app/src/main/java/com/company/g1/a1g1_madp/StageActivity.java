@@ -17,6 +17,8 @@ public class StageActivity extends AppCompatActivity {
 	private int state;
 	private int score;
 
+	private String mCurrentPhotoPath;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,6 +28,7 @@ public class StageActivity extends AppCompatActivity {
 		stage = intent.getIntExtra("STAGE_NUMBER", 0);
 		state = intent.getIntExtra("STAGE_STATE", STAGE_NEW);
 		score = intent.getIntExtra("STAGE_SCORE", 0);
+		mCurrentPhotoPath = intent.getStringExtra("GAME_IMAGE");
 
 		Button nextButton = findViewById(R.id.button3);
 
@@ -48,6 +51,7 @@ public class StageActivity extends AppCompatActivity {
 	public void startGame(View view) {
 		Intent intent = new Intent(this, GameActivity.class);
 		intent.putExtra("STAGE_NUMBER", stage);
+		intent.putExtra("GAME_IMAGE", mCurrentPhotoPath);
 		startActivity(intent);
 		finish();
 	}

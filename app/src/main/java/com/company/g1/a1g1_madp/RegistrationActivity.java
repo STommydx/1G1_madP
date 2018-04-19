@@ -20,7 +20,7 @@ import java.util.Date;
 public class RegistrationActivity extends AppCompatActivity {
 
 	static final int REQUEST_IMAGE_CAPTURE = 1;
-	private String mCurrentPhotoPath;
+	private String mCurrentPhotoPath = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class RegistrationActivity extends AppCompatActivity {
 		Intent intent = new Intent(this, StageActivity.class);
 		intent.putExtra("STAGE_NUMBER", 1);
 		intent.putExtra("STAGE_STATE", StageActivity.STAGE_NEW);
+		intent.putExtra("GAME_IMAGE", mCurrentPhotoPath);
 		startActivity(intent);
 		finish();
 	}
