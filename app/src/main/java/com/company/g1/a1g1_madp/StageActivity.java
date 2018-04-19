@@ -1,10 +1,13 @@
 package com.company.g1.a1g1_madp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class StageActivity extends AppCompatActivity {
@@ -45,6 +48,16 @@ public class StageActivity extends AppCompatActivity {
 			scoreView.setText(getResources().getString(R.string.stage_welcome));
 		else
 			scoreView.setText(getResources().getString(R.string.stage_score, score));
+
+		Bitmap bitmap;
+
+		if (mCurrentPhotoPath != null)
+			bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
+		else
+			bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.placeholder);
+
+		ImageView imageView = findViewById(R.id.imageView2);
+		imageView.setImageBitmap(bitmap);
 
 	}
 
