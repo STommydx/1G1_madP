@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.company.g1.a1g1_madp.utils.ImageUtils;
 
 public class StageActivity extends AppCompatActivity {
 
@@ -56,8 +57,15 @@ public class StageActivity extends AppCompatActivity {
 		else
 			bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.placeholder);
 
+		bitmap = ImageUtils.normalize(bitmap);
+		bitmap = ImageUtils.scaleBitmap(bitmap, 300, 400);
+
+		Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.testframe);
+		background = ImageUtils.scaleBitmap(background, 589, 571);
+		Bitmap bitmapFinal = ImageUtils.keyBitmap(background, bitmap, 50, 50);
+
 		ImageView imageView = findViewById(R.id.imageView2);
-		imageView.setImageBitmap(bitmap);
+		imageView.setImageBitmap(bitmapFinal);
 
 	}
 
