@@ -4,14 +4,20 @@
     android:layout_width="match_parent" android:layout_height="match_parent" tools:context=".AboutUS">
 
     <TextView android:text="About Us" android:layout_width="wrap_content" android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="16dp" tools:layout_editor_absoluteX="16dp" android:id="@+id/textView4"
-        android:textSize="36sp" />
+        android:id="@+id/textView4" android:textSize="36sp" app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+        app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/logoview" app:layout_constraintVertical_bias="0.421"
+        app:layout_constraintHorizontal_bias="0.104" />
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        app:srcCompat="@drawable/madlogobackground" tools:layout_editor_absoluteY="84dp"
-        tools:layout_editor_absoluteX="0dp" android:id="@+id/imageView" />
-    <TextView
-        android:text="This game was a group project created for HKU SPACE Mobile Application Development course during 2017 - 2018 Semester 2, by the following members of CL-01 Group 1:"
-        android:layout_width="322dp" android:layout_height="120dp" tools:layout_editor_absoluteY="308dp"
-        tools:layout_editor_absoluteX="16dp" android:id="@+id/textView5" android:maxLines="20"
-        android:scrollbars="vertical" android:textSize="18sp" />
+        app:srcCompat="@drawable/madlogobackground" android:id="@+id/logoview"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/aboutustext"
+        app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="50dp" />
+    <TextView android:text="@string/about_us_content" android:layout_width="322dp" android:layout_height="250dp"
+        android:id="@+id/aboutustext" android:maxLines="20" android:scrollbars="vertical" android:textSize="18sp"
+        android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/logoview" />
 </android.support.constraint.ConstraintLayout>
