@@ -2,6 +2,7 @@ package com.company.g1.a1g1_madp;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.LinearLayout;
 public class MainActivity extends AppCompatActivity {
 	LinearLayout l1,l2;
 	Animation uptodown,downtoup;
+
+	private MediaPlayer mediaPlayer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,29 @@ public class MainActivity extends AppCompatActivity {
 		downtoup = AnimationUtils.loadAnimation(this,R.anim.downtoup);
 		l1.setAnimation(uptodown);
 		l2.setAnimation(downtoup);
+
+		mediaPlayer = MediaPlayer.create(this, R.raw.sandstorm);
+		if (mediaPlayer != null) {
+			mediaPlayer.setLooping(true);
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		mediaPlayer.pause();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mediaPlayer.start();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		mediaPlayer.release();
 	}
 
 	public void startGame(View view) {
