@@ -64,6 +64,8 @@ public class RegistrationActivity extends AppCompatActivity {
 			Bitmap imageBitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
 			ImageView mImageView = findViewById(R.id.imageView);
 			mImageView.setImageBitmap(ImageUtils.normalize(imageBitmap));
+		} else {
+			mCurrentPhotoPath = null;
 		}
 	}
 
