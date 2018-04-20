@@ -1,6 +1,7 @@
 package com.company.g1.a1g1_madp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		LinearLayout lin = (LinearLayout) findViewById(R.id.l0);
+		lin.setBackgroundColor(Color.parseColor("#FFA000"));
 		l1 = (LinearLayout) findViewById(R.id.l1);
 		l2 = (LinearLayout) findViewById(R.id.l2);
 		uptodown = AnimationUtils.loadAnimation(this,R.anim.uptodown);
@@ -33,5 +36,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void startAboutUs(View view) {
+		Intent intent = new Intent(this, AboutUS.class);
+		startActivity(intent);
 	}
 }
