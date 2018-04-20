@@ -6,8 +6,8 @@ public class BouncyBullet extends Bullet {
 
 	private int bouncedCount = 0;
 
-	BouncyBullet(float x, float y, float height, float width, float speed, float theta) {
-		super(x, y, height, width, speed, theta);
+	BouncyBullet(float x, float y, float height, float width, float speed, float theta, EntityType entityType) {
+		super(x, y, height, width, speed, theta, entityType);
 		addOutOfBoundListener(bounds -> {
 			if (bouncedCount == 1)
 				removeSelf();

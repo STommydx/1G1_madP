@@ -2,6 +2,7 @@ package com.company.g1.a1g1_madp.game;
 
 import android.os.Handler;
 import android.util.Log;
+import com.company.g1.a1g1_madp.game.entity.Entity;
 import com.company.g1.a1g1_madp.game.entity.MovableObject;
 import com.company.g1.a1g1_madp.game.entity.Spaceship;
 import com.company.g1.a1g1_madp.game.entity.Tower;
@@ -19,7 +20,7 @@ public class Game {
 	private Handler handler = new Handler();
 
 	private static final int TICK_TIME = 15;
-	private static final int STAGE_TIME = 5;
+	private static final int STAGE_TIME = 30;
 	private static final int END_TICK = STAGE_TIME * 1000 / TICK_TIME;
 	private static final int WIN_CONDITION = 2000;
 
@@ -88,7 +89,7 @@ public class Game {
 				spaceship.setY(layoutHeight - spaceship.getHeight());
 		});
 		entityRegister.registerSpaceship(spaceship);
-		bulletSystem.registerFire(spaceship, new BulletSystem.FireProperty());
+		bulletSystem.registerFire(spaceship, new BulletSystem.FireProperty(40, 20, 20, Entity.EntityType.CHINESE));
 
 		// Add two random towers for testing
 		Tower first = new Tower(layoutWidth / 3, layoutHeight / 3, 150, 150);
