@@ -2,6 +2,7 @@ package com.company.g1.a1g1_madp.game;
 
 import android.os.Handler;
 import com.company.g1.a1g1_madp.game.entity.Bullet;
+import com.company.g1.a1g1_madp.game.entity.Entity;
 import com.company.g1.a1g1_madp.game.entity.MovableObject;
 
 import java.util.Collections;
@@ -34,7 +35,7 @@ public class BulletSystem {
 						+ (spaceship.getRadius() + BULLET_OFFSET) * Math.sin(Math.toRadians(spaceship.getTheta())));
 				float bulletY = (float) (shipCenterY - property.getSize() / 2
 						+ (spaceship.getRadius() + BULLET_OFFSET) * -Math.cos(Math.toRadians(spaceship.getTheta())));
-				Bullet mBullet = new Bullet(bulletX, bulletY, property.getSize(), property.getSize(), property.getSpeed(), spaceship.getTheta());
+				Bullet mBullet = new Bullet(bulletX, bulletY, property.getSize(), property.getSize(), property.getSpeed(), spaceship.getTheta(), property.getBulletType());
 				entityRegister.registerBullet(mBullet);
 
 			}
@@ -74,11 +75,17 @@ public class BulletSystem {
 		private int size;
 		private int speed;
 		private int rate;
+		private Entity.EntityType bulletType;
 
-		public FireProperty(int size, int speed, int rate) {
+		public FireProperty(int size, int speed, int rate, Entity.EntityType bulletType) {
 			this.size = size;
 			this.speed = speed;
 			this.rate = rate;
+			this.bulletType = bulletType;
+		}
+
+		public FireProperty(int size, int speed, int rate) {
+			this(size, speed, rate, Entity.EntityType.getRandomType());
 		}
 
 		public FireProperty(int size, int speed) {
@@ -115,6 +122,14 @@ public class BulletSystem {
 
 		public void setSpeed(int speed) {
 			this.speed = speed;
+		}
+
+		public Entity.EntityType getBulletType() {
+			return bulletType;
+		}
+
+		public void setBulletType(Entity.EntityType bulletType) {
+			this.bulletType = bulletType;
 		}
 	}
 
