@@ -12,6 +12,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import com.company.g1.a1g1_madp.game.Game;
 import com.company.g1.a1g1_madp.game.entity.*;
+import com.company.g1.a1g1_madp.utils.TextDrawable;
 
 public class GameView extends SurfaceView implements Runnable {
 
@@ -109,7 +110,17 @@ public class GameView extends SurfaceView implements Runnable {
 	}
 
 	private void drawEntity(GameObject obj) {
-		drawEntity(obj, getResourceID(obj));
+		if (obj instanceof Bullet) {
+			Entity.EntityType type = ((Bullet) obj).getEntityType();
+			if (type == Entity.EntityType.CHINESE)
+				drawEntity(obj, new TextDrawable("C"));
+			else if (type == Entity.EntityType.ENGLISH)
+				drawEntity(obj, new TextDrawable("E"));
+			else
+				drawEntity(obj, getResourceID(obj));
+		} else {
+			drawEntity(obj, getResourceID(obj));
+		}
 	}
 
 	private int getResourceID(GameObject obj) {

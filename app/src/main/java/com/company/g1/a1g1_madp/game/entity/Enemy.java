@@ -1,6 +1,6 @@
 package com.company.g1.a1g1_madp.game.entity;
 
-public class Enemy extends MovableObject {
+public class Enemy extends Entity {
 
 	private final static float ENEMY_SPEED = 10;
 	private final static float ENEMY_HEIGHT = 100;
@@ -13,7 +13,15 @@ public class Enemy extends MovableObject {
 		super(x, y, ENEMY_HEIGHT, ENEMY_WIDTH, ENEMY_SPEED, 180f); // Moving downwards
 		this.score = score;
 		addOutOfBoundListener(bounds -> removeSelf());
-		addOnHitListener(source -> removeSelf());
+		addOnHitListener(source -> {
+			if (source instanceof Bullet) {
+				if (((Bullet) source).getEntityType() == getEntityType()) {
+					removeSelf();
+				}
+			} else if (source instanceof Spaceship) {
+				removeSelf();
+			}
+		});
 	}
 
 	public Enemy(float x, float y) {
