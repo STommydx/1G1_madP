@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
+import android.widget.SeekBar;
 import com.company.g1.a1g1_madp.game.Game;
 
 public class GameUI {
@@ -26,7 +27,7 @@ public class GameUI {
 	private boolean isImmersive = false;
 	private boolean isPaused = false;
 
-	GameUI(Context _context, Game game) {
+	GameUI(GameActivity _context, Game game) {
 		this.context = (Activity) _context;
 		this.game = game;
 
@@ -42,6 +43,25 @@ public class GameUI {
 		option2 = pauseLayout.findViewById(R.id.option2);
 		option2.setOnClickListener(view -> game.updateFireRate(25));
 		pauseWindow.setContentView(pauseLayout);
+
+		((SeekBar) pauseLayout.findViewById(R.id.seekBarMusic)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+				int max = seekBar.getMax();
+				float normalized = 1.0f * i / max;
+				_context.setMusicVolume(normalized);
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+
+			}
+		});
 
 		setImmersiveUi(true);
 	}

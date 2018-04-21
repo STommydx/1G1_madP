@@ -96,4 +96,9 @@ public class GameActivity extends AppCompatActivity {
 		sensorManager.unregisterListener(sensorEventListener);
 		if (bgmPlayer != null) bgmPlayer.pause();
 	}
+
+	public void setMusicVolume(float volume) {
+		if (bgmPlayer != null) bgmPlayer.setVolume(volume, volume);
+	}
+
 }
