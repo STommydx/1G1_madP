@@ -10,11 +10,12 @@
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
         app:srcCompat="@drawable/madlogobackground" android:id="@+id/logoview" app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" android:layout_marginBottom="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/aboutustext" />
-    <TextView android:text="@string/about_us_content" android:layout_width="0dp" android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/aboutustext" app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp" />
+    <TextView android:text="@string/about_us_content" android:layout_width="311dp" android:layout_height="221dp"
         android:id="@+id/aboutustext" android:maxLines="20" android:scrollbars="vertical" android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@+id/logoview" android:layout_marginBottom="40dp"
         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" android:layout_marginStart="44dp"
-        android:layout_marginEnd="44dp" />
+        android:layout_marginEnd="44dp" app:layout_constraintHorizontal_bias="0.509" />
 </android.support.constraint.ConstraintLayout>
