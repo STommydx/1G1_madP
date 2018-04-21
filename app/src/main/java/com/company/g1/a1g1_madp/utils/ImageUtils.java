@@ -20,7 +20,7 @@ public class ImageUtils {
 	}
 
 	public static Bitmap scaleBitmap(Bitmap bitmap, int width, int height) {
-		return Bitmap.createScaledBitmap(bitmap, width, height, false);
+		return Bitmap.createScaledBitmap(bitmap, width, height, true);
 	}
 
 	public static Bitmap keyBitmap(Bitmap background, Bitmap foreground, int x, int y) {
