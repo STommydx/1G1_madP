@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import com.company.g1.a1g1_madp.game.Game;
 
@@ -99,6 +100,15 @@ public class GameActivity extends AppCompatActivity {
 
 	public void setMusicVolume(float volume) {
 		if (bgmPlayer != null) bgmPlayer.setVolume(volume, volume);
+	}
+
+	public void playSound(int id) {
+		MediaPlayer soundPlayer = MediaPlayer.create(this, id);
+		soundPlayer.setOnCompletionListener(MediaPlayer::release);
+		SeekBar seekBar = findViewById(R.id.seekBarVolume);
+		float normalized = 1.0f * seekBar.getProgress() / seekBar.getMax();
+		soundPlayer.setVolume(normalized, normalized);
+		soundPlayer.start();
 	}
 
 }
