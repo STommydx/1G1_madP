@@ -6,6 +6,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,8 @@ public class GameActivity extends AppCompatActivity {
 			game.updateDeviceAcceleration(-event.values[0], event.values[1] - PITCH_OFFSET);
 		}
 	};
+
+	private MediaPlayer bgmPlayer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,9 @@ public class GameActivity extends AppCompatActivity {
 			accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		else
 			sensorManager = null;
+
+		bgmPlayer = MediaPlayer.create(this, R.raw.bgm);
+		bgmPlayer.setLooping(true);
 	}
 
 	@Override
@@ -80,6 +86,7 @@ public class GameActivity extends AppCompatActivity {
 		game.resume();
 		sensorManager.registerListener(
 				sensorEventListener, accelerometer, SensorManager.SENSOR_DELAY_GAME);
+		if (bgmPlayer != null) bgmPlayer.start();
 	}
 
 	@Override
@@ -87,5 +94,6 @@ public class GameActivity extends AppCompatActivity {
 		super.onPause();
 		game.pause();
 		sensorManager.unregisterListener(sensorEventListener);
+		if (bgmPlayer != null) bgmPlayer.pause();
 	}
 }
