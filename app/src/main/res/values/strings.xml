@@ -37,4 +37,6 @@
     <string name="your_name">Your Name</string>
     <string name="add_photo">Add Photo</string>
     <string name="start_game">Start Game!</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="restart_game">Restart Game</string>
 </resources>

@@ -2,6 +2,7 @@ package com.company.g1.a1g1_madp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.view.Gravity;
 import android.view.View;
@@ -39,9 +40,13 @@ public class GameUI {
 		// Popup stuff
 		pauseLayout = (ConstraintLayout) context.getLayoutInflater().inflate(R.layout.popup_pause, null);
 		option1 = pauseLayout.findViewById(R.id.option1);
-		option1.setOnClickListener(view -> game.updateFireRate(5));
+		option1.setOnClickListener(view -> _context.finish());
 		option2 = pauseLayout.findViewById(R.id.option2);
-		option2.setOnClickListener(view -> game.updateFireRate(25));
+		option2.setOnClickListener(view -> {
+			Intent intent = new Intent(_context, RegistrationActivity.class);
+			_context.startActivity(intent);
+			_context.finish();
+		});
 		pauseWindow.setContentView(pauseLayout);
 
 		((SeekBar) pauseLayout.findViewById(R.id.seekBarMusic)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
