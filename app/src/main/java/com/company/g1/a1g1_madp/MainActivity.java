@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 	Animation uptodown,downtoup;
 
 	private MediaPlayer mediaPlayer;
+	private boolean playing;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +35,39 @@ public class MainActivity extends AppCompatActivity {
 		if (mediaPlayer != null) {
 			mediaPlayer.setLooping(true);
 		}
+
+		playing = true;
+
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		mediaPlayer.pause();
+		if (mediaPlayer != null) mediaPlayer.pause();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		mediaPlayer.start();
+		if (mediaPlayer != null) mediaPlayer.start();
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		mediaPlayer.release();
+		if (mediaPlayer != null) mediaPlayer.release();
+	}
+
+	public void toggleMusic(View view) {
+		if (playing) {
+			if (mediaPlayer != null) mediaPlayer.pause();
+			((ImageButton) view).setImageResource(R.drawable.ic_volume_off_black_24dp);
+			playing = false;
+		} else {
+			if (mediaPlayer != null) mediaPlayer.start();
+			((ImageButton) view).setImageResource(R.drawable.ic_volume_up_black_24dp);
+			playing = true;
+		}
 	}
 
 	public void startGame(View view) {
