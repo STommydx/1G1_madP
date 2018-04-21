@@ -8,11 +8,22 @@
                                              android:background="@color/colorBackground"
                                              tools:context=".GameActivity">
 
-    <android.support.constraint.ConstraintLayout android:id="@+id/gameLayout" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></android.support.constraint.ConstraintLayout>
-    <TextView android:text="@string/stage_name" android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:id="@+id/textView2" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp" android:textSize="18sp" />
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/gameLayout" android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </android.support.constraint.ConstraintLayout>
+    <TextView android:text="@string/stage_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp" />
 
     <ImageButton
             android:id="@+id/pauseButton"
@@ -23,5 +34,12 @@
             android:background="@drawable/ic_settings_black_24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+    <include
+        android:id="@+id/includedLayout"
+        layout="@layout/bottom_sheet"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
