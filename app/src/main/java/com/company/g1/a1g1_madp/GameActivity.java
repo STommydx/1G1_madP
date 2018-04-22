@@ -8,10 +8,14 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.widget.SeekBar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.company.g1.a1g1_madp.game.Game;
 import com.company.g1.a1g1_madp.game.SoundSystem;
@@ -24,6 +28,8 @@ public class GameActivity extends AppCompatActivity {
 	final int PITCH_OFFSET = 5;   // Accelerometer Y-axis offset
 	SensorManager sensorManager;
 	Sensor accelerometer;
+	BottomSheetBehavior mBottomSheetBehavior;
+
 	SensorEventListener sensorEventListener = new SensorEventListener() {
 		@Override
 		public final void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -36,6 +42,7 @@ public class GameActivity extends AppCompatActivity {
 	};
 
 	private MediaPlayer bgmPlayer;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +57,32 @@ public class GameActivity extends AppCompatActivity {
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getRealMetrics(dm);
 
-		game = new Game(dm.heightPixels, dm.widthPixels, stage);
+		View bottomSheet = findViewById(R.id.bottom_sheet);
+		mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+		mBottomSheetBehavior.setPeekHeight(dm.heightPixels*2/20);
+		mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+			@Override
+			public void onStateChanged(@NonNull View bottomSheet, int newState) {
+				if(newState == BottomSheetBehavior.STATE_EXPANDED||newState == BottomSheetBehavior.STATE_DRAGGING||newState == BottomSheetBehavior.STATE_SETTLING){
+					game.pause();
+				}
+				else{
+					game.resume();
+				}
+			}
+
+			@Override
+			public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+			}
+		});
+		Button shootfaster = findViewById(R.id.option3);
+		shootfaster.setOnClickListener(view -> game.updateFireRate(5));
+
+		Button shootslower = findViewById(R.id.option4);
+		shootslower.setOnClickListener(view -> game.updateFireRate(25));
+
+		game = new Game(dm.heightPixels*18/20, dm.widthPixels, stage);
 
 		game.getSoundSystem().setPlaySoundListener(this::playSound);
 
@@ -126,5 +158,7 @@ public class GameActivity extends AppCompatActivity {
 		soundPlayer.setVolume(normalized, normalized);
 		soundPlayer.start();
 	}
+
+
 
 }

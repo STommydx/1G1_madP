@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,6 @@ public class GameUI {
 	private PopupWindow pauseWindow;
 	private Button option1;
 	private Button option2;
-
 	// UI state
 	private boolean isImmersive = false;
 	private boolean isPaused = false;
