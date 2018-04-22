@@ -42,6 +42,7 @@ public class GameView extends SurfaceView implements Runnable {
 		backgroundPaint.setColor(getResources().getColor(R.color.colorBackground));
 		moneyPaint.setColor(getResources().getColor(R.color.colorUIText));
 		moneyPaint.setTextSize(50);
+		moneyPaint.setAntiAlias(true);
 	}
 
 	public void resume() {
