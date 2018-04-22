@@ -69,6 +69,7 @@ public class GameUI {
 		});
 
 		setImmersiveUi(true);
+		uiLayout.setOnClickListener(v -> setImmersiveUi(true));
 	}
 
 	private void setImmersiveUi(boolean immersive) {

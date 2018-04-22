@@ -43,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
 
 	private MediaPlayer bgmPlayer;
 
+	private static final int BOTTOM_SHEET_HEIGHT = 48;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,17 +58,19 @@ public class GameActivity extends AppCompatActivity {
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getRealMetrics(dm);
 
+		int scaledHeight = (int) (BOTTOM_SHEET_HEIGHT * dm.density);
+
 		View bottomSheet = findViewById(R.id.bottom_sheet);
 		mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-		mBottomSheetBehavior.setPeekHeight(dm.heightPixels*2/20);
+		mBottomSheetBehavior.setPeekHeight(scaledHeight);
 		mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
 			@Override
 			public void onStateChanged(@NonNull View bottomSheet, int newState) {
 				if(newState == BottomSheetBehavior.STATE_EXPANDED||newState == BottomSheetBehavior.STATE_DRAGGING||newState == BottomSheetBehavior.STATE_SETTLING){
-					game.pause();
+					// game.pause();
 				}
 				else{
-					game.resume();
+					// game.resume();
 				}
 			}
 
@@ -82,7 +85,7 @@ public class GameActivity extends AppCompatActivity {
 		Button shootslower = findViewById(R.id.option4);
 		shootslower.setOnClickListener(view -> game.updateFireRate(25));
 
-		game = new Game(dm.heightPixels*18/20, dm.widthPixels, stage);
+		game = new Game(dm.heightPixels - scaledHeight, dm.widthPixels, stage);
 
 		game.getSoundSystem().setPlaySoundListener(this::playSound);
 
