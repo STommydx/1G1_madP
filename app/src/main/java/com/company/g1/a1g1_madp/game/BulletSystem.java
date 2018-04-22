@@ -4,6 +4,7 @@ import android.os.Handler;
 import com.company.g1.a1g1_madp.game.entity.Bullet;
 import com.company.g1.a1g1_madp.game.entity.Entity;
 import com.company.g1.a1g1_madp.game.entity.MovableObject;
+import com.company.g1.a1g1_madp.game.entity.Spaceship;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ public class BulletSystem {
 	private static final int FIRE_RATE = 10; // fire rate
 	private static final float BULLET_OFFSET = 10;     // How far is the bullet spawned from the ship
 
+	private Game context;
 	private EntityRegister entityRegister;
 	private Map<MovableObject, FireProperty> fireList;
 	private long now = 0;
@@ -38,6 +40,8 @@ public class BulletSystem {
 				Bullet mBullet = new Bullet(bulletX, bulletY, property.getSize(), property.getSize(), property.getSpeed(), spaceship.getTheta(), property.getBulletType());
 				entityRegister.registerBullet(mBullet);
 
+				if (spaceship instanceof Spaceship)
+					context.getSoundSystem().firePlaySound(SoundSystem.SoundType.fireBullet);
 			}
 
 			now++;
@@ -45,8 +49,9 @@ public class BulletSystem {
 		}
 	};
 
-	BulletSystem(EntityRegister register) {
-		entityRegister = register;
+	BulletSystem(Game context) {
+		this.context = context;
+		entityRegister = context.getEntityRegister();
 		fireList = Collections.synchronizedMap(new HashMap<>());
 	}
 

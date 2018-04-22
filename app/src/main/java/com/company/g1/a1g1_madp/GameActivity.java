@@ -14,9 +14,13 @@ import android.util.DisplayMetrics;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.company.g1.a1g1_madp.game.Game;
+import com.company.g1.a1g1_madp.game.SoundSystem;
+
+import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 	private Game game;
+	private GameUI gameUI;
 	final int PITCH_OFFSET = 5;   // Accelerometer Y-axis offset
 	SensorManager sensorManager;
 	Sensor accelerometer;
@@ -48,6 +52,8 @@ public class GameActivity extends AppCompatActivity {
 
 		game = new Game(dm.heightPixels, dm.widthPixels, stage);
 
+		game.getSoundSystem().setPlaySoundListener(this::playSound);
+
 		game.addOnStopListener((result) -> {
 			Intent nextIntent = new Intent(this, StageActivity.class);
 			int newStage = stage;
@@ -69,7 +75,7 @@ public class GameActivity extends AppCompatActivity {
 		((ConstraintLayout) findViewById(R.id.gameLayout)).addView(gameView);
 		gameView.setOnTouchListener(new GameHandler(game));
 
-		new GameUI(this, game);
+		gameUI = new GameUI(this, game);
 
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null)
@@ -102,10 +108,20 @@ public class GameActivity extends AppCompatActivity {
 		if (bgmPlayer != null) bgmPlayer.setVolume(volume, volume);
 	}
 
+	public void playSound(SoundSystem.SoundType soundType) {
+		Random random = new Random();
+		switch (soundType) {
+			case fireBullet:
+				int[] soundList = {R.raw.keyboard_key, R.raw.keyboard_key2};
+				playSound(soundList[random.nextInt(soundList.length)]);
+				break;
+		}
+	}
+
 	public void playSound(int id) {
 		MediaPlayer soundPlayer = MediaPlayer.create(this, id);
 		soundPlayer.setOnCompletionListener(MediaPlayer::release);
-		SeekBar seekBar = findViewById(R.id.seekBarVolume);
+		SeekBar seekBar = gameUI.getPauseLayout().findViewById(R.id.seekBarVolume);
 		float normalized = 1.0f * seekBar.getProgress() / seekBar.getMax();
 		soundPlayer.setVolume(normalized, normalized);
 		soundPlayer.start();

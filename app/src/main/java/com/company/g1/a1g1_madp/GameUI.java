@@ -114,4 +114,8 @@ public class GameUI {
 			pauseWindow.dismiss();
 		}
 	}
+
+	public ConstraintLayout getPauseLayout() {
+		return pauseLayout;
+	}
 }

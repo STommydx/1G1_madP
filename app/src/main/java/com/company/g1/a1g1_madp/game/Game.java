@@ -30,6 +30,7 @@ public class Game {
 
 	private SpawnSystem spawnSystem;
 	private BulletSystem bulletSystem;
+	private SoundSystem soundSystem;
 	private EntityRegister entityRegister;
 
 	private ArrayList<Runnable> resumeCallback, pauseCallback;
@@ -65,10 +66,11 @@ public class Game {
 		layoutWidth = width;
 
 		entityRegister = new EntityRegister(this);
-		bulletSystem = new BulletSystem(entityRegister);
+		bulletSystem = new BulletSystem(this);
 
 		spawnSystem = new SpawnSystem(this);
 		collisionSystem = new CollisionSystem(this);
+		soundSystem = new SoundSystem(this);
 
 		resumeCallback = new ArrayList<>();
 		pauseCallback = new ArrayList<>();
@@ -193,6 +195,10 @@ public class Game {
 
 	public int getRemainMilliseconds() {
 		return (END_TICK - ticks) * TICK_TIME;
+	}
+
+	public SoundSystem getSoundSystem() {
+		return soundSystem;
 	}
 
 	public interface GameStopListener {
