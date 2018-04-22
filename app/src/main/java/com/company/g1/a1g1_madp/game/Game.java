@@ -201,6 +201,10 @@ public class Game {
 		return soundSystem;
 	}
 
+	public void setFireType(Entity.EntityType type) {
+		bulletSystem.registerFire(spaceship, new BulletSystem.FireProperty(40, 20, 20, type));
+	}
+
 	public interface GameStopListener {
 		void onStop(Result result);
 	}

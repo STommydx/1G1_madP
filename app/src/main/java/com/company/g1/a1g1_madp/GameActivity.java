@@ -1,5 +1,7 @@
 package com.company.g1.a1g1_madp;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -13,12 +15,14 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.company.g1.a1g1_madp.game.Game;
 import com.company.g1.a1g1_madp.game.SoundSystem;
+import com.company.g1.a1g1_madp.game.entity.Entity;
 
 import java.util.Random;
 
@@ -42,6 +46,7 @@ public class GameActivity extends AppCompatActivity {
 	};
 
 	private MediaPlayer bgmPlayer;
+	private AnimatorSet animatorSet;
 
 	private static final int BOTTOM_SHEET_HEIGHT = 48;
 
@@ -120,6 +125,12 @@ public class GameActivity extends AppCompatActivity {
 
 		bgmPlayer = MediaPlayer.create(this, R.raw.bgm);
 		bgmPlayer.setLooping(true);
+
+		LinearLayout switchLayout = findViewById(R.id.switchLayout);
+		animatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.switchuifade);
+		animatorSet.setTarget(switchLayout);
+
+		switchLayout.setOnClickListener(v -> animatorSet.start());
 	}
 
 	@Override
@@ -162,6 +173,19 @@ public class GameActivity extends AppCompatActivity {
 		soundPlayer.start();
 	}
 
+	public void setChinese(View view) {
+		game.setFireType(Entity.EntityType.CHINESE);
+		animatorSet.start();
+	}
 
+	public void setEnglish(View view) {
+		game.setFireType(Entity.EntityType.ENGLISH);
+		animatorSet.start();
+	}
+
+	public void setMaths(View view) {
+		game.setFireType(Entity.EntityType.MATHS);
+		animatorSet.start();
+	}
 
 }

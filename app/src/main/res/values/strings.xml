@@ -39,4 +39,7 @@
     <string name="start_game">Start Game!</string>
     <string name="main_menu">Main Menu</string>
     <string name="restart_game">Restart Game</string>
+    <string name="chinese_text">之乎者也</string>
+    <string name="text_english">AbCXyZ</string>
+    <string name="text_math">1+1-1*1</string>
 </resources>

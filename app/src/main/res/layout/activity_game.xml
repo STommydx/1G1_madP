@@ -34,6 +34,22 @@
             android:background="@drawable/ic_settings_black_24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout android:orientation="vertical" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/pauseButton"
+        app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp" android:alpha="0.4" android:id="@+id/switchLayout"
+        android:padding="8dp" android:background="@color/switchBackground">
+        <Button android:text="@string/chinese_text" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/chineseButton" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pauseButton"
+            android:onClick="setChinese" android:layout_marginBottom="8dp" />
+        <Button android:text="@string/text_english" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/englishButton" app:layout_constraintTop_toBottomOf="@+id/chineseButton"
+            app:layout_constraintEnd_toEndOf="parent" android:textAllCaps="false" android:onClick="setEnglish"
+            android:layout_marginBottom="8dp" />
+        <Button android:text="@string/text_math" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/mathsButton" app:layout_constraintTop_toBottomOf="@+id/englishButton"
+            app:layout_constraintEnd_toEndOf="parent" android:onClick="setMaths" />
+    </LinearLayout>
     <include
         android:id="@+id/includedLayout"
         layout="@layout/bottom_sheet"
