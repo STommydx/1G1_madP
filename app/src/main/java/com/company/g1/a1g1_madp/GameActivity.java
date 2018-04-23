@@ -90,11 +90,20 @@ public class GameActivity extends AppCompatActivity {
 		buyTower.setOnClickListener(view -> game.getShopSystem().buyItem(ShopSystem.ShopItem.ADD_TOWER));
 		buyTower.setText(getResources().getString(R.string.shop_money, ShopSystem.ShopItem.ADD_TOWER.getMoney()));
 
+		Button buyRate = findViewById(R.id.button7);
+		buyRate.setOnClickListener(view -> game.getShopSystem().buyItem(ShopSystem.ShopItem.UPGRADE_RATE));
+		buyRate.setText(getResources().getString(R.string.shop_money, ShopSystem.ShopItem.UPGRADE_RATE.getMoney()));
+
+		Button buySize = findViewById(R.id.button9);
+		buySize.setOnClickListener(view -> game.getShopSystem().buyItem(ShopSystem.ShopItem.UPGRADE_SIZE));
+		buySize.setText(getResources().getString(R.string.shop_money, ShopSystem.ShopItem.UPGRADE_SIZE.getMoney()));
+
 		Button shootfaster = findViewById(R.id.option3);
-		shootfaster.setOnClickListener(view -> game.updateFireRate(5));
+		shootfaster.setOnClickListener(view -> game.getShopSystem().buyItem(ShopSystem.ShopItem.UPGRADE_SPEED));
+		shootfaster.setText(getResources().getString(R.string.shop_money, ShopSystem.ShopItem.UPGRADE_SPEED.getMoney()));
 
 		Button shootslower = findViewById(R.id.option4);
-		shootslower.setOnClickListener(view -> game.updateFireRate(25));
+		// shootslower.setOnClickListener(view -> game.updateFireRate(25));
 
 		game = new Game(dm.heightPixels - scaledHeight, dm.widthPixels, stage);
 

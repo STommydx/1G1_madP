@@ -179,10 +179,6 @@ public class Game {
 		return entityRegister;
 	}
 
-	public void updateFireRate(int rate) {
-		bulletSystem.getFireProperty(spaceship).setRate(rate);
-	}
-
 	public int getLayoutHeight() {
 		return layoutHeight;
 	}
@@ -213,7 +209,23 @@ public class Game {
 	}
 
 	public void setFireType(Entity.EntityType type) {
-		bulletSystem.registerFire(spaceship, new BulletSystem.FireProperty(40, 20, 20, type));
+		bulletSystem.getFireProperty(spaceship).setBulletType(type);
+	}
+
+	public void upgradeBulletRate() {
+		BulletSystem.FireProperty fireProperty = bulletSystem.getFireProperty(spaceship);
+		if (fireProperty.getRate() > 1)
+			fireProperty.setRate(fireProperty.getRate() * 2 / 3);
+	}
+
+	public void upgradeBulletSize() {
+		BulletSystem.FireProperty fireProperty = bulletSystem.getFireProperty(spaceship);
+		fireProperty.setSize(fireProperty.getSize() * 3 / 2);
+	}
+
+	public void upgradeBulletSpeed() {
+		BulletSystem.FireProperty fireProperty = bulletSystem.getFireProperty(spaceship);
+		fireProperty.setSpeed(fireProperty.getSpeed() * 3 / 2);
 	}
 
 	public interface GameStopListener {

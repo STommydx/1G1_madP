@@ -34,12 +34,24 @@ public class ShopSystem {
 				case ADD_TOWER:
 					context.genNewTower();
 					break;
+				case UPGRADE_RATE:
+					context.upgradeBulletRate();
+					break;
+				case UPGRADE_SIZE:
+					context.upgradeBulletSize();
+					break;
+				case UPGRADE_SPEED:
+					context.upgradeBulletSpeed();
+					break;
 			}
 		}
 	}
 
 	public enum ShopItem {
-		ADD_TOWER(1000);
+		ADD_TOWER(5000),
+		UPGRADE_RATE(2000),
+		UPGRADE_SIZE(1000),
+		UPGRADE_SPEED(1000);
 
 		private int money;
 

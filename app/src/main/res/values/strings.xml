@@ -44,4 +44,8 @@
     <string name="text_math">1+1-1*1</string>
     <string name="shop_money">$ %d</string>
     <string name="shop_tower">Invite Groupmate</string>
+    <string name="shop_rate">Upgrade Typing Speed</string>
+    <string name="shop_size">Upgrade Font Size</string>
+    <string name="shop_font_big">A</string>
+    <string name="shop_font_small">abc</string>
 </resources>
