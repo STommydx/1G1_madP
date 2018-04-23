@@ -2,7 +2,10 @@ package com.company.g1.a1g1_madp;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
@@ -31,9 +34,9 @@ public class GameView extends SurfaceView implements Runnable {
 		super(context);
 
 		this.context = context;
-
+		this.setZOrderOnTop(true);
 		holder = getHolder();
-
+		holder.setFormat(PixelFormat.TRANSLUCENT);
 		this.game = game;
 
 		game.addOnResumeListener(this::resume);
@@ -79,7 +82,7 @@ public class GameView extends SurfaceView implements Runnable {
 	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
-		canvas.drawColor(backgroundPaint.getColor());
+		canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.MULTIPLY);
 		for (GameObject entity : game.getEntityRegister().getEntities())
 			drawEntity(entity);
 		canvas.drawText(getResources().getString(R.string.money_now, game.getShopSystem().getMoney()), 50, 100, moneyPaint);
@@ -120,9 +123,15 @@ public class GameView extends SurfaceView implements Runnable {
 
 	private int getResourceID(GameObject obj) {
 		if (obj instanceof Spaceship)
-			return R.drawable.ship;
+			return R.drawable.madgirl;
 		else if (obj instanceof Enemy)
-			return R.drawable.enemy;
+			if(((Enemy)obj).getEntityType() == Entity.EntityType.CHINESE)
+				return R.drawable.dse_chi;
+			else if(((Enemy)obj).getEntityType() == Entity.EntityType.ENGLISH)
+				return R.drawable.dse_eng;
+			else if(((Enemy)obj).getEntityType() == Entity.EntityType.MATHS)
+				return R.drawable.dse_maths;
+			else return 0;
 		else if (obj instanceof Bullet)
 			return R.drawable.bullet;
 		else if (obj instanceof Tower)
