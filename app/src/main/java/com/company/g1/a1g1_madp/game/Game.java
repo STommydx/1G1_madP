@@ -2,10 +2,7 @@ package com.company.g1.a1g1_madp.game;
 
 import android.os.Handler;
 import android.util.Log;
-import com.company.g1.a1g1_madp.game.entity.Entity;
-import com.company.g1.a1g1_madp.game.entity.MovableObject;
-import com.company.g1.a1g1_madp.game.entity.Spaceship;
-import com.company.g1.a1g1_madp.game.entity.Tower;
+import com.company.g1.a1g1_madp.game.entity.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -226,6 +223,12 @@ public class Game {
 	public void upgradeBulletSpeed() {
 		BulletSystem.FireProperty fireProperty = bulletSystem.getFireProperty(spaceship);
 		fireProperty.setSpeed(fireProperty.getSpeed() * 3 / 2);
+	}
+
+	public void killAll() {
+		for (Enemy enemy : entityRegister.getEnemies()) {
+			enemy.removeSelf();
+		}
 	}
 
 	public interface GameStopListener {

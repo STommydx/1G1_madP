@@ -102,8 +102,9 @@ public class GameActivity extends AppCompatActivity {
 		shootfaster.setOnClickListener(view -> game.getShopSystem().buyItem(ShopSystem.ShopItem.UPGRADE_SPEED));
 		shootfaster.setText(getResources().getString(R.string.shop_money, ShopSystem.ShopItem.UPGRADE_SPEED.getMoney()));
 
-		Button shootslower = findViewById(R.id.option4);
-		// shootslower.setOnClickListener(view -> game.updateFireRate(25));
+		Button killAll = findViewById(R.id.option4);
+		killAll.setOnClickListener(view -> game.getShopSystem().buyItem(ShopSystem.ShopItem.KILL_ALL));
+		killAll.setText(getResources().getString(R.string.shop_money, ShopSystem.ShopItem.KILL_ALL.getMoney()));
 
 		game = new Game(dm.heightPixels - scaledHeight, dm.widthPixels, stage);
 

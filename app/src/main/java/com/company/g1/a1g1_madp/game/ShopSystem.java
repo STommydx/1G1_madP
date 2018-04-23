@@ -43,6 +43,9 @@ public class ShopSystem {
 				case UPGRADE_SPEED:
 					context.upgradeBulletSpeed();
 					break;
+				case KILL_ALL:
+					context.killAll();
+					break;
 			}
 		}
 	}
@@ -51,7 +54,8 @@ public class ShopSystem {
 		ADD_TOWER(5000),
 		UPGRADE_RATE(2000),
 		UPGRADE_SIZE(1000),
-		UPGRADE_SPEED(1000);
+		UPGRADE_SPEED(1000),
+		KILL_ALL(20000);
 
 		private int money;
 

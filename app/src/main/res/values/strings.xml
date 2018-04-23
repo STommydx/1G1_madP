@@ -48,4 +48,6 @@
     <string name="shop_size">Upgrade Font Size</string>
     <string name="shop_font_big">A</string>
     <string name="shop_font_small">abc</string>
+    <string name="shop_kill"><![CDATA[Copy & Paste]]></string>
+    <string name="shop_speed">Upgrade Computer</string>
 </resources>
