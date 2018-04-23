@@ -26,7 +26,6 @@ public class ImageUtils {
 	public static Bitmap keyBitmap(Bitmap background, Bitmap foreground, int x, int y) {
 		Bitmap newBitmap = Bitmap.createBitmap(background.getWidth(), background.getHeight(), background.getConfig());
 		Canvas canvas = new Canvas(newBitmap);
-		canvas.drawColor(Color.CYAN);
 		canvas.drawBitmap(background, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
 		canvas.drawBitmap(foreground, x, y, new Paint(Paint.FILTER_BITMAP_FLAG));
 		return newBitmap.copy(newBitmap.getConfig(), false);
