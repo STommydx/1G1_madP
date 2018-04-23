@@ -60,9 +60,16 @@ public class StageActivity extends AppCompatActivity {
 		bitmap = ImageUtils.normalize(bitmap);
 		bitmap = ImageUtils.scaleBitmap(bitmap, 300, 400);
 
-		Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.testframe);
-		background = ImageUtils.scaleBitmap(background, 589, 571);
-		Bitmap bitmapFinal = ImageUtils.keyBitmap(background, bitmap, 50, 50);
+		Bitmap background;
+		if (stage == 1)
+			background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard_primary);
+		else if (stage == 2)
+			background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard_secondary);
+		else
+			background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard);
+
+		background = ImageUtils.scaleBitmap(background, 1388, 818);
+		Bitmap bitmapFinal = ImageUtils.keyBitmap(background, bitmap, 100, 200);
 
 		ImageView imageView = findViewById(R.id.imageView2);
 		imageView.setImageBitmap(bitmapFinal);
