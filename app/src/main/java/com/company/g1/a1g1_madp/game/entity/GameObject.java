@@ -70,7 +70,7 @@ public abstract class GameObject {
 		callbacks.add(r);
 	}
 
-	void removeSelf() {
+	public void removeSelf() {
 		for (Runnable r : callbacks) r.run();
 	}
 

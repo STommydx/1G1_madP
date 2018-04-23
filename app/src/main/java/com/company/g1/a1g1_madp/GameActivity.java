@@ -1,5 +1,7 @@
 package com.company.g1.a1g1_madp;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -13,12 +15,15 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.company.g1.a1g1_madp.game.Game;
+import com.company.g1.a1g1_madp.game.ShopSystem;
 import com.company.g1.a1g1_madp.game.SoundSystem;
+import com.company.g1.a1g1_madp.game.entity.Entity;
 
 import java.util.Random;
 
@@ -42,7 +47,9 @@ public class GameActivity extends AppCompatActivity {
 	};
 
 	private MediaPlayer bgmPlayer;
+	private AnimatorSet animatorSet;
 
+	private static final int BOTTOM_SHEET_HEIGHT = 48;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,17 +64,19 @@ public class GameActivity extends AppCompatActivity {
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getRealMetrics(dm);
 
+		int scaledHeight = (int) (BOTTOM_SHEET_HEIGHT * dm.density);
+
 		View bottomSheet = findViewById(R.id.bottom_sheet);
 		mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-		mBottomSheetBehavior.setPeekHeight(dm.heightPixels*2/20);
+		mBottomSheetBehavior.setPeekHeight(scaledHeight);
 		mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
 			@Override
 			public void onStateChanged(@NonNull View bottomSheet, int newState) {
 				if(newState == BottomSheetBehavior.STATE_EXPANDED||newState == BottomSheetBehavior.STATE_DRAGGING||newState == BottomSheetBehavior.STATE_SETTLING){
-					game.pause();
+					// game.pause();
 				}
 				else{
-					game.resume();
+					// game.resume();
 				}
 			}
 
@@ -76,13 +85,28 @@ public class GameActivity extends AppCompatActivity {
 
 			}
 		});
+
+		Button buyTower = findViewById(R.id.button5);
+		buyTower.setOnClickListener(view -> game.getShopSystem().buyItem(ShopSystem.ShopItem.ADD_TOWER));
+		buyTower.setText(getResources().getString(R.string.shop_money, ShopSystem.ShopItem.ADD_TOWER.getMoney()));
+
+		Button buyRate = findViewById(R.id.button7);
+		buyRate.setOnClickListener(view -> game.getShopSystem().buyItem(ShopSystem.ShopItem.UPGRADE_RATE));
+		buyRate.setText(getResources().getString(R.string.shop_money, ShopSystem.ShopItem.UPGRADE_RATE.getMoney()));
+
+		Button buySize = findViewById(R.id.button9);
+		buySize.setOnClickListener(view -> game.getShopSystem().buyItem(ShopSystem.ShopItem.UPGRADE_SIZE));
+		buySize.setText(getResources().getString(R.string.shop_money, ShopSystem.ShopItem.UPGRADE_SIZE.getMoney()));
+
 		Button shootfaster = findViewById(R.id.option3);
-		shootfaster.setOnClickListener(view -> game.updateFireRate(5));
+		shootfaster.setOnClickListener(view -> game.getShopSystem().buyItem(ShopSystem.ShopItem.UPGRADE_SPEED));
+		shootfaster.setText(getResources().getString(R.string.shop_money, ShopSystem.ShopItem.UPGRADE_SPEED.getMoney()));
 
-		Button shootslower = findViewById(R.id.option4);
-		shootslower.setOnClickListener(view -> game.updateFireRate(25));
+		Button killAll = findViewById(R.id.option4);
+		killAll.setOnClickListener(view -> game.getShopSystem().buyItem(ShopSystem.ShopItem.KILL_ALL));
+		killAll.setText(getResources().getString(R.string.shop_money, ShopSystem.ShopItem.KILL_ALL.getMoney()));
 
-		game = new Game(dm.heightPixels*18/20, dm.widthPixels, stage);
+		game = new Game(dm.heightPixels - scaledHeight, dm.widthPixels, stage);
 
 		game.getSoundSystem().setPlaySoundListener(this::playSound);
 
@@ -117,6 +141,12 @@ public class GameActivity extends AppCompatActivity {
 
 		bgmPlayer = MediaPlayer.create(this, R.raw.bgm);
 		bgmPlayer.setLooping(true);
+
+		LinearLayout switchLayout = findViewById(R.id.switchLayout);
+		animatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.switchuifade);
+		animatorSet.setTarget(switchLayout);
+
+		switchLayout.setOnClickListener(v -> animatorSet.start());
 	}
 
 	@Override
@@ -159,6 +189,19 @@ public class GameActivity extends AppCompatActivity {
 		soundPlayer.start();
 	}
 
+	public void setChinese(View view) {
+		game.setFireType(Entity.EntityType.CHINESE);
+		animatorSet.start();
+	}
 
+	public void setEnglish(View view) {
+		game.setFireType(Entity.EntityType.ENGLISH);
+		animatorSet.start();
+	}
+
+	public void setMaths(View view) {
+		game.setFireType(Entity.EntityType.MATHS);
+		animatorSet.start();
+	}
 
 }

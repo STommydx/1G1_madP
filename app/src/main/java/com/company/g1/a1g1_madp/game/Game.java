@@ -2,12 +2,10 @@ package com.company.g1.a1g1_madp.game;
 
 import android.os.Handler;
 import android.util.Log;
-import com.company.g1.a1g1_madp.game.entity.Entity;
-import com.company.g1.a1g1_madp.game.entity.MovableObject;
-import com.company.g1.a1g1_madp.game.entity.Spaceship;
-import com.company.g1.a1g1_madp.game.entity.Tower;
+import com.company.g1.a1g1_madp.game.entity.*;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Need to check if game object and handler is destroyed properly when pause and stop
@@ -24,13 +22,13 @@ public class Game {
 	private static final int END_TICK = STAGE_TIME * 1000 / TICK_TIME;
 	private static final int WIN_CONDITION = 2000;
 
-	private int money = 1000;
 	private int ticks;
 	private int stage;
 
 	private SpawnSystem spawnSystem;
 	private BulletSystem bulletSystem;
 	private SoundSystem soundSystem;
+	private ShopSystem shopSystem;
 	private EntityRegister entityRegister;
 
 	private ArrayList<Runnable> resumeCallback, pauseCallback;
@@ -71,6 +69,7 @@ public class Game {
 		spawnSystem = new SpawnSystem(this);
 		collisionSystem = new CollisionSystem(this);
 		soundSystem = new SoundSystem(this);
+		shopSystem = new ShopSystem(this);
 
 		resumeCallback = new ArrayList<>();
 		pauseCallback = new ArrayList<>();
@@ -93,6 +92,8 @@ public class Game {
 		entityRegister.registerSpaceship(spaceship);
 		bulletSystem.registerFire(spaceship, new BulletSystem.FireProperty(40, 20, 20, Entity.EntityType.CHINESE));
 
+		/*
+
 		// Add two random towers for testing
 		Tower first = new Tower(layoutWidth / 3, layoutHeight / 3, 150, 150);
 		entityRegister.registerTower(first);
@@ -101,6 +102,8 @@ public class Game {
 		Tower second = new Tower(layoutWidth / 3 * 2, layoutHeight / 3 * 2, 150, 150);
 		entityRegister.registerTower(second);
 		bulletSystem.registerFire(second, new BulletSystem.FireProperty(30, 5));
+
+		*/
 
 		ticks = 0;
 
@@ -140,8 +143,8 @@ public class Game {
 		Log.i("gamecycle", "stop()");
 		pause();
 
-		boolean win = money >= WIN_CONDITION;
-		Result result = new Result(money, win);
+		boolean win = shopSystem.getMoney() >= WIN_CONDITION;
+		Result result = new Result(shopSystem.getMoney(), win);
 
 		for (GameStopListener r : stopCallback) r.onStop(result);
 	}
@@ -173,10 +176,6 @@ public class Game {
 		return entityRegister;
 	}
 
-	public void updateFireRate(int rate) {
-		bulletSystem.getFireProperty(spaceship).setRate(rate);
-	}
-
 	public int getLayoutHeight() {
 		return layoutHeight;
 	}
@@ -185,12 +184,8 @@ public class Game {
 		return layoutWidth;
 	}
 
-	public int getMoney() {
-		return money;
-	}
-
-	public void setMoney(int money) {
-		this.money = money;
+	public ShopSystem getShopSystem() {
+		return shopSystem;
 	}
 
 	public int getRemainMilliseconds() {
@@ -199,6 +194,41 @@ public class Game {
 
 	public SoundSystem getSoundSystem() {
 		return soundSystem;
+	}
+
+	public void genNewTower() {
+		Random random = new Random();
+		int x = layoutWidth / 3 + random.nextInt(layoutWidth / 3);
+		int y = layoutHeight / 3 + random.nextInt(layoutHeight / 3);
+		Tower first = new Tower(x, y, 150, 150);
+		entityRegister.registerTower(first);
+		bulletSystem.registerFire(first, new BulletSystem.FireProperty(30, 40));
+	}
+
+	public void setFireType(Entity.EntityType type) {
+		bulletSystem.getFireProperty(spaceship).setBulletType(type);
+	}
+
+	public void upgradeBulletRate() {
+		BulletSystem.FireProperty fireProperty = bulletSystem.getFireProperty(spaceship);
+		if (fireProperty.getRate() > 1)
+			fireProperty.setRate(fireProperty.getRate() * 2 / 3);
+	}
+
+	public void upgradeBulletSize() {
+		BulletSystem.FireProperty fireProperty = bulletSystem.getFireProperty(spaceship);
+		fireProperty.setSize(fireProperty.getSize() * 3 / 2);
+	}
+
+	public void upgradeBulletSpeed() {
+		BulletSystem.FireProperty fireProperty = bulletSystem.getFireProperty(spaceship);
+		fireProperty.setSpeed(fireProperty.getSpeed() * 3 / 2);
+	}
+
+	public void killAll() {
+		for (Enemy enemy : entityRegister.getEnemies()) {
+			enemy.removeSelf();
+		}
 	}
 
 	public interface GameStopListener {
