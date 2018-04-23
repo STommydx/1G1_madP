@@ -35,6 +35,16 @@ public class Entity extends MovableObject {
 			int x = RAND.nextInt(SIZE);
 			return VALUES.get(x);
 		}
+
+		private static EntityType[] vals = values();
+
+		public EntityType next() {
+			return vals[(this.ordinal()+1) % vals.length];
+		}
+
+		public EntityType previous() {
+			return vals[Math.abs((this.ordinal()-1) % vals.length)];
+		}
 	}
 
 }
