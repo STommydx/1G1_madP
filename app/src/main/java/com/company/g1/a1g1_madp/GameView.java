@@ -83,7 +83,7 @@ public class GameView extends SurfaceView implements Runnable {
 		canvas.drawColor(backgroundPaint.getColor());
 		for (GameObject entity : game.getEntityRegister().getEntities())
 			drawEntity(entity);
-		canvas.drawText(getResources().getString(R.string.money_now, game.getMoney()), 50, 100, moneyPaint);
+		canvas.drawText(getResources().getString(R.string.money_now, game.getShopSystem().getMoney()), 50, 100, moneyPaint);
 		String timerString = getResources().getString(R.string.time_remain, 1.0 * game.getRemainMilliseconds() / 1000);
 		canvas.drawText(timerString, 50, 200, moneyPaint);
 	}

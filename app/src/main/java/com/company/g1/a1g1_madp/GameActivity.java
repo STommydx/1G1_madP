@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.company.g1.a1g1_madp.game.Game;
+import com.company.g1.a1g1_madp.game.ShopSystem;
 import com.company.g1.a1g1_madp.game.SoundSystem;
 import com.company.g1.a1g1_madp.game.entity.Entity;
 
@@ -84,6 +85,11 @@ public class GameActivity extends AppCompatActivity {
 
 			}
 		});
+
+		Button buyTower = findViewById(R.id.button5);
+		buyTower.setOnClickListener(view -> game.getShopSystem().buyItem(ShopSystem.ShopItem.ADD_TOWER));
+		buyTower.setText(getResources().getString(R.string.shop_money, ShopSystem.ShopItem.ADD_TOWER.getMoney()));
+
 		Button shootfaster = findViewById(R.id.option3);
 		shootfaster.setOnClickListener(view -> game.updateFireRate(5));
 
