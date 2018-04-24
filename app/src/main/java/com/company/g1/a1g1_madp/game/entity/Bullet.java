@@ -3,9 +3,15 @@ package com.company.g1.a1g1_madp.game.entity;
 
 public class Bullet extends Entity {
 
-	private static final Text TEXT_CHI   = new Text("鵝鵝鵝曲項向天歌白毛浮綠水紅掌撥清波");
-	private static final Text TEXT_ENG	 = new Text("ABCDEFG");
-	private static final Text TEXT_MATHS = new Text("2+2=5");
+	private static Text text_chi   = new Text("鵝鵝鵝曲項向天歌白毛浮綠水紅掌撥清波");
+	private static Text text_eng   = new Text("ABCDEFG");
+	private static Text text_maths = new Text("2+2=5");
+
+	public static void setBulletText(String chi, String eng, String maths) {
+		text_chi.setText(chi);
+		text_eng.setText(eng);
+		text_maths.setText(maths);
+	}
 
 	private String text;
 
@@ -13,11 +19,11 @@ public class Bullet extends Entity {
 		super(x, y, height, width, speed, theta, entityType);
 		addOutOfBoundListener(bounds -> removeSelf());// causing incorrect behaviour for bouncy bullet
 		if(entityType == Entity.EntityType.CHINESE)
-			this.text = String.valueOf(TEXT_CHI.getNextChar());
+			this.text = String.valueOf(text_chi.getNextChar());
 		else if(entityType == Entity.EntityType.ENGLISH)
-			this.text = String.valueOf(TEXT_ENG.getNextChar());
+			this.text = String.valueOf(text_eng.getNextChar());
 		else if(entityType == Entity.EntityType.MATHS)
-			this.text = String.valueOf(TEXT_MATHS.getNextChar());
+			this.text = String.valueOf(text_maths.getNextChar());
 		else
 			this.text = "bug!";
 	}
@@ -37,6 +43,10 @@ public class Bullet extends Entity {
 			if(i >= text.length())
 				i = 0;
 			return text.charAt(i);
+		}
+
+		void setText(String text) {
+			this.text = text;
 		}
 	}
 
