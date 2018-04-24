@@ -15,5 +15,5 @@
 
     <color name="colorUIText">#f4e01a</color>
     <color name="switchBackground">#80646464</color>
-    <color name="colorBullet">#ffffff</color>
+    <color name="colorBullet">#80ffffff</color>
 </resources>

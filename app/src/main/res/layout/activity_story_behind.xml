@@ -4,13 +4,13 @@
     android:layout_width="match_parent" android:layout_height="match_parent" tools:context=".StoryBehind">
 
     <ImageView android:id="@+id/background_one"
-        android:src="@drawable/dse_eng"
+        android:src="@drawable/secondary_bg"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
     />
 
     <ImageView android:id="@+id/background_two"
-        android:src="@drawable/dse_eng"
+        android:src="@drawable/secondary_bg"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
     />
