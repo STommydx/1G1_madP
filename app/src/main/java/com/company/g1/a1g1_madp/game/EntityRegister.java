@@ -38,10 +38,7 @@ public class EntityRegister {
 	public void registerEnemy(Enemy enemyEntity) {
 		registerMovableEntity(enemyEntity);
 		enemyList.add(enemyEntity);
-		enemyEntity.addOnRemoveListener(() -> {
-			context.getShopSystem().setMoney(context.getShopSystem().getMoney() + enemyEntity.getScore());
-			enemyList.remove(enemyEntity);
-		});
+		enemyEntity.addOnRemoveListener(() -> enemyList.remove(enemyEntity));
 	}
 
 	public void registerBullet(Bullet bulletEntity) {

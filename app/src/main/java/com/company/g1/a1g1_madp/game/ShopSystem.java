@@ -1,7 +1,5 @@
 package com.company.g1.a1g1_madp.game;
 
-import java.util.Random;
-
 public class ShopSystem {
 
 	private Game context;
