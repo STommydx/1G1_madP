@@ -31,7 +31,7 @@
     <string name="stage_next">Next Stage</string>
     <string name="stage_score">Score: %d</string>
     <string name="stage_welcome">Welcome!</string>
-    <string name="time_remain">Time: %.2f</string>
+    <string name="time_remain">Time remaining:%n%d</string>
     <string name="money_now">Money: $%d</string>
     <string name="register_title">Register!</string>
     <string name="your_name">Your Name</string>
@@ -39,9 +39,12 @@
     <string name="start_game">Start Game!</string>
     <string name="main_menu">Main Menu</string>
     <string name="restart_game">Restart Game</string>
-    <string name="chinese_text">之乎者也</string>
-    <string name="text_english">AbCXyZ</string>
-    <string name="text_math">1+1-1*1</string>
+
+    <string name="text_chinese">中文</string>
+    <string name="text_english">ENG</string>
+    <string name="text_math">MATHS</string>
+
+
     <string name="shop_money">$ %d</string>
     <string name="shop_tower">Invite Groupmate</string>
     <string name="shop_rate">Upgrade Typing Speed</string>

@@ -58,7 +58,7 @@ public class GameActivity extends AppCompatActivity {
 
 		Intent intent = getIntent();
 		int stage = intent.getIntExtra("STAGE_NUMBER", 0);
-		((TextView) findViewById(R.id.textView2)).setText(getResources().getString(R.string.stage_name, stage));
+//		((TextView) findViewById(R.id.textView2)).setText(getResources().getString(R.string.stage_name, stage));
 		final String mCurrentPhotoPath = intent.getStringExtra("GAME_IMAGE");
 
 		DisplayMetrics dm = new DisplayMetrics();
@@ -133,6 +133,8 @@ public class GameActivity extends AppCompatActivity {
 
 		gameUI = new GameUI(this, game);
 
+		gameView.setGameUI(gameUI);
+
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null)
 			accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -142,11 +144,11 @@ public class GameActivity extends AppCompatActivity {
 		bgmPlayer = MediaPlayer.create(this, R.raw.bgm);
 		bgmPlayer.setLooping(true);
 
-		LinearLayout switchLayout = findViewById(R.id.switchLayout);
-		animatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.switchuifade);
-		animatorSet.setTarget(switchLayout);
-
-		switchLayout.setOnClickListener(v -> animatorSet.start());
+//		LinearLayout switchLayout = findViewById(R.id.switchLayout);
+//		animatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.switchuifade);
+//		animatorSet.setTarget(switchLayout);
+//
+//		switchLayout.setOnClickListener(v -> animatorSet.start());
 	}
 
 	@Override

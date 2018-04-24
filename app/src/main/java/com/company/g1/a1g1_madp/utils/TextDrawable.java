@@ -15,14 +15,9 @@ public class TextDrawable extends Drawable {
 	private final String text;
 	private final Paint paint;
 
-	public TextDrawable(String text) {
+	public TextDrawable(String text, Paint paint) {
 		this.text = text;
-		paint = new Paint();
-
-		paint.setTextAlign(Paint.Align.CENTER);
-		paint.setAntiAlias(true);
-		paint.setStyle(Paint.Style.FILL);
-		paint.setColor(Color.YELLOW);
+		this.paint = paint;
 	}
 
 	@Override

@@ -3,9 +3,9 @@ package com.company.g1.a1g1_madp.game.entity;
 
 public class Bullet extends Entity {
 
-	private static final Text TEXT_CHI   = new Text("滾滾長江東逝水");
+	private static final Text TEXT_CHI   = new Text("鵝鵝鵝曲項向天歌白毛浮綠水紅掌撥清波");
 	private static final Text TEXT_ENG	 = new Text("ABCDEFG");
-	private static final Text TEXT_MATHS = new Text("1234567");
+	private static final Text TEXT_MATHS = new Text("2+2=5");
 
 	private String text;
 
