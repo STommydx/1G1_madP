@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void story(View view) {
+		Intent intent = new Intent(this, StoryBehind.class);
+		startActivity(intent);
 	}
 
 	public void startAboutUs(View view) {

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.company.g1.a1g1_madp">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
 
     <application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.company.g1.fileprovider"
-            android:exported="false"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true">
+        <provider android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.company.g1.fileprovider" android:exported="false"
             android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
         </provider>
+
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +24,9 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".GameActivity" android:exported="true" />
         <activity android:name=".StageActivity" android:exported="true" />
-        <activity android:name=".AboutUS"></activity>
+        <activity android:name=".AboutUS" />
         <activity android:name=".RegistrationActivity" android:exported="true" />
+        <activity android:name=".StoryBehind"></activity>
     </application>
 
 </manifest>
