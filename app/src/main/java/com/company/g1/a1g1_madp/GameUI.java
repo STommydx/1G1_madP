@@ -3,8 +3,12 @@ package com.company.g1.a1g1_madp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
+import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +31,7 @@ public class GameUI {
 	private Button option1;
 	private Button option2;
 	private TextView timeRemain;
+	private TextView stageLabel;
 
 	// UI state
 	private boolean isImmersive = false;
@@ -42,8 +47,8 @@ public class GameUI {
 		pauseWindow = new PopupWindow(context);
 
 		timeRemain = context.findViewById(R.id.timeRemain);
-		timeRemain.getPaint().set(GameView.textPaint);
-		((TextView)context.findViewById(R.id.stageLabel)).getPaint().set(GameView.textPaint);
+		stageLabel = context.findViewById(R.id.stageLabel);
+
 
 		// Popup stuff
 		pauseLayout = (ConstraintLayout) context.getLayoutInflater().inflate(R.layout.popup_pause, null);
@@ -131,5 +136,22 @@ public class GameUI {
 	public void updateUI() {
 		String timerString = context.getResources().getString(R.string.time_remain, (int)(game.getRemainMilliseconds() / 1000));
 		timeRemain.post(() -> timeRemain.setText(timerString));
+	}
+
+	public void setBackground(int bgResID, int bgColorResID) {
+		context.findViewById(R.id.imageView17).setBackground(ContextCompat.getDrawable(context, bgResID));
+		uiLayout.setBackgroundColor(ContextCompat.getColor(context, bgColorResID));
+	}
+
+	public void setPaint(Paint paint) {
+		// dunno why paint can't set the color
+		timeRemain.getPaint().set(paint);
+		stageLabel.getPaint().set(paint);
+		timeRemain.setTextColor(paint.getColor());
+		stageLabel.setTextColor(paint.getColor());
+	}
+
+	public void setStageLabel(String stageName) {
+		stageLabel.post(() -> stageLabel.setText(stageName));
 	}
 }
