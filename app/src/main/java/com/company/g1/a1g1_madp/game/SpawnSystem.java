@@ -18,8 +18,11 @@ public class SpawnSystem {
 			float x = (float) (Math.random() * layoutWidth * 0.9);
 			Enemy mEnemy = new Enemy(x, 0);
 			mEnemy.addOnHitListener(source -> {
-				if (source instanceof Spaceship || source instanceof Bullet) {
+				if (source instanceof Spaceship) {
 					context.getShopSystem().setMoney(context.getShopSystem().getMoney() + mEnemy.getScore());
+				} else if (source instanceof Bullet) {
+					if (((Bullet) source).getEntityType() == mEnemy.getEntityType())
+						context.getShopSystem().setMoney(context.getShopSystem().getMoney() + mEnemy.getScore());
 				}
 			});
 			entityRegister.registerEnemy(mEnemy);
