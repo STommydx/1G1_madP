@@ -20,7 +20,7 @@ public class Game {
 	private static final int TICK_TIME = 15;
 	private static final int STAGE_TIME = 30;
 	private static final int END_TICK = STAGE_TIME * 1000 / TICK_TIME;
-	private static final int WIN_CONDITION = 2000;
+	private static final int WIN_CONDITION = 8000;
 
 	private int ticks;
 	private int stage;

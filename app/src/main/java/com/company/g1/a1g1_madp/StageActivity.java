@@ -11,11 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.company.g1.a1g1_madp.utils.ImageUtils;
 
+/*
+	Mapping:
+	1 - Primary
+	2 - Secondary
+	3 - Space
+ */
+
 public class StageActivity extends AppCompatActivity {
 
-	public static final int STAGE_WIN = 1;
+	public static final int STAGE_NEXT = 1;
 	public static final int STAGE_NEW = 0;
-	public static final int STAGE_LOSE = -1;
+	public static final int STAGE_RESTART = -1;
+	public static final int STAGE_MENU = 2;
 
 	private int stage;
 	private int state;
@@ -29,7 +37,7 @@ public class StageActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_stage);
 
 		Intent intent = getIntent();
-		stage = intent.getIntExtra("STAGE_NUMBER", 0);
+		stage = intent.getIntExtra("STAGE_NUMBER", 1);
 		state = intent.getIntExtra("STAGE_STATE", STAGE_NEW);
 		score = intent.getIntExtra("STAGE_SCORE", 0);
 		mCurrentPhotoPath = intent.getStringExtra("GAME_IMAGE");
@@ -38,10 +46,12 @@ public class StageActivity extends AppCompatActivity {
 
 		if (state == STAGE_NEW)
 			nextButton.setText(getResources().getString(R.string.stage_new));
-		else if (state == STAGE_LOSE)
+		else if (state == STAGE_RESTART)
 			nextButton.setText(getResources().getString(R.string.stage_again));
-		else if (state == STAGE_WIN)
+		else if (state == STAGE_NEXT)
 			nextButton.setText(getResources().getString(R.string.stage_next));
+		else if (state == STAGE_MENU)
+			nextButton.setText(R.string.main_menu);
 
 		TextView scoreView = findViewById(R.id.textView3);
 
@@ -49,6 +59,17 @@ public class StageActivity extends AppCompatActivity {
 			scoreView.setText(getResources().getString(R.string.stage_welcome));
 		else
 			scoreView.setText(getResources().getString(R.string.stage_score, score));
+
+		TextView descriptionView = findViewById(R.id.textView12);
+
+		if (state == STAGE_MENU)
+			descriptionView.setText(R.string.stage_university);
+		else if (stage == 1)
+			descriptionView.setText(R.string.stage_primary);
+		else if (stage == 2)
+			descriptionView.setText(R.string.stage_dse);
+		else if (stage == 3)
+			descriptionView.setText(R.string.stage_space);
 
 		Bitmap bitmap;
 
@@ -60,27 +81,39 @@ public class StageActivity extends AppCompatActivity {
 		bitmap = ImageUtils.normalize(bitmap);
 		bitmap = ImageUtils.scaleBitmap(bitmap, 300, 400);
 
-		Bitmap background;
-		if (stage == 1)
-			background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard_primary);
-		else if (stage == 2)
-			background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard_secondary);
-		else
-			background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard);
+		if (state == STAGE_MENU) {
+			Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard); // replace this with university pic
 
-		background = ImageUtils.scaleBitmap(background, 1388, 818);
-		Bitmap bitmapFinal = ImageUtils.keyBitmap(background, bitmap, 100, 200);
+			ImageView imageView = findViewById(R.id.imageView2);
+			imageView.setImageBitmap(background);
+		} else {
+			Bitmap background;
 
-		ImageView imageView = findViewById(R.id.imageView2);
-		imageView.setImageBitmap(bitmapFinal);
+			if (stage == 1)
+				background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard_primary);
+			else if (stage == 2)
+				background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard_secondary);
+			else if (stage == 3)
+				background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard); // replace this with space id
+			else
+				background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard);
+
+			background = ImageUtils.scaleBitmap(background, 1388, 818);
+			Bitmap bitmapFinal = ImageUtils.keyBitmap(background, bitmap, 100, 200);
+
+			ImageView imageView = findViewById(R.id.imageView2);
+			imageView.setImageBitmap(bitmapFinal);
+		}
 
 	}
 
 	public void startGame(View view) {
-		Intent intent = new Intent(this, GameActivity.class);
-		intent.putExtra("STAGE_NUMBER", stage);
-		intent.putExtra("GAME_IMAGE", mCurrentPhotoPath);
-		startActivity(intent);
+		if (state != STAGE_MENU){
+			Intent intent = new Intent(this, GameActivity.class);
+			intent.putExtra("STAGE_NUMBER", stage);
+			intent.putExtra("GAME_IMAGE", mCurrentPhotoPath);
+			startActivity(intent);
+		}
 		finish();
 	}
 }

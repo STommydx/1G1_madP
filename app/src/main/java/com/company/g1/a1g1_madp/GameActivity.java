@@ -113,11 +113,13 @@ public class GameActivity extends AppCompatActivity {
 		game.addOnStopListener((result) -> {
 			Intent nextIntent = new Intent(this, StageActivity.class);
 			int newStage = stage;
-			if (result.isWin()) {
+			if (stage == 1 || stage == 2 && !result.isWin()) {
 				newStage++;
-				nextIntent.putExtra("STAGE_STATE", StageActivity.STAGE_WIN);
+				nextIntent.putExtra("STAGE_STATE", StageActivity.STAGE_NEXT);
+			} else if (stage == 2 && result.isWin() || stage == 3) {
+				nextIntent.putExtra("STAGE_STATE", StageActivity.STAGE_MENU);
 			} else {
-				nextIntent.putExtra("STAGE_STATE", StageActivity.STAGE_LOSE);
+				nextIntent.putExtra("STAGE_STATE", StageActivity.STAGE_RESTART);
 			}
 			nextIntent.putExtra("STAGE_NUMBER", newStage);
 			nextIntent.putExtra("STAGE_SCORE", result.getScore());
