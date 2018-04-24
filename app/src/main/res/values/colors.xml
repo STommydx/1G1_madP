@@ -7,8 +7,12 @@
     <color name="lightorangedark">#ebd6ab</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="colorBackground">#5db78f</color>
-    <color name="colorBullet">#f7f3ee</color>
+    <color name="primaryBgColor">#5db78f</color>
+    <color name="primaryBulletColor">#f7f3ee</color>
+
+    <color name="secondaryBgColor">#646464</color>
+    <color name="secondaryBulletColor">#000000</color>
+
     <color name="colorUIText">#f4e01a</color>
     <color name="switchBackground">#80646464</color>
 </resources>

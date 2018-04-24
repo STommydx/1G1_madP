@@ -16,7 +16,6 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.TextView;
 
 import com.company.g1.a1g1_madp.game.Game;
 import com.company.g1.a1g1_madp.game.entity.*;
@@ -25,22 +24,32 @@ import com.company.g1.a1g1_madp.utils.TextDrawable;
 public class GameView extends SurfaceView implements Runnable {
 
 	private Game game;
-	private GameUI gameUI;
-	public static EntityPaint textPaint = new EntityPaint(); // TODO
+	protected GameUI gameUI;
 
 	private Thread renderThread = null;
 	private SurfaceHolder holder;
 	private Canvas canvas;
 	private volatile boolean running = false;
+	public StageResources stageResources;
 
 	private Context context;
 
 	private SparseArray<Drawable> cache;
 
-	public GameView(Context context, Game game) {
+	public GameView(Context context, Game game, GameUI gameUI, int stage) {
 		super(context);
 
 		this.context = context;
+
+		this.gameUI = gameUI;
+		this.stageResources = new StageResources(stage);
+		stageResources.am = context.getApplicationContext().getAssets();
+		stageResources.loadResources();
+
+		gameUI.setBackground(stageResources.background, stageResources.backgroundColor);
+		gameUI.setPaint(stageResources.textPaint);
+		gameUI.setStageLabel(stageResources.stageName);
+		Bullet.setBulletText(stageResources.text_chi,stageResources.text_eng,stageResources.text_maths);
 		this.setZOrderOnTop(true);
 		holder = getHolder();
 		holder.setFormat(PixelFormat.TRANSLUCENT);
@@ -48,11 +57,6 @@ public class GameView extends SurfaceView implements Runnable {
 
 		game.addOnResumeListener(this::resume);
 		game.addOnPauseListener(this::pause);
-
-		AssetManager am = context.getApplicationContext().getAssets();
-		Typeface typeface = Typeface.createFromAsset(am, "font/qishangbaxia.ttf");
-		Typeface bold = Typeface.create(typeface,Typeface.BOLD);
-		textPaint.setPaint(50, bold, getResources().getColor(R.color.colorBullet));
 
 		cache = new SparseArray<>();
 	}
@@ -129,7 +133,7 @@ public class GameView extends SurfaceView implements Runnable {
 	private void drawEntity(GameObject obj) {
 		if (obj instanceof Bullet) {
 			Entity.EntityType type = ((Bullet) obj).getEntityType();
-			drawEntity(obj, new TextDrawable(((Bullet) obj).getText(), textPaint));
+			drawEntity(obj, new TextDrawable(((Bullet) obj).getText(), stageResources.textPaint));
 		} else {
 			drawEntity(obj, getResourceID(obj));
 		}
@@ -140,11 +144,11 @@ public class GameView extends SurfaceView implements Runnable {
 			return R.drawable.madgirl;
 		else if (obj instanceof Enemy)
 			if(((Enemy)obj).getEntityType() == Entity.EntityType.CHINESE)
-				return R.drawable.dse_chi;
+				return stageResources.enemy_chi;
 			else if(((Enemy)obj).getEntityType() == Entity.EntityType.ENGLISH)
-				return R.drawable.dse_eng;
+				return stageResources.enemy_eng;
 			else if(((Enemy)obj).getEntityType() == Entity.EntityType.MATHS)
-				return R.drawable.dse_maths;
+				return stageResources.enemy_maths;
 			else return 0;
 		else if (obj instanceof Bullet)
 			return R.drawable.bullet;
@@ -153,17 +157,88 @@ public class GameView extends SurfaceView implements Runnable {
 		return 0;
 	}
 
-	private static class EntityPaint extends Paint {
-		void setPaint(int size, Typeface typeface, int color) {
-			setTypeface(typeface);
-			setColor(color);
-			setTextSize(size);
-			setAntiAlias(true);
-			setStyle(Paint.Style.FILL);
-		}
-	}
+	/*
+		Mapping:
+		1 - Primary
+		2 - Secondary
+		3 - Space
+ 	*/
 
-	public void setGameUI(GameUI gameUI) {
-		this.gameUI = gameUI;
+	class StageResources {
+
+		int stage;
+		AssetManager am;
+
+		int enemy_chi, enemy_eng, enemy_maths, background, backgroundColor;
+		EntityPaint textPaint = new EntityPaint();
+		String stageName, text_chi, text_eng, text_maths;
+
+		public StageResources(int stage) {
+			this.stage = stage;
+		}
+
+		void loadResources() {
+			if(stage == 1) {
+				enemy_chi 		 = R.drawable.dse_chi;
+				enemy_eng 		 = R.drawable.dse_eng;
+				enemy_maths 	 = R.drawable.dse_maths;
+				background 		 = R.drawable.board_primary;
+				backgroundColor  = R.color.primaryBgColor;
+
+				Typeface typeface = Typeface.createFromAsset(am, "font/qishangbaxia.ttf");
+				Typeface bold = Typeface.create(typeface,Typeface.BOLD);
+				textPaint.setPaint(50, bold, R.color.primaryBulletColor);
+
+				stageName = getResources().getString(R.string.primary_stage_name);
+
+				text_chi   = getResources().getString(R.string.primary_text_chi);
+				text_eng   = getResources().getString(R.string.primary_text_eng);
+				text_maths = getResources().getString(R.string.primary_text_maths);
+			}
+
+			else if (stage == 2) {
+				enemy_chi 		 = R.drawable.dse_chi;
+				enemy_eng 		 = R.drawable.dse_eng;
+				enemy_maths 	 = R.drawable.dse_maths;
+				background 		 = R.drawable.board_secondary;
+				backgroundColor  = R.color.secondaryBgColor;
+
+				Typeface bold = Typeface.create(Typeface.SERIF,Typeface.BOLD);
+				textPaint.setPaint(50, bold, R.color.secondaryBulletColor);
+
+				stageName = getResources().getString(R.string.dse_stage_name);
+
+				text_chi   = getResources().getString(R.string.dse_text_chi);
+				text_eng   = getResources().getString(R.string.dse_text_eng);
+				text_maths = getResources().getString(R.string.dse_text_maths);
+			}
+			else {
+				enemy_chi 		 = R.drawable.dse_chi;
+				enemy_eng 		 = R.drawable.dse_eng;
+				enemy_maths 	 = R.drawable.dse_maths;
+				background 		 = R.drawable.board_secondary;
+				backgroundColor  = R.color.secondaryBgColor;
+
+				Typeface bold = Typeface.create(Typeface.SERIF,Typeface.BOLD);
+				textPaint.setPaint(50, bold, R.color.secondaryBulletColor);
+
+				stageName = getResources().getString(R.string.asso_stage_name);
+
+				text_chi   = getResources().getString(R.string.asso_text_chi);
+				text_eng   = getResources().getString(R.string.asso_text_eng);
+				text_maths = getResources().getString(R.string.asso_text_maths);
+			}
+		}
+
+		private class EntityPaint extends Paint {
+			void setPaint(int size, Typeface typeface, int colorResID) {
+				setTypeface(typeface);
+				setColor(ContextCompat.getColor(context, colorResID));
+
+				setTextSize(size);
+				setAntiAlias(true);
+				setStyle(Paint.Style.FILL);
+			}
+		}
 	}
 }

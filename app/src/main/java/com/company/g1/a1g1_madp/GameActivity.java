@@ -129,13 +129,11 @@ public class GameActivity extends AppCompatActivity {
 		});
 		game.start();
 
-		GameView gameView = new GameView(this, game);
-		((ConstraintLayout) findViewById(R.id.gameLayout)).addView(gameView);
-		gameView.setOnTouchListener(new GameHandler(game));
-
 		gameUI = new GameUI(this, game);
 
-		gameView.setGameUI(gameUI);
+		GameView gameView = new GameView(this, game, gameUI, stage);
+		((ConstraintLayout) findViewById(R.id.gameLayout)).addView(gameView);
+		gameView.setOnTouchListener(new GameHandler(game));
 
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null)

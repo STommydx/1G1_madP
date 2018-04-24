@@ -5,7 +5,7 @@
     android:id="@+id/uiLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@color/primaryBgColor"
     tools:context=".GameActivity"
     tools:layout_editor_absoluteY="25dp">
 
