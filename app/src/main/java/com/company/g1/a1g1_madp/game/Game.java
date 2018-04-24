@@ -111,7 +111,6 @@ public class Game {
 	}
 
 	public void resume() {
-		// Why is this part necessary?
 		Log.d("gamecycle", "resume()");
 		if (running) return;
 		running = true;
@@ -203,6 +202,10 @@ public class Game {
 		Tower first = new Tower(x, y, 150, 150);
 		entityRegister.registerTower(first);
 		bulletSystem.registerFire(first, new BulletSystem.FireProperty(30, 40));
+	}
+
+	public Entity.EntityType getFireType() {
+		return bulletSystem.getFireProperty(spaceship).getBulletType();
 	}
 
 	public void setFireType(Entity.EntityType type) {

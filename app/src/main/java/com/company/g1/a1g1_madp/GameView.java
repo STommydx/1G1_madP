@@ -55,10 +55,10 @@ public class GameView extends SurfaceView implements Runnable {
 	@Override
 	public void run() {
 		while (running) {
-			if (!holder.getSurface().isValid())  // What does this do?
+			if (!holder.getSurface().isValid())
 				continue;
 			canvas = holder.lockCanvas();
-			draw(canvas);   // This part deviates from the copy source, is it ok?
+			draw(canvas);
 			holder.unlockCanvasAndPost(canvas);
 		}
 	}
@@ -66,7 +66,6 @@ public class GameView extends SurfaceView implements Runnable {
 	public void pause() {
 		Log.d("gameview", "pause()");
 		running = false;
-		// No idea what's going on
 		while (true) {
 			try {
 				renderThread.join();
@@ -113,12 +112,7 @@ public class GameView extends SurfaceView implements Runnable {
 	private void drawEntity(GameObject obj) {
 		if (obj instanceof Bullet) {
 			Entity.EntityType type = ((Bullet) obj).getEntityType();
-			if (type == Entity.EntityType.CHINESE)
-				drawEntity(obj, new TextDrawable("C"));
-			else if (type == Entity.EntityType.ENGLISH)
-				drawEntity(obj, new TextDrawable("E"));
-			else
-				drawEntity(obj, getResourceID(obj));
+			drawEntity(obj, new TextDrawable(((Bullet) obj).getText()));
 		} else {
 			drawEntity(obj, getResourceID(obj));
 		}
