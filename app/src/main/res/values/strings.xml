@@ -30,14 +30,14 @@
     <string name="stage_new">Start!</string>
     <string name="stage_next">Next Stage</string>
     <string name="stage_score">Score: %d</string>
-    <string name="time_remain">Time: %.2f</string>
+    <string name="time_remain">Time remaining:%n%d</string>
     <string name="money_now">Score: %d</string>
     <string name="register_title">Register!</string>
     <string name="your_name">Your Name</string>
     <string name="add_photo">Add Photo</string>
     <string name="start_game">Start Game!</string>
     <string name="restart_game">Restart Game</string>
-    <string name="chinese_text">之乎者也</string>
+    <string name="text_chinese">之乎者也</string>
     <string name="text_english">AbCXyZ</string>
     <string name="text_math">1+1–1*1</string>
     <string name="shop_money">$ %d</string>

@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
+import android.widget.TextView;
+
 import com.company.g1.a1g1_madp.game.Game;
 
 public class GameUI {
@@ -24,6 +26,8 @@ public class GameUI {
 	private PopupWindow pauseWindow;
 	private Button option1;
 	private Button option2;
+	private TextView timeRemain;
+
 	// UI state
 	private boolean isImmersive = false;
 	private boolean isPaused = false;
@@ -36,6 +40,10 @@ public class GameUI {
 		pauseButton = context.findViewById(R.id.pauseButton);
 		pauseButton.setOnClickListener(view -> togglePauseUi());
 		pauseWindow = new PopupWindow(context);
+
+		timeRemain = context.findViewById(R.id.timeRemain);
+		timeRemain.getPaint().set(GameView.textPaint);
+		((TextView)context.findViewById(R.id.stageLabel)).getPaint().set(GameView.textPaint);
 
 		// Popup stuff
 		pauseLayout = (ConstraintLayout) context.getLayoutInflater().inflate(R.layout.popup_pause, null);
@@ -118,5 +126,10 @@ public class GameUI {
 
 	public ConstraintLayout getPauseLayout() {
 		return pauseLayout;
+	}
+
+	public void updateUI() {
+		String timerString = context.getResources().getString(R.string.time_remain, (int)(game.getRemainMilliseconds() / 1000));
+		timeRemain.post(() -> timeRemain.setText(timerString));
 	}
 }

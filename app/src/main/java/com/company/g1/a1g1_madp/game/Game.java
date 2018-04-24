@@ -90,7 +90,7 @@ public class Game {
 				spaceship.setY(layoutHeight - spaceship.getHeight());
 		});
 		entityRegister.registerSpaceship(spaceship);
-		bulletSystem.registerFire(spaceship, new BulletSystem.FireProperty(40, 20, 20, Entity.EntityType.CHINESE));
+		bulletSystem.registerFire(spaceship, new BulletSystem.FireProperty(70, 5, 40, Entity.EntityType.CHINESE));
 
 		/*
 

@@ -73,9 +73,9 @@ public class BulletSystem {
 
 	public static class FireProperty {
 
-		private static final int DEFAULT_SPEED = 20;
+		private static final int DEFAULT_SPEED = 5;
 		private static final int DEFAULT_RATE = 20; // default fire rate = 10 * 20 = 200
-		private static final int DEFAULT_SIZE = 40;
+		private static final int DEFAULT_SIZE = 60;
 
 		private int size;
 		private int speed;
