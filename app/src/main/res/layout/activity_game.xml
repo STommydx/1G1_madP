@@ -43,9 +43,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/time_remain"
+        android:text=""
         android:textAlignment="center"
         app:layout_constraintTop_toTopOf="@+id/imageView17" />
+
+    <TextView
+        android:id="@+id/scoreLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:alpha="0.6"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@+id/imageView17" />
 
     <ImageButton
         android:id="@+id/pauseButton"
