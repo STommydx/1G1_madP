@@ -11,11 +11,15 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import com.company.g1.a1g1_madp.game.Game;
 import com.company.g1.a1g1_madp.game.entity.*;
 import com.company.g1.a1g1_madp.utils.TextDrawable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameView extends SurfaceView implements Runnable {
 
@@ -29,6 +33,8 @@ public class GameView extends SurfaceView implements Runnable {
 	private volatile boolean running = false;
 
 	private Context context;
+
+	private SparseArray<Drawable> cache;
 
 	public GameView(Context context, Game game) {
 		super(context);
@@ -46,6 +52,8 @@ public class GameView extends SurfaceView implements Runnable {
 		moneyPaint.setColor(getResources().getColor(R.color.colorUIText));
 		moneyPaint.setTextSize(50);
 		moneyPaint.setAntiAlias(true);
+
+		cache = new SparseArray<>();
 	}
 
 	public void resume() {
@@ -108,7 +116,9 @@ public class GameView extends SurfaceView implements Runnable {
 	}
 
 	private void drawEntity(GameObject obj, int resourceID) {
-		Drawable drawable = ContextCompat.getDrawable(context, resourceID);
+		if (cache.get(resourceID) == null)
+			cache.put(resourceID, ContextCompat.getDrawable(context, resourceID));
+		Drawable drawable = cache.get(resourceID);
 		if (drawable != null) drawEntity(obj, drawable);
 	}
 

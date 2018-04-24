@@ -43,7 +43,7 @@ public class Entity extends MovableObject {
 		}
 
 		public EntityType previous() {
-			return vals[Math.abs((this.ordinal()-1) % vals.length)];
+			return vals[(this.ordinal()+vals.length-1) % vals.length];
 		}
 	}
 
