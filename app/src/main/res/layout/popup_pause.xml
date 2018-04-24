@@ -1,58 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pauseWindow"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginTop="8dp"
-        android:text="Paused"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/seekBarMusic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="8dp"
+            android:text="Paused"
+            android:textSize="24dp"
+            android:textAlignment="center"/>
 
-    <Button android:id="@+id/option1" android:layout_width="0dp" android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" android:layout_marginEnd="16dp" android:layout_marginStart="16dp"
-        android:text="@string/main_menu" app:layout_constraintBottom_toTopOf="@+id/option2"
-        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-        android:drawableLeft="@drawable/ic_menu_black_24dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
-    <Button android:id="@+id/option2" android:layout_width="0dp" android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp" android:layout_marginEnd="16dp" android:layout_marginStart="16dp"
-        android:text="@string/restart_game" app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-        android:drawableLeft="@drawable/ic_replay_black_24dp" />
-    <SeekBar android:layout_width="0dp" android:layout_height="wrap_content" android:id="@+id/seekBarMusic"
-        app:layout_constraintBottom_toTopOf="@+id/seekBarVolume" android:layout_marginBottom="16dp"
-        app:layout_constraintStart_toEndOf="@+id/imageView4" app:layout_constraintEnd_toStartOf="@+id/imageView5"
-        android:max="99" android:progress="99" />
-    <SeekBar android:layout_width="0dp" android:layout_height="wrap_content" android:id="@+id/seekBarVolume"
-        android:layout_marginBottom="24dp" app:layout_constraintBottom_toTopOf="@+id/option1"
-        app:layout_constraintEnd_toStartOf="@+id/imageView6" app:layout_constraintStart_toEndOf="@+id/imageView7"
-        android:max="99" android:progress="99" />
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_volume_mute_white_24dp" android:id="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBarMusic" app:layout_constraintTop_toTopOf="@+id/seekBarMusic" />
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_volume_up_white_24dp" android:id="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toTopOf="@+id/seekBarMusic" app:layout_constraintBottom_toBottomOf="@+id/seekBarMusic" />
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_notifications_active_white_24dp" android:id="@+id/imageView6"
-        app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBarVolume" app:layout_constraintTop_toTopOf="@+id/seekBarVolume" />
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_notifications_off_white_24dp" android:id="@+id/imageView7"
-        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-        app:layout_constraintTop_toTopOf="@+id/seekBarVolume" app:layout_constraintBottom_toBottomOf="@+id/seekBarVolume" />
-</android.support.constraint.ConstraintLayout>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_volume_mute_white_24dp"
+                android:id="@+id/imageView4"/>
+            <SeekBar android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight = "1"
+                android:id="@+id/seekBarMusic"
+                android:max="99" android:progress="99" />
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_volume_up_white_24dp"
+                android:id="@+id/imageView5"
+                app:layout_constraintBottom_toBottomOf="@+id/seekBarMusic" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_notifications_off_white_24dp"
+                android:id="@+id/imageView7"               />
+            <SeekBar
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight = "1"
+                android:id="@+id/seekBarVolume"
+                android:max="99" android:progress="99" />
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_notifications_active_white_24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:text="-Y"
+                android:textAlignment="center"/>
+
+            <SeekBar android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight = "1"
+                android:id="@+id/tiltOffset"
+                android:max="99" android:progress="55" />
+
+            <TextView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:text="Y"
+                android:textAlignment="center"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/option1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/main_menu"
+            android:layout_marginTop="20dp"
+            android:drawableStart="@drawable/ic_menu_black_24dp" />
+
+        <Button
+            android:id="@+id/option2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/restart_game"
+            android:drawableStart="@drawable/ic_replay_black_24dp" />
+
+</LinearLayout>

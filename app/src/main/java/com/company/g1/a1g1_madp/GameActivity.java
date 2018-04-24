@@ -42,7 +42,7 @@ public class GameActivity extends AppCompatActivity {
 
 		@Override
 		public final void onSensorChanged(SensorEvent event) {
-			game.updateDeviceAcceleration(-event.values[0], event.values[1] - PITCH_OFFSET);
+			game.updateDeviceAcceleration(-event.values[0], event.values[1]);
 		}
 	};
 

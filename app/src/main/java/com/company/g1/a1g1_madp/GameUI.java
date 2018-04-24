@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -25,7 +26,7 @@ public class GameUI {
 
 	// UI Components
 	private ConstraintLayout uiLayout;
-	private ConstraintLayout pauseLayout;
+	private LinearLayout pauseLayout;
 	private ImageButton pauseButton;
 	private PopupWindow pauseWindow;
 	private Button option1;
@@ -54,7 +55,7 @@ public class GameUI {
 
 
 		// Popup stuff
-		pauseLayout = (ConstraintLayout) context.getLayoutInflater().inflate(R.layout.popup_pause, null);
+		pauseLayout = (LinearLayout) context.getLayoutInflater().inflate(R.layout.popup_pause, null);
 		option1 = pauseLayout.findViewById(R.id.option1);
 		option1.setOnClickListener(view -> _context.finish());
 		option2 = pauseLayout.findViewById(R.id.option2);
@@ -71,6 +72,25 @@ public class GameUI {
 				int max = seekBar.getMax();
 				float normalized = 1.0f * i / max;
 				_context.setMusicVolume(normalized);
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+
+			}
+		});
+
+		((SeekBar) pauseLayout.findViewById(R.id.tiltOffset)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+				int max = seekBar.getMax();
+				float normalized = 16 * i / max - 8;
+				game.setPitchOffset((int)normalized);
 			}
 
 			@Override
@@ -132,7 +152,7 @@ public class GameUI {
 		}
 	}
 
-	public ConstraintLayout getPauseLayout() {
+	public LinearLayout getPauseLayout() {
 		return pauseLayout;
 	}
 

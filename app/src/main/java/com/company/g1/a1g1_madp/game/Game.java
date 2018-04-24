@@ -24,6 +24,7 @@ public class Game {
 
 	private int ticks;
 	private int stage;
+	private int pitchOffset = 5;
 
 	private SpawnSystem spawnSystem;
 	private BulletSystem bulletSystem;
@@ -154,7 +155,7 @@ public class Game {
 
 	public void updateDeviceAcceleration(float ax, float ay) {
 		spaceship.setVelocityX(10 * ax);
-		spaceship.setVelocityY(10 * ay);
+		spaceship.setVelocityY(10 * (ay - pitchOffset));
 	}
 
 	public void updateDeviceRotation(float angle) {
@@ -171,6 +172,9 @@ public class Game {
 		}
 	}
 
+	public void setPitchOffset(int offset) {
+		this.pitchOffset = offset;
+	}
 	public EntityRegister getEntityRegister() {
 		return entityRegister;
 	}
