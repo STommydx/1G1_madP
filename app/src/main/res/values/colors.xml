@@ -13,6 +13,9 @@
     <color name="secondaryBgColor">#646464</color>
     <color name="secondaryBulletColor">#000000</color>
 
+    <color name="assoBgColor">#fcf5e5</color>
+    <color name="assoBulletColor">#3F51B5</color>
+
     <color name="colorUIText">#f4e01a</color>
     <color name="switchBackground">#80646464</color>
     <color name="colorBullet">#80ffffff</color>

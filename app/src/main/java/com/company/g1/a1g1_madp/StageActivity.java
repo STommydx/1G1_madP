@@ -3,6 +3,7 @@ package com.company.g1.a1g1_madp;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -89,12 +90,18 @@ public class StageActivity extends AppCompatActivity {
 		} else {
 			Bitmap background;
 
-			if (stage == 1)
+			if (stage == 1) {
 				background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard_primary);
-			else if (stage == 2)
+				findViewById(R.id.stageLayout).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.primaryBgColor));
+			}
+			else if (stage == 2) {
 				background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard_secondary);
-			else if (stage == 3)
+				findViewById(R.id.stageLayout).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.secondaryBgColor));
+			}
+			else if (stage == 3) {
 				background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard); // replace this with space id
+				findViewById(R.id.stageLayout).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.assoBulletColor));
+			}
 			else
 				background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard);
 

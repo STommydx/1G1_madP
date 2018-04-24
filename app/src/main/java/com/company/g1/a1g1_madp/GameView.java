@@ -49,6 +49,7 @@ public class GameView extends SurfaceView implements Runnable {
 		gameUI.setBackground(stageResources.background, stageResources.backgroundColor);
 		gameUI.setPaint(stageResources.textPaint);
 		gameUI.setStageLabel(stageResources.stageName);
+		gameUI.setTimerLabel(stageResources.timerString);
 		Bullet.setBulletText(stageResources.text_chi,stageResources.text_eng,stageResources.text_maths);
 		this.setZOrderOnTop(true);
 		holder = getHolder();
@@ -102,7 +103,6 @@ public class GameView extends SurfaceView implements Runnable {
 			drawEntity(entity);
 
 		gameUI.updateUI();
-//		canvas.drawText(getResources().getString(R.string.money_now, game.getShopSystem().getMoney()), 50, 100, textPaint);
 
 	}
 
@@ -171,7 +171,7 @@ public class GameView extends SurfaceView implements Runnable {
 
 		int enemy_chi, enemy_eng, enemy_maths, background, backgroundColor;
 		EntityPaint textPaint = new EntityPaint();
-		String stageName, text_chi, text_eng, text_maths;
+		String stageName, text_chi, text_eng, text_maths, timerString;
 
 		public StageResources(int stage) {
 			this.stage = stage;
@@ -194,6 +194,7 @@ public class GameView extends SurfaceView implements Runnable {
 				text_chi   = getResources().getString(R.string.primary_text_chi);
 				text_eng   = getResources().getString(R.string.primary_text_eng);
 				text_maths = getResources().getString(R.string.primary_text_maths);
+				timerString = getResources().getString(R.string.time_remain);
 			}
 
 			else if (stage == 2) {
@@ -211,22 +212,26 @@ public class GameView extends SurfaceView implements Runnable {
 				text_chi   = getResources().getString(R.string.dse_text_chi);
 				text_eng   = getResources().getString(R.string.dse_text_eng);
 				text_maths = getResources().getString(R.string.dse_text_maths);
+				timerString = getResources().getString(R.string.time_remain);
 			}
 			else {
 				enemy_chi 		 = R.drawable.dse_chi;
 				enemy_eng 		 = R.drawable.dse_eng;
 				enemy_maths 	 = R.drawable.dse_maths;
-				background 		 = R.drawable.board_secondary;
-				backgroundColor  = R.color.secondaryBgColor;
+				background 		 = R.drawable.board_asso;
+				backgroundColor  = R.color.assoBgColor;
 
-				Typeface bold = Typeface.create(Typeface.SERIF,Typeface.BOLD);
-				textPaint.setPaint(50, bold, R.color.secondaryBulletColor);
+				Typeface bold = Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD);
+				textPaint.setPaint(50, bold, R.color.assoBulletColor);
 
 				stageName = getResources().getString(R.string.asso_stage_name);
 
 				text_chi   = getResources().getString(R.string.asso_text_chi);
 				text_eng   = getResources().getString(R.string.asso_text_eng);
 				text_maths = getResources().getString(R.string.asso_text_maths);
+
+				timerString = getResources().getString(R.string.asso_time_remain);
+
 			}
 		}
 

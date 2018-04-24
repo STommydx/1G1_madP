@@ -32,6 +32,8 @@ public class GameUI {
 	private Button option2;
 	private TextView timeRemain;
 	private TextView stageLabel;
+	private TextView scoreLabel;
+	String timerString;
 
 	// UI state
 	private boolean isImmersive = false;
@@ -48,6 +50,7 @@ public class GameUI {
 
 		timeRemain = context.findViewById(R.id.timeRemain);
 		stageLabel = context.findViewById(R.id.stageLabel);
+		scoreLabel = context.findViewById(R.id.scoreLabel);
 
 
 		// Popup stuff
@@ -93,7 +96,7 @@ public class GameUI {
 							| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 							| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 							| View.SYSTEM_UI_FLAG_FULLSCREEN
-							| View.SYSTEM_UI_FLAG_IMMERSIVE);
+							| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 		} else {
 			uiLayout.setSystemUiVisibility(
 					View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -134,8 +137,11 @@ public class GameUI {
 	}
 
 	public void updateUI() {
-		String timerString = context.getResources().getString(R.string.time_remain, (int)(game.getRemainMilliseconds() / 1000));
-		timeRemain.post(() -> timeRemain.setText(timerString));
+		String timerLabel = String.format(timerString,(game.getRemainMilliseconds() / 1000));
+		String score = String.format("Score: %d", game.getShopSystem().getMoney());
+
+		timeRemain.post(() -> timeRemain.setText(timerLabel));
+		scoreLabel.post(() -> scoreLabel.setText(score));
 	}
 
 	public void setBackground(int bgResID, int bgColorResID) {
@@ -144,14 +150,21 @@ public class GameUI {
 	}
 
 	public void setPaint(Paint paint) {
-		// dunno why paint can't set the color
 		timeRemain.getPaint().set(paint);
 		stageLabel.getPaint().set(paint);
+		scoreLabel.getPaint().set(paint);
+
+		// dunno why paint can't set the color of TextView
 		timeRemain.setTextColor(paint.getColor());
 		stageLabel.setTextColor(paint.getColor());
+		scoreLabel.setTextColor(paint.getColor());
 	}
 
 	public void setStageLabel(String stageName) {
 		stageLabel.post(() -> stageLabel.setText(stageName));
+	}
+
+	public void setTimerLabel(String timerLabel) {
+		this.timerString = timerLabel;
 	}
 }
