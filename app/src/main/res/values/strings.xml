@@ -9,7 +9,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
-    <string name="title_activity_story_behind">StoryBehind</string>
+    <string name="title_activity_story_behind">Story Behind</string>
     <string name="about_us_content">
         <!-- :) -->
         This game was a group project created for
@@ -21,6 +21,18 @@
         \nLI Kwan To, Tommy (20027290)
         \nNG Hoi Wa, Paul (20025578)
         \nWONG Kam Yi, Janice (20030531)
+    </string>
+
+    <string name="storybehind">
+        Primary and Secondary school life is familiar to many Hongkongers.
+        Many parents in Hong Kong emphasize the importance of
+        entering a university as the only way to success in the future.
+        In order to get a ticket in entering universities,
+        you need to get a good score in your primary school life and HKDSE.
+        This series of Life Simulator is to provide you the experience of the study journey in Hong Kong.
+        To get into a university, you need to shoot different words and maths symbols in order to finish your homework.
+        When you can get a high mark in your homework and your HKDSE,
+        you can own the bright future and enjoy your university life!
     </string>
 
     <!-- TODO: Remove or change this placeholder text -->
