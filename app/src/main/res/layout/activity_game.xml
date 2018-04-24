@@ -129,7 +129,7 @@
     <include
         android:id="@+id/includedLayout"
         layout="@layout/bottom_sheet"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
