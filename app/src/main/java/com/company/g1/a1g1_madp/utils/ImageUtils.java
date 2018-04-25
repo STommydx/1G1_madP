@@ -31,4 +31,16 @@ public class ImageUtils {
 		return newBitmap.copy(newBitmap.getConfig(), false);
 	}
 
+	public static Bitmap keyBitmap(Bitmap background, String text, int x, int y) {
+		Bitmap newBitmap = Bitmap.createBitmap(background.getWidth(), background.getHeight(), background.getConfig());
+		Canvas canvas = new Canvas(newBitmap);
+		canvas.drawBitmap(background, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
+		Paint paint = new Paint();
+		paint.setAntiAlias(true);
+		paint.setColor(Color.WHITE);
+		paint.setTextSize(50);
+		canvas.drawText(text, x, y, paint);
+		return newBitmap.copy(newBitmap.getConfig(), false);
+	}
+
 }

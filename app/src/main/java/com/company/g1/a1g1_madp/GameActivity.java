@@ -60,6 +60,7 @@ public class GameActivity extends AppCompatActivity {
 		int stage = intent.getIntExtra("STAGE_NUMBER", 0);
 //		((TextView) findViewById(R.id.textView2)).setText(getResources().getString(R.string.stage_name, stage));
 		final String mCurrentPhotoPath = intent.getStringExtra("GAME_IMAGE");
+		String username = intent.getStringExtra("GAME_NAME");
 
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getRealMetrics(dm);
@@ -124,6 +125,7 @@ public class GameActivity extends AppCompatActivity {
 			nextIntent.putExtra("STAGE_NUMBER", newStage);
 			nextIntent.putExtra("STAGE_SCORE", result.getScore());
 			nextIntent.putExtra("GAME_IMAGE", mCurrentPhotoPath);
+			nextIntent.putExtra("GAME_NAME", username);
 			startActivity(nextIntent);
 			finish();
 		});
