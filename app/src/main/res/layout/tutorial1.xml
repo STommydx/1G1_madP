@@ -18,7 +18,7 @@
         android:layout_marginStart="16dp" android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp" android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/t1" android:textSize="18sp" android:fontFamily="@font/crayon" />
-    <ImageView android:layout_width="0dp" android:layout_height="0dp" app:srcCompat="@drawable/t2" android:id="@+id/t2"
+    <ImageView android:layout_width="0dp" android:layout_height="0dp" app:srcCompat="@drawable/newmotion" android:id="@+id/t2"
         app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/textView15" android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4" />
