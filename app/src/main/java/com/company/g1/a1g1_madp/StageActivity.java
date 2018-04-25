@@ -31,6 +31,7 @@ public class StageActivity extends AppCompatActivity {
 	private int score;
 
 	private String mCurrentPhotoPath;
+	private String username;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class StageActivity extends AppCompatActivity {
 		state = intent.getIntExtra("STAGE_STATE", STAGE_NEW);
 		score = intent.getIntExtra("STAGE_SCORE", 0);
 		mCurrentPhotoPath = intent.getStringExtra("GAME_IMAGE");
+		username = intent.getStringExtra("GAME_NAME");
 
 		Button nextButton = findViewById(R.id.button3);
 
@@ -107,7 +109,7 @@ public class StageActivity extends AppCompatActivity {
 
 			background = ImageUtils.scaleBitmap(background, 1388, 818);
 			Bitmap bitmapFinal = ImageUtils.keyBitmap(background, bitmap, 100, 200);
-			bitmapFinal = ImageUtils.keyBitmap(bitmapFinal, "Lorem Ipsum", 980, 410);
+			bitmapFinal = ImageUtils.keyBitmap(bitmapFinal, username, 980, 410);
 
 			ImageView imageView = findViewById(R.id.imageView2);
 			imageView.setImageBitmap(bitmapFinal);
@@ -120,6 +122,7 @@ public class StageActivity extends AppCompatActivity {
 			Intent intent = new Intent(this, GameActivity.class);
 			intent.putExtra("STAGE_NUMBER", stage);
 			intent.putExtra("GAME_IMAGE", mCurrentPhotoPath);
+			intent.putExtra("GAME_NAME", username);
 			startActivity(intent);
 		}
 		finish();
