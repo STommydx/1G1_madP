@@ -215,9 +215,9 @@ public class GameView extends SurfaceView implements Runnable {
 				timerString = getResources().getString(R.string.time_remain);
 			}
 			else {
-				enemy_chi 		 = R.drawable.dse_chi;
-				enemy_eng 		 = R.drawable.dse_eng;
-				enemy_maths 	 = R.drawable.dse_maths;
+				enemy_chi 		 = R.drawable.asso_acl;
+				enemy_eng 		 = R.drawable.asso_eapp;
+				enemy_maths 	 = R.drawable.asso_mid;
 				background 		 = R.drawable.board_asso;
 				backgroundColor  = R.color.assoBgColor;
 
