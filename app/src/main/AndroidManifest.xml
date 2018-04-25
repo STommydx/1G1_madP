@@ -5,7 +5,7 @@
 
     <application android:allowBackup="true" android:hardwareAccelerated="true" android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name" android:largeHeap="true" android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true" android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:supportsRtl="true" android:theme="@style/AppTheme">
         <provider android:name="android.support.v4.content.FileProvider"
             android:authorities="com.company.g1.fileprovider" android:exported="false"
             android:grantUriPermissions="true">
@@ -23,10 +23,9 @@
         <activity android:name=".GameActivity" android:exported="true" />
         <activity android:name=".StageActivity" android:exported="true" />
         <activity android:name=".AboutUS" />
-        <activity android:name=".RegistrationActivity" android:exported="true" />
+        <activity android:name=".RegistrationActivity" android:exported="true" android:theme="@style/AppTheme.ActionBar" android:label="Register" />
         <activity android:name=".StoryBehind" />
-        <activity android:name=".TutorialActivity" android:label="@string/title_activity_tutorial"
-            android:theme="@style/Theme.AppCompat.NoActionBar" android:exported="true" />
+        <activity android:name=".TutorialActivity" android:label="@string/title_activity_tutorial" android:exported="true" />
     </application>
 
 </manifest>

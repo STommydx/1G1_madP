@@ -5,8 +5,8 @@
 
     <TextView android:text="About Us" android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:id="@+id/textView4" android:textSize="36sp" app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="24dp"
-        android:layout_marginStart="16dp" />
+        app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="24dp" android:layout_marginStart="16dp"
+        android:fontFamily="@font/crayon" />
     <ImageView android:layout_width="0dp" android:layout_height="wrap_content"
         app:srcCompat="@drawable/madlogobackground" android:id="@+id/logoview" app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" app:layout_constraintEnd_toEndOf="parent"

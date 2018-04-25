@@ -94,15 +94,15 @@ public class StageActivity extends AppCompatActivity {
 
 			if (stage == 1) {
 				background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard_primary);
-				findViewById(R.id.stageLayout).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.primaryBgColor));
+				// findViewById(R.id.stageLayout).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.primaryBgColor));
 			}
 			else if (stage == 2) {
 				background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard_secondary);
-				findViewById(R.id.stageLayout).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.secondaryBgColor));
+				// findViewById(R.id.stageLayout).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.secondaryBgColor));
 			}
 			else if (stage == 3) {
 				background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard_asso); // replace this with space id
-				findViewById(R.id.stageLayout).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.assoBulletColor));
+				// findViewById(R.id.stageLayout).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.assoBulletColor));
 			}
 			else
 				background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard);
