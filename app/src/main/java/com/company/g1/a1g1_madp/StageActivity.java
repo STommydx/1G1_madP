@@ -107,6 +107,7 @@ public class StageActivity extends AppCompatActivity {
 
 			background = ImageUtils.scaleBitmap(background, 1388, 818);
 			Bitmap bitmapFinal = ImageUtils.keyBitmap(background, bitmap, 100, 200);
+			bitmapFinal = ImageUtils.keyBitmap(bitmapFinal, "Lorem Ipsum", 980, 410);
 
 			ImageView imageView = findViewById(R.id.imageView2);
 			imageView.setImageBitmap(bitmapFinal);
