@@ -20,7 +20,7 @@
         android:layout_marginTop="32dp" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
         android:textColor="@android:color/background_light" app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="8dp" />
-    <ImageView android:layout_width="0dp" android:layout_height="200dp" app:srcCompat="@drawable/t3" android:id="@+id/t4"
+    <ImageView android:layout_width="0dp" android:layout_height="200dp" app:srcCompat="@drawable/t4" android:id="@+id/t4"
         app:layout_constraintTop_toBottomOf="@+id/textView18" app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
         app:layout_constraintHorizontal_bias="0.299" android:layout_marginTop="8dp" />
