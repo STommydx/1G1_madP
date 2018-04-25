@@ -153,7 +153,7 @@ public class GameView extends SurfaceView implements Runnable {
 		else if (obj instanceof Bullet)
 			return R.drawable.bullet;
 		else if (obj instanceof Tower)
-			return R.drawable.tower;
+			return R.drawable.madboy;
 		return 0;
 	}
 
