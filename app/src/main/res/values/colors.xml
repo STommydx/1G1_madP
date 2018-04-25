@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#004d40</color>
     <color name="colorPrimaryDark">#273833</color>
     <color name="black">#000</color>
     <color name="lightorange">#fdf2df</color>
     <color name="lightorangedark">#ebd6ab</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#c5e1a5</color>
 
     <color name="primaryBgColor">#5db78f</color>
     <color name="primaryBulletColor">#f7f3ee</color>
@@ -19,4 +19,6 @@
     <color name="colorUIText">#f4e01a</color>
     <color name="switchBackground">#80646464</color>
     <color name="colorBullet">#80ffffff</color>
+
+    <color name="mainBackground">#33691e</color>
 </resources>
