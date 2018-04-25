@@ -78,7 +78,7 @@ public class Game {
 	}
 
 	public void start() {
-		spaceship = new Spaceship(layoutHeight / 2, layoutWidth / 2);
+		spaceship = new Spaceship(layoutWidth / 2, layoutHeight - 220);
 		spaceship.addOutOfBoundListener((bounds) -> {
 			if (bounds.contains(CollisionSystem.BOUND.LEFT))
 				spaceship.setX(0);
