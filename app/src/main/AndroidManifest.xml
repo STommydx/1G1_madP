@@ -23,7 +23,7 @@
         <activity android:name=".GameActivity" android:exported="true" />
         <activity android:name=".StageActivity" android:exported="true" />
         <activity android:name=".AboutUS" />
-        <activity android:name=".RegistrationActivity" android:exported="true" />
+        <activity android:name=".RegistrationActivity" android:exported="true" android:theme="@style/AppTheme.ActionBar" android:label="Register" />
         <activity android:name=".StoryBehind" />
         <activity android:name=".TutorialActivity" android:label="@string/title_activity_tutorial" android:exported="true" />
     </application>

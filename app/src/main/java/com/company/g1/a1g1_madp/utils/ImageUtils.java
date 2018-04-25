@@ -32,6 +32,7 @@ public class ImageUtils {
 	}
 
 	public static Bitmap keyBitmap(Bitmap background, String text, int x, int y) {
+		if (text == null) return background;
 		Bitmap newBitmap = Bitmap.createBitmap(background.getWidth(), background.getHeight(), background.getConfig());
 		Canvas canvas = new Canvas(newBitmap);
 		canvas.drawBitmap(background, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
