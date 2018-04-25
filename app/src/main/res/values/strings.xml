@@ -49,11 +49,11 @@
 
     <string name="dse_text_chi">我欲因之夢吳越一夜飛度鏡湖月湖月照我影送我至剡溪</string>
     <string name="dse_text_eng">Vanityandpridearedifferentthings</string>
-    <string name="dse_text_maths">2*25/32=32.14^298</string>
+    <string name="dse_text_maths">8975981723</string>
 
     <string name="asso_text_chi">高級中國語文</string>
     <string name="asso_text_eng">EnglishForScienceAndTechnology</string>
-    <string name="asso_text_maths">0010101000101110000101010</string>
+    <string name="asso_text_maths">(()->{i**=9});</string>
 
     <string name="time_remain">Time remaining:%n%ds</string>
     <string name="asso_time_remain">%nMAD project due in:%n%ds</string>
