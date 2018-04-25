@@ -86,4 +86,10 @@
     <string name="stage_dse">Get ready for DSE!</string>
     <string name="stage_space">Do better in space and get back to University!!!</string>
     <string name="stage_primary">Your primary school life begins…</string>
+    <string name="title_activity_tutorial">TutorialActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="tutorial_next"><![CDATA[Next >>]]></string>
+    <string name="tutorial_prev"><![CDATA[<< Previous]]></string>
+    <string name="tutuorial_ene">Nice!\nYou are good to go.</string>
 </resources>

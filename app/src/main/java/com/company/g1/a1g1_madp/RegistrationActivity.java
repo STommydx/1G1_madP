@@ -34,10 +34,12 @@ public class RegistrationActivity extends AppCompatActivity {
 	}
 
 	public void startGame(View view) {
+
 		TextView nameView = findViewById(R.id.editText);
 		String text = nameView.getText().toString();
 
-		Intent intent = new Intent(this, StageActivity.class);
+		Intent intent = new Intent(this, TutorialActivity.class);
+
 		intent.putExtra("STAGE_NUMBER", 1);
 		intent.putExtra("STAGE_STATE", StageActivity.STAGE_NEW);
 		intent.putExtra("GAME_IMAGE", mCurrentPhotoPath);
