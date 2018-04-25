@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void startGame(View view) {
-		Intent intent = new Intent(this, RegistrationActivity.class);
+		Intent intent = new Intent(this, Tutorial1.class);
 		startActivity(intent);
 	}
 

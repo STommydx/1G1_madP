@@ -27,6 +27,9 @@
         <activity android:name=".AboutUS" />
         <activity android:name=".RegistrationActivity" android:exported="true" />
         <activity android:name=".StoryBehind"></activity>
+        <activity android:name=".Tutorial1" android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity android:name=".Tutorial2" android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity android:name=".Tutorial3" android:theme="@style/AppTheme.CustomTheme"></activity>
     </application>
 
 </manifest>
