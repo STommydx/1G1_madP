@@ -13,7 +13,7 @@
     <string name="about_us_content">
         <!-- :) -->
         This game was a group project created for
-        the HKUSPACE Mobile Application Development course during 2017-2018 Semester 2,
+        the HKU SPACE Mobile Application Development course during 2017-2018 Semester 2,
         by the following members of CL-01 Group 1:
         \nCHEUNG Pui Kin, Bacon (20026225)
         \nHO Po Sum, Sum (20028157)
@@ -30,7 +30,28 @@
     <string name="stage_new">Start!</string>
     <string name="stage_next">Next Stage</string>
     <string name="stage_score">Score: %d</string>
-    <string name="stage_welcome">Welcome!</string>
-    <string name="time_remain">Time: %.2f</string>
-    <string name="money_now">Money: $%d</string>
+    <string name="time_remain">Time remaining:%n%d</string>
+    <string name="money_now">Score: %d</string>
+    <string name="register_title">Register!</string>
+    <string name="your_name">Your Name</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="start_game">Start Game!</string>
+    <string name="restart_game">Restart Game</string>
+    <string name="text_chinese">之乎者也</string>
+    <string name="text_english">AbCXyZ</string>
+    <string name="text_math">1+1–1*1</string>
+    <string name="shop_money">$ %d</string>
+    <string name="shop_tower">Invite Groupmate</string>
+    <string name="shop_rate">Upgrade Typing Speed</string>
+    <string name="shop_size">Upgrade Font Size</string>
+    <string name="shop_font_big">A</string>
+    <string name="shop_font_small">abc</string>
+    <string name="shop_kill"><![CDATA[Copy & Paste]]></string>
+    <string name="shop_speed">Upgrade Computer</string>
+    <string name="stage_welcome">Back to school!</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="stage_university">University life winner!</string>
+    <string name="stage_dse">Get ready for DSE!</string>
+    <string name="stage_space">Do better in space and get back to University!!!</string>
+    <string name="stage_primary">Your primary school life begins…</string>
 </resources>

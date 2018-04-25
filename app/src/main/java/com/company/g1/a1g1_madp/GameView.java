@@ -1,23 +1,32 @@
 package com.company.g1.a1g1_madp;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.TextView;
+
 import com.company.g1.a1g1_madp.game.Game;
 import com.company.g1.a1g1_madp.game.entity.*;
+import com.company.g1.a1g1_madp.utils.TextDrawable;
 
 public class GameView extends SurfaceView implements Runnable {
 
 	private Game game;
-	private Paint backgroundPaint = new Paint();
-	private Paint moneyPaint = new Paint();
+	private GameUI gameUI;
+	public static EntityPaint textPaint = new EntityPaint(); // TODO
 
 	private Thread renderThread = null;
 	private SurfaceHolder holder;
@@ -26,22 +35,29 @@ public class GameView extends SurfaceView implements Runnable {
 
 	private Context context;
 
+	private SparseArray<Drawable> cache;
+
 	public GameView(Context context, Game game) {
 		super(context);
 
 		this.context = context;
-
+		this.setZOrderOnTop(true);
 		holder = getHolder();
-
+		holder.setFormat(PixelFormat.TRANSLUCENT);
 		this.game = game;
 
 		game.addOnResumeListener(this::resume);
 		game.addOnPauseListener(this::pause);
 
-		backgroundPaint.setColor(getResources().getColor(R.color.colorBackground));
-		moneyPaint.setColor(getResources().getColor(R.color.colorUIText));
-		moneyPaint.setTextSize(50);
+		AssetManager am = context.getApplicationContext().getAssets();
+		Typeface typeface = Typeface.createFromAsset(am, "font/qishangbaxia.ttf");
+		Typeface bold = Typeface.create(typeface,Typeface.BOLD);
+		textPaint.setPaint(50, bold, getResources().getColor(R.color.colorBullet));
+
+		cache = new SparseArray<>();
 	}
+
+
 
 	public void resume() {
 		Log.d("gameview", "resume()");
@@ -53,10 +69,10 @@ public class GameView extends SurfaceView implements Runnable {
 	@Override
 	public void run() {
 		while (running) {
-			if (!holder.getSurface().isValid())  // What does this do?
+			if (!holder.getSurface().isValid())
 				continue;
 			canvas = holder.lockCanvas();
-			draw(canvas);   // This part deviates from the copy source, is it ok?
+			draw(canvas);
 			holder.unlockCanvasAndPost(canvas);
 		}
 	}
@@ -64,7 +80,6 @@ public class GameView extends SurfaceView implements Runnable {
 	public void pause() {
 		Log.d("gameview", "pause()");
 		running = false;
-		// No idea what's going on
 		while (true) {
 			try {
 				renderThread.join();
@@ -78,12 +93,13 @@ public class GameView extends SurfaceView implements Runnable {
 	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
-		canvas.drawColor(backgroundPaint.getColor());
+		canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.MULTIPLY);
 		for (GameObject entity : game.getEntityRegister().getEntities())
 			drawEntity(entity);
-		canvas.drawText(getResources().getString(R.string.money_now, game.getMoney()), 50, 100, moneyPaint);
-		String timerString = getResources().getString(R.string.time_remain, 1.0 * game.getRemainMilliseconds() / 1000);
-		canvas.drawText(timerString, 50, 200, moneyPaint);
+
+		gameUI.updateUI();
+//		canvas.drawText(getResources().getString(R.string.money_now, game.getShopSystem().getMoney()), 50, 100, textPaint);
+
 	}
 
 	private void drawEntity(GameObject obj, Drawable drawable) {
@@ -104,19 +120,32 @@ public class GameView extends SurfaceView implements Runnable {
 	}
 
 	private void drawEntity(GameObject obj, int resourceID) {
-		Drawable drawable = ContextCompat.getDrawable(context, resourceID);
+		if (cache.get(resourceID) == null)
+			cache.put(resourceID, ContextCompat.getDrawable(context, resourceID));
+		Drawable drawable = cache.get(resourceID);
 		if (drawable != null) drawEntity(obj, drawable);
 	}
 
 	private void drawEntity(GameObject obj) {
-		drawEntity(obj, getResourceID(obj));
+		if (obj instanceof Bullet) {
+			Entity.EntityType type = ((Bullet) obj).getEntityType();
+			drawEntity(obj, new TextDrawable(((Bullet) obj).getText(), textPaint));
+		} else {
+			drawEntity(obj, getResourceID(obj));
+		}
 	}
 
 	private int getResourceID(GameObject obj) {
 		if (obj instanceof Spaceship)
-			return R.drawable.ship;
+			return R.drawable.madgirl;
 		else if (obj instanceof Enemy)
-			return R.drawable.enemy;
+			if(((Enemy)obj).getEntityType() == Entity.EntityType.CHINESE)
+				return R.drawable.dse_chi;
+			else if(((Enemy)obj).getEntityType() == Entity.EntityType.ENGLISH)
+				return R.drawable.dse_eng;
+			else if(((Enemy)obj).getEntityType() == Entity.EntityType.MATHS)
+				return R.drawable.dse_maths;
+			else return 0;
 		else if (obj instanceof Bullet)
 			return R.drawable.bullet;
 		else if (obj instanceof Tower)
@@ -124,4 +153,17 @@ public class GameView extends SurfaceView implements Runnable {
 		return 0;
 	}
 
+	private static class EntityPaint extends Paint {
+		void setPaint(int size, Typeface typeface, int color) {
+			setTypeface(typeface);
+			setColor(color);
+			setTextSize(size);
+			setAntiAlias(true);
+			setStyle(Paint.Style.FILL);
+		}
+	}
+
+	public void setGameUI(GameUI gameUI) {
+		this.gameUI = gameUI;
+	}
 }

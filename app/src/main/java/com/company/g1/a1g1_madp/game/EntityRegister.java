@@ -39,7 +39,7 @@ public class EntityRegister {
 		registerMovableEntity(enemyEntity);
 		enemyList.add(enemyEntity);
 		enemyEntity.addOnRemoveListener(() -> {
-			context.setMoney(context.getMoney() + enemyEntity.getScore());
+			context.getShopSystem().setMoney(context.getShopSystem().getMoney() + enemyEntity.getScore());
 			enemyList.remove(enemyEntity);
 		});
 	}
