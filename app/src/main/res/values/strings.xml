@@ -83,7 +83,7 @@
     <string name="stage_welcome">Back to school!</string>
     <string name="main_menu">Main Menu</string>
     <string name="stage_university">University life winner!</string>
-    <string name="stage_dse">Get ready for DSE!</string>
+    <string name="stage_dse">Get ready for DSE!\nBest-5 20 points (score 6000) for university offer.</string>
     <string name="stage_space">Do better in space and get back to University!!!</string>
     <string name="stage_primary">Your primary school life begins…</string>
     <string name="title_activity_tutorial">TutorialActivity</string>

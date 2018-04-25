@@ -39,7 +39,7 @@ public class StageActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_stage);
 
 		Intent intent = getIntent();
-		stage = intent.getIntExtra("STAGE_NUMBER", 1);
+		stage = intent.getIntExtra("STAGE_NUMBER", 2);
 		state = intent.getIntExtra("STAGE_STATE", STAGE_NEW);
 		score = intent.getIntExtra("STAGE_SCORE", 0);
 		mCurrentPhotoPath = intent.getStringExtra("GAME_IMAGE");
@@ -85,7 +85,7 @@ public class StageActivity extends AppCompatActivity {
 		bitmap = ImageUtils.scaleBitmap(bitmap, 300, 400);
 
 		if (state == STAGE_MENU) {
-			Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.studentcard); // replace this with university pic
+			Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.g12); // replace this with university pic
 
 			ImageView imageView = findViewById(R.id.imageView2);
 			imageView.setImageBitmap(background);
