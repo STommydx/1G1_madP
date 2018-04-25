@@ -33,7 +33,7 @@ public class RegistrationActivity extends AppCompatActivity {
 	}
 
 	public void startGame(View view) {
-		Intent intent = new Intent(this, StageActivity.class);
+		Intent intent = new Intent(this, Tutorial1.class);
 		intent.putExtra("STAGE_NUMBER", 1);
 		intent.putExtra("STAGE_STATE", StageActivity.STAGE_NEW);
 		intent.putExtra("GAME_IMAGE", mCurrentPhotoPath);

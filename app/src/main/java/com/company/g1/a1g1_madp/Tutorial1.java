@@ -20,15 +20,17 @@ public class Tutorial1 extends AppCompatActivity {
 		int width = dm.widthPixels;
 		int height = dm.heightPixels;
 
-		getWindow().setLayout((int)(width*.8),(int)(height*.8));
+		// getWindow().setLayout((int)(width*.8),(int)(height*.8));
 	}
-	public void nextScreen(View view) {
-		Intent intent = new Intent(this, Tutorial2.class);
+	public void startGame(View view) {
+		Intent intent = new Intent(this, StageActivity.class);
+		intent.putExtras(getIntent());
 		startActivity(intent);
 		finish();
 	}
-	public void startGame(View view) {
-		Intent intent = new Intent(this, RegistrationActivity.class);
+	public void nextScreen(View view) {
+		Intent intent = new Intent(this, Tutorial2.class);
+		intent.putExtras(getIntent());
 		startActivity(intent);
 		finish();
 	}
